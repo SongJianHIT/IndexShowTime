@@ -1,6 +1,6 @@
-package com.itheima.stock.service;
+package tech.songjian.stock.service.impl;
 
-import com.itheima.stock.pojo.StockBusiness;
+import tech.songjian.stock.pojo.StockBusiness;
 
 import java.util.List;
 

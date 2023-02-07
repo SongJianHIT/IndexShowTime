@@ -1,9 +1,9 @@
-package com.itheima.stock.mapper;
+package tech.songjian.stock.mapper;
 
-import com.itheima.stock.pojo.SysRole;
+import tech.songjian.stock.pojo.SysRole;
 
 /**
- * @Entity com.itheima.stock.pojo.SysRole
+ * @Entity tech.songjian.stock.pojo.SysRole
  */
 public interface SysRoleMapper {
 

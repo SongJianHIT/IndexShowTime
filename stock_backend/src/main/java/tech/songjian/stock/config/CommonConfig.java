@@ -1,9 +1,10 @@
-package com.itheima.stock.config;
+package tech.songjian.stock.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import tech.songjian.stock.utils.IdWorker;
 
 /**
  * @author by itheima
@@ -22,5 +23,12 @@ public class CommonConfig {
         return new BCryptPasswordEncoder();
     }
 
-
+    /**
+     * id 生成器 bean
+     * @return
+     */
+    @Bean
+    public IdWorker idWorker() {
+        return new IdWorker();
+    }
 }

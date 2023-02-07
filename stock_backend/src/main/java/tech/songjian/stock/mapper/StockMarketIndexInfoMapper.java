@@ -1,9 +1,9 @@
-package com.itheima.stock.mapper;
+package tech.songjian.stock.mapper;
 
-import com.itheima.stock.pojo.StockMarketIndexInfo;
+import tech.songjian.stock.pojo.StockMarketIndexInfo;
 
 /**
- * @Entity com.itheima.stock.pojo.StockMarketIndexInfo
+ * @Entity tech.songjian.stock.pojo.StockMarketIndexInfo
  */
 public interface StockMarketIndexInfoMapper {
 

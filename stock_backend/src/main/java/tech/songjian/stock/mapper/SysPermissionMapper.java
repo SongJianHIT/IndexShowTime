@@ -1,9 +1,9 @@
-package com.itheima.stock.mapper;
+package tech.songjian.stock.mapper;
 
-import com.itheima.stock.pojo.SysPermission;
+import tech.songjian.stock.pojo.SysPermission;
 
 /**
- * @Entity com.itheima.stock.pojo.SysPermission
+ * @Entity tech.songjian.stock.pojo.SysPermission
  */
 public interface SysPermissionMapper {
 

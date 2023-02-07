@@ -21,4 +21,8 @@ public class LoginReqVo {
      * 前端发送的验证码
      */
     private String code;
+    /**
+     * 前端发送的 redis 键值
+     */
+    private String rkey;
 }

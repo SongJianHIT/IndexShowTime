@@ -1,4 +1,4 @@
-package com.itheima.stock.pojo;
+package tech.songjian.stock.pojo;
 
 import java.io.Serializable;
 import java.util.Date;

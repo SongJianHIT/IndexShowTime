@@ -1,9 +1,9 @@
-package com.itheima.stock.mapper;
+package tech.songjian.stock.mapper;
 
-import com.itheima.stock.pojo.StockBlockRtInfo;
+import tech.songjian.stock.pojo.StockBlockRtInfo;
 
 /**
- * @Entity com.itheima.stock.pojo.StockBlockRtInfo
+ * @Entity tech.songjian.stock.pojo.StockBlockRtInfo
  */
 public interface StockBlockRtInfoMapper {
 

@@ -6,8 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="stock_parent" />
+        <module name="stock_backend" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="stock_backend1" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>

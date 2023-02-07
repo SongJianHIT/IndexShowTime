@@ -1,12 +1,12 @@
-package com.itheima.stock.mapper;
+package tech.songjian.stock.mapper;
 
-import com.itheima.stock.pojo.StockBusiness;
+import tech.songjian.stock.pojo.StockBusiness;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
 /**
- * @Entity com.itheima.stock.pojo.StockBusiness
+ * @Entity tech.songjian.stock.pojo.StockBusiness
  */
 @Mapper
 public interface StockBusinessMapper {

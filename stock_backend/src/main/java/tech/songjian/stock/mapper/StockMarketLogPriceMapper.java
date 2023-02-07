@@ -1,9 +1,9 @@
-package com.itheima.stock.mapper;
+package tech.songjian.stock.mapper;
 
-import com.itheima.stock.pojo.StockMarketLogPrice;
+import tech.songjian.stock.pojo.StockMarketLogPrice;
 
 /**
- * @Entity com.itheima.stock.pojo.StockMarketLogPrice
+ * @Entity tech.songjian.stock.pojo.StockMarketLogPrice
  */
 public interface StockMarketLogPriceMapper {
 

@@ -1,11 +1,11 @@
-package com.itheima.stock.mapper;
+package tech.songjian.stock.mapper;
 
-import com.itheima.stock.pojo.SysUser;
+import tech.songjian.stock.pojo.SysUser;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 /**
- * @Entity com.itheima.stock.pojo.SysUser
+ * @Entity tech.songjian.stock.pojo.SysUser
  */
 @Mapper
 public interface SysUserMapper {

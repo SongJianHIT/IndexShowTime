@@ -1,9 +1,9 @@
-package com.itheima.stock.mapper;
+package tech.songjian.stock.mapper;
 
-import com.itheima.stock.pojo.SysLog;
+import tech.songjian.stock.pojo.SysLog;
 
 /**
- * @Entity com.itheima.stock.pojo.SysLog
+ * @Entity tech.songjian.stock.pojo.SysLog
  */
 public interface SysLogMapper {
 

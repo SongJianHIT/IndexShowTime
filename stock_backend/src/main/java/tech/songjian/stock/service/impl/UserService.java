@@ -1,8 +1,10 @@
-package com.itheima.stock.service;
+package tech.songjian.stock.service.impl;
 
-import com.itheima.stock.vo.req.LoginReqVo;
-import com.itheima.stock.vo.resp.LoginRespVo;
-import com.itheima.stock.vo.resp.R;
+import tech.songjian.stock.vo.req.LoginReqVo;
+import tech.songjian.stock.vo.resp.LoginRespVo;
+import tech.songjian.stock.vo.resp.R;
+
+import java.util.Map;
 
 /**
  * @author by itheima
@@ -16,4 +18,10 @@ public interface UserService {
      * @return
      */
     R<LoginRespVo> login(LoginReqVo vo);
+
+    /**
+     * 生成验证码
+     * @return
+     */
+    R<Map> genCapchaCode();
 }

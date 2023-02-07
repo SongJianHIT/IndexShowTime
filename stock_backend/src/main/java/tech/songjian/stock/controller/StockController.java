@@ -1,12 +1,13 @@
-package com.itheima.stock.controller;
+package tech.songjian.stock.controller;
 
-import com.itheima.stock.pojo.StockBusiness;
-import com.itheima.stock.service.StockService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import tech.songjian.stock.pojo.StockBusiness;
+import tech.songjian.stock.service.impl.StockService;
 
 import java.util.List;
 
@@ -26,7 +27,4 @@ public class StockController {
     public List<StockBusiness> findAllBusinessInfo(){
        return stockService.findAll();
     }
-
-
-
 }
