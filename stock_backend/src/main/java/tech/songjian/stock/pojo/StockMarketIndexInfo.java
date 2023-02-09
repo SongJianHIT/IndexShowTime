@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import lombok.Data;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * 股票大盘数据详情表

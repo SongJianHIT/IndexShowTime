@@ -2,7 +2,7 @@ package tech.songjian.stock.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import tech.songjian.stock.service.impl.UserService;
+import tech.songjian.stock.service.UserService;
 import tech.songjian.stock.vo.req.LoginReqVo;
 import tech.songjian.stock.vo.resp.LoginRespVo;
 import tech.songjian.stock.vo.resp.R;

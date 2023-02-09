@@ -1,4 +1,4 @@
-package tech.songjian.stock.service.impl;
+package tech.songjian.stock.service;
 
 import tech.songjian.stock.vo.req.LoginReqVo;
 import tech.songjian.stock.vo.resp.LoginRespVo;

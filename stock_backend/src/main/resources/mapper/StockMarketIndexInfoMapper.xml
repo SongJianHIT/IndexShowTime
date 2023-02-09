@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="tech.songjian.stock.mapper.StockMarketIndexInfoMapper">
+
+    <resultMap id="BaseResultMap" type="tech.songjian.stock.pojo.StockMarketIndexInfo">
+            <id property="id" column="id" jdbcType="VARCHAR"/>
+            <result property="markId" column="mark_Id" jdbcType="CHAR"/>
+            <result property="curTime" column="cur_time" jdbcType="TIMESTAMP"/>
+            <result property="markName" column="mark_name" jdbcType="VARCHAR"/>
+            <result property="curPoint" column="cur_point" jdbcType="DECIMAL"/>
+            <result property="currentPrice" column="current_price" jdbcType="DECIMAL"/>
+            <result property="updownRate" column="updown_rate" jdbcType="DECIMAL"/>
+            <result property="tradeAccount" column="trade_account" jdbcType="BIGINT"/>
+            <result property="tradeVolume" column="trade_volume" jdbcType="BIGINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,mark_Id,cur_time,
+        mark_name,cur_point,current_price,
+        updown_rate,trade_account,trade_volume
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from stock_market_index_info
+        where  id = #{id,jdbcType=VARCHAR}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from stock_market_index_info
+        where  id = #{id,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="tech.songjian.stock.pojo.StockMarketIndexInfo" useGeneratedKeys="true">
+        insert into stock_market_index_info
+        ( id,mark_Id,cur_time
+        ,mark_name,cur_point,current_price
+        ,updown_rate,trade_account,trade_volume
+        )
+        values (#{id,jdbcType=VARCHAR},#{markId,jdbcType=CHAR},#{curTime,jdbcType=TIMESTAMP}
+        ,#{markName,jdbcType=VARCHAR},#{curPoint,jdbcType=DECIMAL},#{currentPrice,jdbcType=DECIMAL}
+        ,#{updownRate,jdbcType=DECIMAL},#{tradeAccount,jdbcType=BIGINT},#{tradeVolume,jdbcType=BIGINT}
+        )
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="tech.songjian.stock.pojo.StockMarketIndexInfo" useGeneratedKeys="true">
+        insert into stock_market_index_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="id != null">id,</if>
+                <if test="markId != null">markId,</if>
+                <if test="curTime != null">curTime,</if>
+                <if test="markName != null">markName,</if>
+                <if test="curPoint != null">curPoint,</if>
+                <if test="currentPrice != null">currentPrice,</if>
+                <if test="updownRate != null">updownRate,</if>
+                <if test="tradeAccount != null">tradeAccount,</if>
+                <if test="tradeVolume != null">tradeVolume,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="id != null">id = #{id,jdbcType=VARCHAR},</if>
+                <if test="markId != null">mark_Id = #{markId,jdbcType=CHAR},</if>
+                <if test="curTime != null">cur_time = #{curTime,jdbcType=TIMESTAMP},</if>
+                <if test="markName != null">mark_name = #{markName,jdbcType=VARCHAR},</if>
+                <if test="curPoint != null">cur_point = #{curPoint,jdbcType=DECIMAL},</if>
+                <if test="currentPrice != null">current_price = #{currentPrice,jdbcType=DECIMAL},</if>
+                <if test="updownRate != null">updown_rate = #{updownRate,jdbcType=DECIMAL},</if>
+                <if test="tradeAccount != null">trade_account = #{tradeAccount,jdbcType=BIGINT},</if>
+                <if test="tradeVolume != null">trade_volume = #{tradeVolume,jdbcType=BIGINT},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="tech.songjian.stock.pojo.StockMarketIndexInfo">
+        update stock_market_index_info
+        <set>
+                <if test="markId != null">
+                    mark_Id = #{markId,jdbcType=CHAR},
+                </if>
+                <if test="curTime != null">
+                    cur_time = #{curTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="markName != null">
+                    mark_name = #{markName,jdbcType=VARCHAR},
+                </if>
+                <if test="curPoint != null">
+                    cur_point = #{curPoint,jdbcType=DECIMAL},
+                </if>
+                <if test="currentPrice != null">
+                    current_price = #{currentPrice,jdbcType=DECIMAL},
+                </if>
+                <if test="updownRate != null">
+                    updown_rate = #{updownRate,jdbcType=DECIMAL},
+                </if>
+                <if test="tradeAccount != null">
+                    trade_account = #{tradeAccount,jdbcType=BIGINT},
+                </if>
+                <if test="tradeVolume != null">
+                    trade_volume = #{tradeVolume,jdbcType=BIGINT},
+                </if>
+        </set>
+        where   id = #{id,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="tech.songjian.stock.pojo.StockMarketIndexInfo">
+        update stock_market_index_info
+        set
+            mark_Id =  #{markId,jdbcType=CHAR},
+            cur_time =  #{curTime,jdbcType=TIMESTAMP},
+            mark_name =  #{markName,jdbcType=VARCHAR},
+            cur_point =  #{curPoint,jdbcType=DECIMAL},
+            current_price =  #{currentPrice,jdbcType=DECIMAL},
+            updown_rate =  #{updownRate,jdbcType=DECIMAL},
+            trade_account =  #{tradeAccount,jdbcType=BIGINT},
+            trade_volume =  #{tradeVolume,jdbcType=BIGINT}
+        where   id = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <select id="getMarketInfo" resultType="tech.songjian.stock.common.domain.InnerMarketDomain">
+        SELECT
+        tmp.mark_Id AS code,
+        tmp.mark_name AS name,
+        sml.pre_close_price AS preClosePrice,
+        sml.open_price AS openPrice,
+        tmp.current_price AS tradePrice,
+        tmp.updown_rate AS upDown,
+        tmp.trade_account AS tradeAmt,
+        tmp.trade_volume AS tradeVol,
+        DATE_FORMAT( tmp.cur_time, '%Y%m%d') AS curDate
+        FROM
+        (
+        SELECT	* 	FROM	stock_market_index_info AS smi
+        WHERE smi.cur_time =#{timePoint}
+        AND smi.mark_Id IN
+        <foreach collection="marketIds" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+        ) AS tmp
+        LEFT JOIN stock_market_log_price AS sml ON tmp.mark_Id=sml.market_code
+        AND DATE_FORMAT( sml.cur_date, '%Y%m%d' )= DATE_FORMAT(#{timePoint},'%Y%m%d' )
+    </select>
+</mapper>

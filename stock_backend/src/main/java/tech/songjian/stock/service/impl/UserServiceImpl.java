@@ -1,4 +1,4 @@
-package tech.songjian.stock.service.impl.impl;
+package tech.songjian.stock.service.impl;
 
 import com.google.common.base.Strings;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -9,7 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import tech.songjian.stock.mapper.SysUserMapper;
 import tech.songjian.stock.pojo.SysUser;
-import tech.songjian.stock.service.impl.UserService;
+import tech.songjian.stock.service.UserService;
 import tech.songjian.stock.utils.IdWorker;
 import tech.songjian.stock.vo.req.LoginReqVo;
 import tech.songjian.stock.vo.resp.LoginRespVo;

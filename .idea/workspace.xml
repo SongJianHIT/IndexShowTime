@@ -4,47 +4,24 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bb70c982-b7b2-4fde-88ec-edcbdeff92e7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/config/RedisConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/utils/IdWorker.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/stock_backend/src/test/java/tech/songjian/stock/TestRedis.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="bb70c982-b7b2-4fde-88ec-edcbdeff92e7" name="Changes" comment="验证码登入功能实现">
+      <change afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/common/domain/InnerMarketDomain.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/common/domain/StockBlockDomain.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/config/vo/StockInfoConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/utils/DateTimeUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/stock_backend/src/main/resources/mapper/StockBlockRtInfoMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/stock_backend/src/main/resources/mapper/StockMarketIndexInfoMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/stock_backend/src/test/java/tech/songjian/stock/TestJodeDate.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stock_backend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/StockApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/StockApp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/common/CommonConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/config/CommonConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/controller/StockController.java" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/controller/StockController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/mapper/StockBlockRtInfoMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/mapper/StockBlockRtInfoMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/mapper/StockBusinessMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/mapper/StockBusinessMapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/mapper/StockMarketIndexInfoMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/mapper/StockMarketIndexInfoMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/mapper/StockMarketLogPriceMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/mapper/StockMarketLogPriceMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/mapper/StockRtInfoMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/mapper/StockRtInfoMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/mapper/SysLogMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/mapper/SysLogMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/mapper/SysPermissionMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/mapper/SysPermissionMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/mapper/SysRoleMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/mapper/SysRoleMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/mapper/SysRolePermissionMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/mapper/SysRolePermissionMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/mapper/SysUserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/mapper/SysUserMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/mapper/SysUserRoleMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/mapper/SysUserRoleMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/pojo/StockBlockRtInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/pojo/StockBlockRtInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/pojo/StockBusiness.java" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/pojo/StockBusiness.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/pojo/StockMarketIndexInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/pojo/StockMarketIndexInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/pojo/StockMarketLogPrice.java" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/pojo/StockMarketLogPrice.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/pojo/StockRtInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/pojo/StockRtInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/pojo/SysLog.java" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/pojo/SysLog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/pojo/SysPermission.java" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/pojo/SysPermission.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/pojo/SysRole.java" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/pojo/SysRole.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/pojo/SysRolePermission.java" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/pojo/SysRolePermission.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/pojo/SysUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/pojo/SysUser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/pojo/SysUserRole.java" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/pojo/SysUserRole.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/service/impl/StockService.java" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/service/impl/StockService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/service/impl/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/service/impl/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/service/impl/impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/service/impl/impl/UserServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/vo/req/LoginReqVo.java" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/vo/req/LoginReqVo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/service/impl/StockService.java" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/service/StockService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/service/impl/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/service/impl/impl/StockServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/service/impl/StockServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/service/impl/impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/service/impl/UserServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/stock_backend/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/resources/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -98,7 +75,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
     "jdk.selected.JAVA_MODULE": "1.8 (2)",
-    "last_opened_file_path": "/Users/mac/IdeaProjects/Stock/stock_parent/stock_backend/src/main/java/tech/songjian/stock/utils",
+    "last_opened_file_path": "/Users/mac/IdeaProjects/Stock/stock_parent/stock_backend/src/main/java/tech/songjian/stock/mapper",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -115,15 +92,18 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/mapper" />
+      <recent name="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock" />
+      <recent name="$PROJECT_DIR$/stock_backend/src/test/java/tech/songjian/stock" />
       <recent name="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/utils" />
       <recent name="$PROJECT_DIR$/stock_backend1/src/main/java" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/stock_backend/src/main/resources/mapper" />
       <recent name="$PROJECT_DIR$/stock_backend/src/main/resources" />
       <recent name="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/vo" />
       <recent name="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/service/impl" />
       <recent name="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/pojo" />
-      <recent name="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/mapper" />
     </key>
   </component>
   <component name="RunManager" selected="Application.StockApp">
@@ -194,6 +174,9 @@
     </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SpringBootOptions">
+    <option name="showAdditionalConfigNotification" value="false" />
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="bb70c982-b7b2-4fde-88ec-edcbdeff92e7" name="Changes" comment="" />
@@ -203,8 +186,16 @@
       <updated>1675755425586</updated>
       <workItem from="1675755426927" duration="918000" />
       <workItem from="1675756354582" duration="768000" />
-      <workItem from="1675757283404" duration="4490000" />
+      <workItem from="1675757283404" duration="13722000" />
     </task>
+    <task id="LOCAL-00001" summary="验证码登入功能实现">
+      <created>1675761947991</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1675761947991</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -220,5 +211,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="验证码登入功能实现" />
+    <option name="LAST_COMMIT_MESSAGE" value="验证码登入功能实现" />
   </component>
 </project>
