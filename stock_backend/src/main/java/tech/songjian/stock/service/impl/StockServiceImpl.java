@@ -4,14 +4,18 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import tech.songjian.stock.common.domain.InnerMarketDomain;
 import tech.songjian.stock.config.vo.StockInfoConfig;
+import tech.songjian.stock.mapper.StockBlockRtInfoMapper;
 import tech.songjian.stock.mapper.StockBusinessMapper;
 import tech.songjian.stock.mapper.StockMarketIndexInfoMapper;
+import tech.songjian.stock.pojo.StockBlockRtInfo;
 import tech.songjian.stock.pojo.StockBusiness;
 import tech.songjian.stock.service.StockService;
 import tech.songjian.stock.utils.DateTimeUtil;
 import tech.songjian.stock.vo.resp.R;
+import tech.songjian.stock.vo.resp.ResponseCode;
 
 import java.util.Date;
 import java.util.List;
@@ -32,6 +36,9 @@ public class StockServiceImpl implements StockService {
 
     @Autowired
     private StockInfoConfig stockInfoConfig;
+
+    @Autowired
+    private StockBlockRtInfoMapper stockBlockRtInfoMapper;
 
     @Override
     public List<StockBusiness> findAll() {
@@ -60,5 +67,21 @@ public class StockServiceImpl implements StockService {
 
         // 5、返回查询结果
         return R.ok(list);
+    }
+
+    /**
+     * 查询板块信息
+     * 沪深两市板块分时行情数据查询，以交易时间和交易总金额降序查询，取前10条数据
+     * @return
+     */
+    @Override
+    public R<List<StockBlockRtInfo>> sectorAllLimit() {
+        //1.调用 mapper 接口获取数据 TODO 优化 避免全表查询 根据时间范围查询，提高查询效率
+        List<StockBlockRtInfo> infos = stockBlockRtInfoMapper.sectorAllLimit();
+        //2.组装数据
+        if (CollectionUtils.isEmpty(infos)) {
+            return R.error(ResponseCode.NO_RESPONSE_DATA.getMessage());
+        }
+        return R.ok(infos);
     }
 }

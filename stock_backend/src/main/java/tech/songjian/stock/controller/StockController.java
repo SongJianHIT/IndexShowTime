@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import tech.songjian.stock.common.domain.InnerMarketDomain;
+import tech.songjian.stock.pojo.StockBlockRtInfo;
 import tech.songjian.stock.pojo.StockBusiness;
 import tech.songjian.stock.service.StockService;
 import tech.songjian.stock.vo.resp.R;
@@ -37,5 +38,15 @@ public class StockController {
     @GetMapping("/index/all")
     public R<List<InnerMarketDomain>> getNewAMarketInfo() {
         return stockService.getNewAMarketInfo();
+    }
+
+    /**
+     * 查询板块信息
+     * 沪深两市板块分时行情数据查询，以交易时间和交易总金额降序查询，取前10条数据
+     * @return
+     */
+    @GetMapping("/sector/all")
+    public R<List<StockBlockRtInfo>> sectorAll() {
+        return stockService.sectorAllLimit();
     }
 }

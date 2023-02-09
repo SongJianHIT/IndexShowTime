@@ -1,6 +1,7 @@
 package tech.songjian.stock.service;
 
 import tech.songjian.stock.common.domain.InnerMarketDomain;
+import tech.songjian.stock.pojo.StockBlockRtInfo;
 import tech.songjian.stock.pojo.StockBusiness;
 import tech.songjian.stock.vo.resp.R;
 
@@ -25,4 +26,11 @@ public interface StockService {
      * @return
      */
     R<List<InnerMarketDomain>> getNewAMarketInfo();
+
+    /**
+     * 查询板块信息
+     * 沪深两市板块分时行情数据查询，以交易时间和交易总金额降序查询，取前10条数据
+     * @return
+     */
+    R<List<StockBlockRtInfo>> sectorAllLimit();
 }

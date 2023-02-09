@@ -19,12 +19,12 @@ public class StockBlockRtInfo implements Serializable {
     /**
      * 表示，如：new_blhy-玻璃行业
      */
-    private String label;
+    private String code;
 
     /**
      * 板块名称
      */
-    private String blockName;
+    private String name;
 
     /**
      * 公司数量
@@ -44,17 +44,17 @@ public class StockBlockRtInfo implements Serializable {
     /**
      * 交易量
      */
-    private Long tradeAmount;
+    private Long tradeAmt;
 
     /**
      * 交易金额
      */
-    private BigDecimal tradeVolume;
+    private BigDecimal tradeVol;
 
     /**
      * 当前日期（精确到秒）
      */
-    private Date curTime;
+    private String curDate;
 
     private static final long serialVersionUID = 1L;
 }

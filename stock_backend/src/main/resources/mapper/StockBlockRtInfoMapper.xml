@@ -112,4 +112,20 @@
             cur_time =  #{curTime,jdbcType=TIMESTAMP}
         where   id = #{id,jdbcType=VARCHAR}
     </update>
+
+    <select id="sectorAllLimit" resultType="tech.songjian.stock.pojo.StockBlockRtInfo">
+        select
+            sbr.company_num  as companyNum,
+            sbr.trade_amount as tradeAmt,
+            sbr.label        as code,
+            sbr.avg_price    as avgPrice,
+            sbr.block_name   as name,
+            date_format(sbr.cur_time,'%Y%m%d') as curDate,
+            sbr.trade_volume as tradeVol,
+            sbr.updown_rate  as updownRate
+        from stock_block_rt_info as sbr
+        order by sbr.cur_time desc,sbr.trade_volume desc
+            limit 10
+    </select>
+
 </mapper>
