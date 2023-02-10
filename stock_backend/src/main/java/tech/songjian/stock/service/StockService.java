@@ -1,5 +1,6 @@
 package tech.songjian.stock.service;
 
+import com.sun.deploy.net.HttpResponse;
 import tech.songjian.stock.common.domain.InnerMarketDomain;
 import tech.songjian.stock.common.domain.StockUpdownDomain;
 import tech.songjian.stock.pojo.StockBlockRtInfo;
@@ -7,6 +8,8 @@ import tech.songjian.stock.pojo.StockBusiness;
 import tech.songjian.stock.vo.resp.PageResult;
 import tech.songjian.stock.vo.resp.R;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -58,4 +61,12 @@ public interface StockService {
      * @return
      */
     R<Map> getStockUpdownCount();
+
+    /**
+     * 导出股票信息到excel下
+     * @param response http的响应对象，可获取写出流对象
+     * @param page 当前页
+     * @param pageSize 每页大小
+     */
+    void stockExport(HttpServletResponse response, Integer page, Integer pageSize) throws IOException;
 }

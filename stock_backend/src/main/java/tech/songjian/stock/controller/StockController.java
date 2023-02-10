@@ -1,6 +1,7 @@
 package tech.songjian.stock.controller;
 
 
+import com.sun.deploy.net.HttpResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +14,8 @@ import tech.songjian.stock.service.StockService;
 import tech.songjian.stock.vo.resp.PageResult;
 import tech.songjian.stock.vo.resp.R;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -82,5 +85,16 @@ public class StockController {
     @GetMapping("/stock/updown/count")
     public R<Map> getStockUpdownCount() {
         return stockService.getStockUpdownCount();
+    }
+
+    /**
+     * 导出股票信息到excel下
+     * @param response http的响应对象，可获取写出流对象
+     * @param page 当前页
+     * @param pageSize 每页大小
+     */
+    @GetMapping("/stock/export")
+    public void stockExport(HttpServletResponse response, Integer page, Integer pageSize) throws IOException {
+        stockService.stockExport(response, page, pageSize);
     }
 }

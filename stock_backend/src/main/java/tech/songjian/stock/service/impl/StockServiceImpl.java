@@ -1,13 +1,18 @@
 package tech.songjian.stock.service.impl;
 
+import com.alibaba.excel.EasyExcel;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.google.gson.Gson;
+import com.sun.deploy.net.HttpResponse;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import tech.songjian.stock.common.domain.InnerMarketDomain;
+import tech.songjian.stock.common.domain.StockExcelDomain;
 import tech.songjian.stock.common.domain.StockUpdownDomain;
 import tech.songjian.stock.config.vo.StockInfoConfig;
 import tech.songjian.stock.mapper.StockBlockRtInfoMapper;
@@ -22,10 +27,14 @@ import tech.songjian.stock.vo.resp.PageResult;
 import tech.songjian.stock.vo.resp.R;
 import tech.songjian.stock.vo.resp.ResponseCode;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @author by songjian
@@ -163,6 +172,51 @@ public class StockServiceImpl implements StockService {
         map.put("downList", downList);
         // 5、返回结果
         return R.ok(map);
+    }
+
+    /**
+     * 导出股票信息到excel下
+     * @param response http的响应对象，可获取写出流对象
+     * @param page 当前页
+     * @param pageSize 每页大小
+     */
+    @Override
+    public void stockExport(HttpServletResponse response, Integer page, Integer pageSize) throws IOException {
+        // 1、设置响应数据类型：excel
+        response.setContentType("application/vnd.ms-excel");
+        // 2、设置响应数据编码格式
+        response.setCharacterEncoding("utf-8");
+        // 3、设置默认的文件名称
+        // 此处的 URLEncoder.encode 可以防止中文乱码，与 easyExcel 无关
+        String fileName = URLEncoder.encode("stockRt", "UTF-8");
+        // 设置默认文件名称
+        response.setHeader("content-disposition", "attachment;filename=" + fileName + ".xlsx");
+
+        // 读取导出的数据集合
+        // 1、设置分页参数
+        PageHelper.startPage(page, pageSize);
+        // 2、查询
+        List<StockUpdownDomain> pages = stockRtInfoMapper.getStockRtInfo4All();
+        if (CollectionUtils.isEmpty(pages)) {
+            R<String> error = R.error(ResponseCode.NO_RESPONSE_DATA.getMessage());
+            // 将错误信息转化为 json 格式字符串响应前段
+            String jsonData = new Gson().toJson(error);
+            response.getWriter().write(jsonData);
+            return;
+        }
+
+        // 将 List<StockUpdownDomain> 转化为 List<ExcelDomain>
+        List<StockExcelDomain> domains = pages.stream().map(item -> {
+            StockExcelDomain stockExcelDomain = new StockExcelDomain();
+            BeanUtils.copyProperties(item, stockExcelDomain);
+            return stockExcelDomain;
+        }).collect(Collectors.toList());
+
+        // 数据导出
+        EasyExcel
+                .write(response.getOutputStream(), StockExcelDomain.class)
+                .sheet("stockInfo")
+                .doWrite(domains);
     }
 }
 
