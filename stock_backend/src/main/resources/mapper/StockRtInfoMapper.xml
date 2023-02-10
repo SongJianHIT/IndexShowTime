@@ -163,7 +163,7 @@
     </select>
     <select id="getStockUpdownCount" resultType="java.util.Map">
         SELECT
-            tmp.cur_time AS time,
+            DATE_FORMAT(tmp.cur_time, '%Y%m%d%H%m') AS time,
 	        COUNT(*) AS count
         FROM (
             SELECT
@@ -173,11 +173,11 @@
             stock_rt_info AS sri
             WHERE
             sri.cur_time BETWEEN #{startTime} AND #{endTime}
-            <if test="flag=1">
+            <if test="flag==1">
                 HAVING
                 increase >= 0.1
             </if>
-            <if test="flag=0">
+            <if test="flag==0">
                 HAVING
                 increase &lt;= -0.1
             </if>
