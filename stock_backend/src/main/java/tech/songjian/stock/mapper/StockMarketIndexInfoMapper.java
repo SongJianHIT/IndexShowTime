@@ -7,6 +7,7 @@ import tech.songjian.stock.pojo.StockMarketIndexInfo;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Entity tech.songjian.stock.pojo.StockMarketIndexInfo
@@ -33,6 +34,15 @@ public interface StockMarketIndexInfoMapper {
      * @return
      */
     List<InnerMarketDomain> getMarketInfo(@Param("marketIds") List<String> marketIds, @Param("timePoint") Date timePoint);
+
+    /**
+     * 根据指定的大盘id集合和时间范围，统计每分钟的交易量
+     * @param marketIds 大盘id集合
+     * @param startTime 交易开始时间
+     * @param endTime 结束时间
+     * @return
+     */
+    List<Map> getStockTradeVol(@Param("marketIds") List<String> marketIds, @Param("startTime") Date startTime, @Param("endTime") Date endTime);
 }
 
 

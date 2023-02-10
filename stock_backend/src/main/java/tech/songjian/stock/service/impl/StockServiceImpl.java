@@ -30,10 +30,7 @@ import tech.songjian.stock.vo.resp.ResponseCode;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URLEncoder;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -217,6 +214,52 @@ public class StockServiceImpl implements StockService {
                 .write(response.getOutputStream(), StockExcelDomain.class)
                 .sheet("stockInfo")
                 .doWrite(domains);
+    }
+
+    /**
+     * 统计国内A股大盘T日和T-1日成交量对比功能（成交量为沪市和深市成交量之和）
+     * @return
+     */
+    @Override
+    public R<Map> getStockTradeVol4Comparison() {
+        // 1、获取 T 日和 T-1 日的开始时间和结束时间
+        // 1.1 获取最近有效交易时间点----T日
+        DateTime lastDateTime = DateTimeUtil.getLastDate4Stock(DateTime.now());
+        // 1.2 获取对应时间的的开盘日期
+        DateTime openDateTime = DateTimeUtil.getOpenDate(lastDateTime);
+        // 转换成 java 中的 date
+        Date startTime4T = openDateTime.toDate();
+        Date endTime4T = lastDateTime.toDate();
+        // TODO mock数据
+        startTime4T = DateTime.parse("2021-12-27 09:30:00", DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss")).toDate();
+        endTime4T = DateTime.parse("2021-12-27 14:40:00", DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss")).toDate();
+        // 获取 T-1 日的区间范围
+        DateTime preLastDateTime = DateTimeUtil.getPreviousTradingDay(lastDateTime);
+        DateTime preOpenDateTime = DateTimeUtil.getOpenDate(preLastDateTime);
+        Date startTime4PreT = preLastDateTime.toDate();
+        Date endTime4PreT = preOpenDateTime.toDate();
+        // TODO mock数据
+        startTime4PreT = DateTime.parse("2021-12-26 09:30:00", DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss")).toDate();
+        endTime4PreT = DateTime.parse("2021-12-26 14:40:00", DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss")).toDate();
+        // 2、获取上证和深证的 market_id
+        List<String> marketIds = stockInfoConfig.getInner();
+        // 3、分别查询 T 日和 T-1 日的交易量数据，得到两个 List
+        // 3.1 查询 T 日
+        List<Map> volList = stockMarketIndexInfoMapper.getStockTradeVol(marketIds, startTime4T, endTime4T);
+        if (CollectionUtils.isEmpty(volList)) {
+            volList = new ArrayList<>();
+        }
+        // 3.2 查询 T-1 日
+        List<Map> yesVolList = stockMarketIndexInfoMapper.getStockTradeVol(marketIds, startTime4PreT, endTime4PreT);
+        if (CollectionUtils.isEmpty(yesVolList)) {
+            yesVolList = new ArrayList<>();
+        }
+        // 4、组装map
+        Map<String, List> map = new HashMap<>();
+        map.put("volList", volList);
+        map.put("yesVolList", yesVolList);
+        // 5、返回数据
+        return R.ok(map);
     }
 }
 

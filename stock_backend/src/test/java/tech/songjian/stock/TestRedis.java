@@ -28,5 +28,6 @@ public class TestRedis {
         redisTemplate.opsForValue().set("name", "zhangsan");
         System.out.println(redisTemplate.opsForValue().get("name"));
     }
+
 }
 

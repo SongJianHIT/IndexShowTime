@@ -69,4 +69,11 @@ public interface StockService {
      * @param pageSize 每页大小
      */
     void stockExport(HttpServletResponse response, Integer page, Integer pageSize) throws IOException;
+
+
+    /**
+     * 统计国内A股大盘T日和T-1日成交量对比功能（成交量为沪市和深市成交量之和）
+     * @return
+     */
+    R<Map> getStockTradeVol4Comparison();
 }

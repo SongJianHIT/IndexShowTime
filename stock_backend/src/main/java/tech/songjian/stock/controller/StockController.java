@@ -97,4 +97,13 @@ public class StockController {
     public void stockExport(HttpServletResponse response, Integer page, Integer pageSize) throws IOException {
         stockService.stockExport(response, page, pageSize);
     }
+
+    /**
+     * 统计国内A股大盘T日和T-1日成交量对比功能（成交量为沪市和深市成交量之和）
+     * @return
+     */
+    @GetMapping("/stock/tradevol")
+    public R<Map> getStockTradeVol4Comparison() {
+        return stockService.getStockTradeVol4Comparison();
+    }
 }
