@@ -7,6 +7,7 @@ import tech.songjian.stock.pojo.StockRtInfo;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Entity tech.songjian.stock.pojo.StockRtInfo
@@ -38,4 +39,13 @@ public interface StockRtInfoMapper {
      * @return
      */
     List<StockUpdownDomain> getStockRtInfo4All();
+
+    /**
+     * 根据指定日期时间范围，统计对应范围内每分钟的涨停或者跌停数据
+     * @param startTime 开始时间
+     * @param endTime 结束时间
+     * @param flag 标识。 1：涨停   0：跌停
+     * @return
+     */
+    List<Map> getStockUpdownCount(@Param("startTime") Date startTime, @Param("endTime") Date endTime, @Param("flag") int flag);
 }

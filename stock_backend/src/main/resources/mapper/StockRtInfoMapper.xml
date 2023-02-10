@@ -161,4 +161,28 @@
         FROM stock_rt_info as sri
         ORDER BY sri.cur_time DESC, upDown DESC
     </select>
+    <select id="getStockUpdownCount" resultType="java.util.Map">
+        SELECT
+            tmp.cur_time AS time,
+	        COUNT(*) AS count
+        FROM (
+            SELECT
+            sri.cur_time,
+            (sri.cur_price - sri.pre_close_price) / sri.pre_close_price AS increase
+            FROM
+            stock_rt_info AS sri
+            WHERE
+            sri.cur_time BETWEEN #{startTime} AND #{endTime}
+            <if test="flag=1">
+                HAVING
+                increase >= 0.1
+            </if>
+            <if test="flag=0">
+                HAVING
+                increase &lt;= -0.1
+            </if>
+        ) AS tmp
+        GROUP BY tmp.cur_time
+        ORDER BY tmp.cur_time ASC;
+    </select>
 </mapper>

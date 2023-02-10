@@ -8,6 +8,7 @@ import tech.songjian.stock.vo.resp.PageResult;
 import tech.songjian.stock.vo.resp.R;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author by itheima
@@ -51,4 +52,10 @@ public interface StockService {
      * @return
      */
     R<PageResult<StockUpdownDomain>> getStockRtInfo4Page(Integer page, Integer pageSize);
+
+    /**
+     * 统计T日（最近一次股票交易日）的涨停跌停的分时统计
+     * @return
+     */
+    R<Map> getStockUpdownCount();
 }

@@ -14,6 +14,7 @@ import tech.songjian.stock.vo.resp.PageResult;
 import tech.songjian.stock.vo.resp.R;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author by itheima
@@ -72,5 +73,14 @@ public class StockController {
     @GetMapping("/stock/all")
     public R<PageResult<StockUpdownDomain>> getStockRtInfo4Page(Integer page, Integer pageSize) {
         return stockService.getStockRtInfo4Page(page, pageSize);
+    }
+
+    /**
+     * 统计T日（最近一次股票交易日）的涨停跌停的分时统计
+     * @return
+     */
+    @GetMapping("/stock/updown/count")
+    public R<Map> getStockUpdownCount() {
+        return stockService.getStockUpdownCount();
     }
 }

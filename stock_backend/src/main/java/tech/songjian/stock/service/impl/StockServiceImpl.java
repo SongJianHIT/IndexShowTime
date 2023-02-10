@@ -23,7 +23,9 @@ import tech.songjian.stock.vo.resp.R;
 import tech.songjian.stock.vo.resp.ResponseCode;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author by songjian
@@ -133,6 +135,34 @@ public class StockServiceImpl implements StockService {
         PageInfo<StockUpdownDomain> pageInfo = new PageInfo<>(pages);
         PageResult<StockUpdownDomain> pageResult = new PageResult<>(pageInfo);
         return R.ok(pageResult);
+    }
+
+    /**
+     * 统计T日（最近一次股票交易日）的涨停跌停的分时统计
+     * @return
+     */
+    @Override
+    public R<Map> getStockUpdownCount() {
+        // 1、获取最近的股票交易日的开盘和收盘时间
+        // 1.1 获取最近的交易时间
+        DateTime avaliableTimePoint = DateTimeUtil.getLastDate4Stock(DateTime.now());
+        // 1.2 根据有效的时间点，获取对应日期的开盘和收盘日期
+        Date openTime = DateTimeUtil.getOpenDate(avaliableTimePoint).toDate();
+        Date closeTime = DateTimeUtil.getCloseDate(avaliableTimePoint).toDate();
+        // TODO mock数据
+        openTime = DateTime.parse("2022-01-07 09:30:00", DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss")).toDate();
+        closeTime = DateTime.parse("2022-01-07 15:00:00", DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss")).toDate();
+
+        // 2、查询涨停的统计数据
+        List<Map> upList = stockRtInfoMapper.getStockUpdownCount(openTime, closeTime, 1);
+        // 3、查询跌停的统计数据
+        List<Map> downList = stockRtInfoMapper.getStockUpdownCount(openTime, closeTime, 0);
+        // 4、组装 map，将涨停数据和跌停数据组装
+        HashMap<String, List> map = new HashMap<>();
+        map.put("upList", upList);
+        map.put("downList", downList);
+        // 5、返回结果
+        return R.ok(map);
     }
 }
 
