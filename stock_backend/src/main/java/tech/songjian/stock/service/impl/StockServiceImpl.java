@@ -6,10 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import tech.songjian.stock.common.domain.InnerMarketDomain;
+import tech.songjian.stock.common.domain.StockUpdownDomain;
 import tech.songjian.stock.config.vo.StockInfoConfig;
 import tech.songjian.stock.mapper.StockBlockRtInfoMapper;
 import tech.songjian.stock.mapper.StockBusinessMapper;
 import tech.songjian.stock.mapper.StockMarketIndexInfoMapper;
+import tech.songjian.stock.mapper.StockRtInfoMapper;
 import tech.songjian.stock.pojo.StockBlockRtInfo;
 import tech.songjian.stock.pojo.StockBusiness;
 import tech.songjian.stock.service.StockService;
@@ -40,10 +42,14 @@ public class StockServiceImpl implements StockService {
     @Autowired
     private StockBlockRtInfoMapper stockBlockRtInfoMapper;
 
+    @Autowired
+    private StockRtInfoMapper stockRtInfoMapper;
+
     @Override
     public List<StockBusiness> findAll() {
         return stockBusinessMapper.findAll();
     }
+
 
     /**
      * 获取最新的 A 股大盘信息
@@ -84,4 +90,24 @@ public class StockServiceImpl implements StockService {
         }
         return R.ok(infos);
     }
+
+    /**
+     * 统计沪深两个城市的最新交易数据
+     * 并按涨幅降序排序，查询前十条数据
+     * @return
+     */
+    @Override
+    public R<List<StockUpdownDomain>> getStockRtInfoLimit() {
+        // 1、获取最近最新股票有效交易时间点，精确到分钟
+        Date lastDate = DateTimeUtil.getLastDate4Stock(DateTime.now()).toDate();
+        // TODO mock 数据
+        lastDate = DateTime.parse("2021-12-30 09:32:00", DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss")).toDate();
+        // 2、调用mapper进行查询
+        List<StockUpdownDomain> list = stockRtInfoMapper.getStockRtInfoLimit(lastDate);
+        if (CollectionUtils.isEmpty(list)) {
+            return R.error(ResponseCode.NO_RESPONSE_DATA.getMessage());
+        }
+        return R.ok(list);
+    }
 }
+

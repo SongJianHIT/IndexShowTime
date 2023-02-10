@@ -1,8 +1,10 @@
 package tech.songjian.stock.service;
 
 import tech.songjian.stock.common.domain.InnerMarketDomain;
+import tech.songjian.stock.common.domain.StockUpdownDomain;
 import tech.songjian.stock.pojo.StockBlockRtInfo;
 import tech.songjian.stock.pojo.StockBusiness;
+import tech.songjian.stock.vo.resp.PageResult;
 import tech.songjian.stock.vo.resp.R;
 
 import java.util.List;
@@ -33,4 +35,14 @@ public interface StockService {
      * @return
      */
     R<List<StockBlockRtInfo>> sectorAllLimit();
+
+    /**
+     * 统计沪深两个城市的最新交易数据
+     * 并按涨幅降序排序，查询前十条数据
+     * @return
+     */
+    R<List<StockUpdownDomain>> getStockRtInfoLimit();
+
+
+    R<PageResult<StockUpdownDomain>> getStockRtInfo4Page(Integer page, Integer pageSize);
 }

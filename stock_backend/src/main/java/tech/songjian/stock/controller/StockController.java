@@ -6,9 +6,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import tech.songjian.stock.common.domain.InnerMarketDomain;
+import tech.songjian.stock.common.domain.StockUpdownDomain;
 import tech.songjian.stock.pojo.StockBlockRtInfo;
 import tech.songjian.stock.pojo.StockBusiness;
 import tech.songjian.stock.service.StockService;
+import tech.songjian.stock.vo.resp.PageResult;
 import tech.songjian.stock.vo.resp.R;
 
 import java.util.List;
@@ -48,5 +50,27 @@ public class StockController {
     @GetMapping("/sector/all")
     public R<List<StockBlockRtInfo>> sectorAll() {
         return stockService.sectorAllLimit();
+    }
+
+    /**
+     * 统计沪深两个城市的最新交易数据
+     * 并按涨幅降序排序，查询前十条数据
+     * @return
+     */
+    @GetMapping("/stock/increase")
+    public R<List<StockUpdownDomain>> getStockRtInfoLimit() {
+        return stockService.getStockRtInfoLimit();
+    }
+
+    /**
+     * 查询沪深两市的全部涨幅榜数据
+     * 按照时间顺序和涨幅分页查询
+     * @param page 当前页
+     * @param pageSize 当前页大小
+     * @return
+     */
+    @GetMapping("/stock/all")
+    public R<PageResult<StockUpdownDomain>> getStockRtInfo4Page(Integer page, Integer pageSize) {
+        return stockService.getStockRtInfo4Page(page, pageSize);
     }
 }

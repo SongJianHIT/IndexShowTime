@@ -32,6 +32,7 @@
         where  id = #{id,jdbcType=VARCHAR}
     </select>
 
+
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
         delete from stock_rt_info
         where  id = #{id,jdbcType=VARCHAR}
@@ -127,4 +128,22 @@
             trade_volume =  #{tradeVolume,jdbcType=DECIMAL}
         where   id = #{id,jdbcType=VARCHAR}
     </update>
+
+    <select id="getStockRtInfoLimit" resultType="tech.songjian.stock.common.domain.StockUpdownDomain">
+        SELECT
+            sri.trade_amount as tradeAmt,
+            sri.pre_close_price as preClosePrice,
+            (sri.max_price - sri.min_price)/sri.pre_close_price as amplitude,
+            sri.stock_code as code,
+            sri.stock_name as name,
+            DATE_FORMAT(sri.cur_time, "%Y%m%d") as curDate,
+            sri.trade_volume as tradeVol,
+            (sri.cur_price - sri.pre_close_price) as upDown,
+            (sri.cur_price - sri.pre_close_price)/sri.pre_close_price as increase,
+            sri.cur_price as tradePrice
+        FROM stock_rt_info as sri
+        WHERE sri.cur_time = #{timePoint}
+        ORDER BY upDown DESC
+            LIMIT 10
+    </select>
 </mapper>
