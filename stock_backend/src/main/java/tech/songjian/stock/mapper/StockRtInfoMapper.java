@@ -48,4 +48,11 @@ public interface StockRtInfoMapper {
      * @return
      */
     List<Map> getStockUpdownCount(@Param("startTime") Date startTime, @Param("endTime") Date endTime, @Param("flag") int flag);
+
+    /**
+     * 统计指定时间点下，各个涨跌区间内股票的个数
+     * @param timePoint 股票交易时间点
+     * @return
+     */
+    List<Map> getStockUpDownRegion(Date timePoint);
 }

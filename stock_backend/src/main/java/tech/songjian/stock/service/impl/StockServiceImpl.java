@@ -261,5 +261,28 @@ public class StockServiceImpl implements StockService {
         // 5、返回数据
         return R.ok(map);
     }
+
+    /**
+     * 查询当前时间下股票的涨跌幅度区间统计功能
+     * 如果当前日期不在有效时间内，则以最近的一个股票交易时间作为查询点
+     * @return
+     */
+    @Override
+    public R<Map> getStockUpDownRegion() {
+        // 1、获取最近有效的交易时间点
+        DateTime dateTime4Stock = DateTimeUtil.getLastDate4Stock(DateTime.now());
+        Date lastDate = dateTime4Stock.toDate();
+        // TODO:mock数据
+        lastDate = DateTime.parse("2022-01-07 14:50:00", DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss")).toDate();
+
+        // 2、插入mapper接口获取统计数据
+        List<Map> infos = stockRtInfoMapper.getStockUpDownRegion(lastDate);
+        // 3、组装数据并响应
+        HashMap<String, Object> data = new HashMap<>();
+        String stringDataTime = dateTime4Stock.toString(DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss"));
+        data.put("time", stringDataTime);
+        data.put("infos", infos);
+        return R.ok(data);
+    }
 }
 

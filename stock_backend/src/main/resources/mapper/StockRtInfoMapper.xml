@@ -185,4 +185,31 @@
         GROUP BY tmp.cur_time
         ORDER BY tmp.cur_time ASC;
     </select>
+    <select id="getStockUpDownRegion" resultType="java.util.Map">
+        SELECT
+            tmp2.title,
+            COUNT(*) as count
+        FROM (
+            SELECT
+                CASE
+                WHEN tmp.rate > 0.07 THEN  '>7%'
+                WHEN tmp.rate > 0.05 AND tmp.rate &lt;= 0.07 THEN '5~7%'
+                WHEN tmp.rate > 0.03 AND tmp.rate &lt;= 0.05 THEN '3~5%'
+                WHEN tmp.rate > 0 AND tmp.rate &lt;= 0.03 THEN '0~3%'
+                WHEN tmp.rate > -0.03 AND tmp.rate &lt;= 0 THEN '-3~0%'
+                WHEN tmp.rate > -0.05 AND tmp.rate &lt;= -0.03 THEN '-5~-3%'
+                WHEN tmp.rate > -0.07 AND tmp.rate &lt;= -0.05 THEN '-7~-5%'
+                ELSE '&lt;-7%'
+                END 'title'
+            FROM (
+                SELECT
+                    (sri.cur_price - sri.pre_close_price) / sri.pre_close_price AS rate
+                FROM
+                    stock_rt_info AS sri
+                WHERE
+                    sri.cur_time = #{timePoint}
+            )	AS tmp
+        ) AS tmp2
+        GROUP BY tmp2.title
+    </select>
 </mapper>
