@@ -1,5 +1,7 @@
 package tech.songjian.stock.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,7 @@ import tech.songjian.stock.pojo.StockBlockRtInfo;
 import tech.songjian.stock.pojo.StockBusiness;
 import tech.songjian.stock.service.StockService;
 import tech.songjian.stock.utils.DateTimeUtil;
+import tech.songjian.stock.vo.resp.PageResult;
 import tech.songjian.stock.vo.resp.R;
 import tech.songjian.stock.vo.resp.ResponseCode;
 
@@ -108,6 +111,28 @@ public class StockServiceImpl implements StockService {
             return R.error(ResponseCode.NO_RESPONSE_DATA.getMessage());
         }
         return R.ok(list);
+    }
+
+    /**
+     * 查询沪深两市的全部涨幅榜数据
+     * 按照时间顺序和涨幅分页查询
+     * @param page 当前页
+     * @param pageSize 当前页大小
+     * @return
+     */
+    @Override
+    public R<PageResult<StockUpdownDomain>> getStockRtInfo4Page(Integer page, Integer pageSize) {
+        // 1、设置分页参数
+        PageHelper.startPage(page, pageSize);
+        // 2、查询
+        List<StockUpdownDomain> pages = stockRtInfoMapper.getStockRtInfo4All();
+        if (CollectionUtils.isEmpty(pages)) {
+            return R.error(ResponseCode.NO_RESPONSE_DATA.getMessage());
+        }
+        // 3、组装 pageInfo 对象，他封装了一切的分页信息
+        PageInfo<StockUpdownDomain> pageInfo = new PageInfo<>(pages);
+        PageResult<StockUpdownDomain> pageResult = new PageResult<>(pageInfo);
+        return R.ok(pageResult);
     }
 }
 

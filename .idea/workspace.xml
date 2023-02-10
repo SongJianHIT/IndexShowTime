@@ -4,11 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bb70c982-b7b2-4fde-88ec-edcbdeff92e7" name="Changes" comment="板块指数查询功能开发">
-      <change afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/common/domain/StockUpdownDomain.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/vo/resp/PageResult.java" afterDir="false" />
+    <list default="true" id="bb70c982-b7b2-4fde-88ec-edcbdeff92e7" name="Changes" comment="涨幅榜前十功能开发">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/controller/StockController.java" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/controller/StockController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/mapper/StockRtInfoMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/mapper/StockRtInfoMapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/service/StockService.java" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/service/StockService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/service/impl/StockServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/service/impl/StockServiceImpl.java" afterDir="false" />
@@ -177,7 +174,7 @@
       <workItem from="1675755426927" duration="918000" />
       <workItem from="1675756354582" duration="768000" />
       <workItem from="1675757283404" duration="16900000" />
-      <workItem from="1675997794745" duration="6232000" />
+      <workItem from="1675997794745" duration="7763000" />
     </task>
     <task id="LOCAL-00001" summary="验证码登入功能实现">
       <created>1675761947991</created>
@@ -200,7 +197,14 @@
       <option name="project" value="LOCAL" />
       <updated>1675951717483</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="涨幅榜前十功能开发">
+      <created>1676010040292</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1676010040292</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -221,6 +225,7 @@
     <MESSAGE value="验证码登入功能实现" />
     <MESSAGE value="A股大盘数据查询" />
     <MESSAGE value="板块指数查询功能开发" />
-    <option name="LAST_COMMIT_MESSAGE" value="板块指数查询功能开发" />
+    <MESSAGE value="涨幅榜前十功能开发" />
+    <option name="LAST_COMMIT_MESSAGE" value="涨幅榜前十功能开发" />
   </component>
 </project>

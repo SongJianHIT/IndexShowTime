@@ -32,8 +32,10 @@ public interface StockRtInfoMapper {
      * @return
      */
     List<StockUpdownDomain> getStockRtInfoLimit(@Param("timePoint") Date timePoint);
+
+    /**
+     * 根据日期和涨幅降序查询股票信息
+     * @return
+     */
+    List<StockUpdownDomain> getStockRtInfo4All();
 }
-
-
-
-

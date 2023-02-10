@@ -43,6 +43,12 @@ public interface StockService {
      */
     R<List<StockUpdownDomain>> getStockRtInfoLimit();
 
-
+    /**
+     * 查询沪深两市的全部涨幅榜数据
+     * 按照时间顺序和涨幅分页查询
+     * @param page 当前页
+     * @param pageSize 当前页大小
+     * @return
+     */
     R<PageResult<StockUpdownDomain>> getStockRtInfo4Page(Integer page, Integer pageSize);
 }
