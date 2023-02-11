@@ -4,16 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bb70c982-b7b2-4fde-88ec-edcbdeff92e7" name="Changes" comment="国内大盘实时数据采集与保存">
-      <change afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/utils/ParserStockInfoUtil.java" afterDir="false" />
+    <list default="true" id="bb70c982-b7b2-4fde-88ec-edcbdeff92e7" name="Changes" comment="股票实时数据采集与插入">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/config/CommonConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/config/CommonConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/mapper/StockRtInfoMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/mapper/StockRtInfoMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/pojo/StockBlockRtInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/pojo/StockBlockRtInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/pojo/StockRtInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/pojo/StockRtInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/mapper/StockBlockRtInfoMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/mapper/StockBlockRtInfoMapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/service/StockTimerTaskService.java" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/service/StockTimerTaskService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/service/impl/StockTimerTaskServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/service/impl/StockTimerTaskServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stock_backend/src/main/resources/mapper/StockRtInfoMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/resources/mapper/StockRtInfoMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/utils/ParserStockInfoUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/utils/ParserStockInfoUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stock_backend/src/main/resources/mapper/StockBlockRtInfoMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/resources/mapper/StockBlockRtInfoMapper.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/stock_backend/src/test/java/tech/songjian/stock/TestRest.java" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/test/java/tech/songjian/stock/TestRest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -101,7 +98,7 @@
       <recent name="tech.songjian.stock.common.domain" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.TestRest.TestAShare">
+  <component name="RunManager" selected="JUnit.TestRest.TestBlock">
     <configuration name="StockApp" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="tech.songjian.stock.StockApp" />
       <module name="stock_backend" />
@@ -111,22 +108,6 @@
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TestRedis.t" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="stock_backend" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="tech.songjian.stock.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="tech.songjian.stock" />
-      <option name="MAIN_CLASS_NAME" value="tech.songjian.stock.TestRedis" />
-      <option name="METHOD_NAME" value="t" />
-      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -162,6 +143,22 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="TestRest.TestBlock" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="stock_backend" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="tech.songjian.stock.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="tech.songjian.stock" />
+      <option name="MAIN_CLASS_NAME" value="tech.songjian.stock.TestRest" />
+      <option name="METHOD_NAME" value="TestBlock" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="TestRest.testInner" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="stock_backend" />
       <extension name="coverage">
@@ -180,11 +177,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.TestRest.TestBlock" />
         <item itemvalue="JUnit.TestRest.TestAShare" />
         <item itemvalue="JUnit.TestRest.testInner" />
         <item itemvalue="JUnit.TestRest" />
         <item itemvalue="Application.StockApp" />
-        <item itemvalue="JUnit.TestRedis.t" />
       </list>
     </recent_temporary>
   </component>
@@ -209,7 +206,7 @@
       <workItem from="1676033905042" duration="13210000" />
       <workItem from="1676086556034" duration="1946000" />
       <workItem from="1676095053672" duration="4949000" />
-      <workItem from="1676101812794" duration="7748000" />
+      <workItem from="1676101812794" duration="9859000" />
     </task>
     <task id="LOCAL-00001" summary="验证码登入功能实现">
       <created>1675761947991</created>
@@ -309,7 +306,14 @@
       <option name="project" value="LOCAL" />
       <updated>1676107403546</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="股票实时数据采集与插入">
+      <created>1676109923109</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1676109923109</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -339,6 +343,7 @@
     <MESSAGE value="个股分时K线图功能开发" />
     <MESSAGE value="个股日K线图功能开发" />
     <MESSAGE value="国内大盘实时数据采集与保存" />
-    <option name="LAST_COMMIT_MESSAGE" value="国内大盘实时数据采集与保存" />
+    <MESSAGE value="股票实时数据采集与插入" />
+    <option name="LAST_COMMIT_MESSAGE" value="股票实时数据采集与插入" />
   </component>
 </project>

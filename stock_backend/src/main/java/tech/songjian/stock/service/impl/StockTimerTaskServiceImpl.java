@@ -16,9 +16,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.client.RestTemplate;
 import tech.songjian.stock.config.vo.StockInfoConfig;
+import tech.songjian.stock.mapper.StockBlockRtInfoMapper;
 import tech.songjian.stock.mapper.StockBusinessMapper;
 import tech.songjian.stock.mapper.StockMarketIndexInfoMapper;
 import tech.songjian.stock.mapper.StockRtInfoMapper;
+import tech.songjian.stock.pojo.StockBlockRtInfo;
 import tech.songjian.stock.pojo.StockMarketIndexInfo;
 import tech.songjian.stock.pojo.StockRtInfo;
 import tech.songjian.stock.service.StockTimerTaskService;
@@ -67,6 +69,8 @@ public class StockTimerTaskServiceImpl implements StockTimerTaskService {
     @Autowired
     private StockRtInfoMapper stockRtInfoMapper;
 
+    @Autowired
+    private StockBlockRtInfoMapper stockBlockRtInfoMapper;
     /**
      * 获取国内大盘的实时数据信息
      */
@@ -176,6 +180,22 @@ public class StockTimerTaskServiceImpl implements StockTimerTaskService {
                 log.info("插入股票详细数据 {} 条", inserts);
             }
         });
+    }
+
+    /**
+     * 获取板块数据
+     */
+    @Override
+    public void getStockSectorRtIndex() {
+        // 1、发送板块数据请求
+        String result = restTemplate.getForObject(stockInfoConfig.getBlockUrl(), String.class);
+        // 2、将响应数据转化为集合数据
+        List<StockBlockRtInfo> infos = parserStockInfoUtil.parse4StockBlock(result);
+        // 3、批量保存集合数据
+        int insert = stockBlockRtInfoMapper.insertBatch(infos);
+        if (insert > 0) {
+            log.info("插入板块数据 {} 条", insert);
+        }
     }
 }
 

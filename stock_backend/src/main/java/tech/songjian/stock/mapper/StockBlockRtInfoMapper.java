@@ -1,6 +1,7 @@
 package tech.songjian.stock.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import tech.songjian.stock.pojo.StockBlockRtInfo;
 
 import java.util.List;
@@ -28,6 +29,13 @@ public interface StockBlockRtInfoMapper {
      * @return
      */
     List<StockBlockRtInfo> sectorAllLimit();
+
+    /**
+     * 板块信息批量插入
+     * @param list
+     * @return
+     */
+    int insertBatch(@Param("blockInfoList") List<StockBlockRtInfo> list);
 }
 
 

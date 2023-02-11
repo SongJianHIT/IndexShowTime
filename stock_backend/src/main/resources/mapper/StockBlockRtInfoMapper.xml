@@ -69,6 +69,20 @@
                 <if test="curTime != null">cur_time = #{curTime,jdbcType=TIMESTAMP},</if>
         </trim>
     </insert>
+    <insert id="insertBatch">
+        insert into stock_block_rt_info
+        ( id,label,block_name
+        ,company_num,avg_price,updown_rate
+        ,trade_amount,trade_volume,cur_time
+        )
+        values
+            <foreach collection="blockInfoList" item="list" separator=",">
+                (#{list.id,jdbcType=VARCHAR},#{list.label,jdbcType=VARCHAR},#{list.blockName,jdbcType=VARCHAR}
+                ,#{list.companyNum,jdbcType=INTEGER},#{list.avgPrice,jdbcType=DECIMAL},#{list.updownRate,jdbcType=DECIMAL}
+                ,#{list.tradeAmount,jdbcType=BIGINT},#{list.tradeVolume,jdbcType=DECIMAL},#{list.curTime,jdbcType=TIMESTAMP}
+                )
+            </foreach>
+    </insert>
     <update id="updateByPrimaryKeySelective" parameterType="tech.songjian.stock.pojo.StockBlockRtInfo">
         update stock_block_rt_info
         <set>

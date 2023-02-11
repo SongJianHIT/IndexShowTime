@@ -32,5 +32,10 @@ public class TestRest {
     public void TestAShare() {
         stockTimerTaskService.collectAShareInfo();
     }
+
+    @Test
+    public void TestBlock() {
+        stockTimerTaskService.getStockSectorRtIndex();
+    }
 }
 

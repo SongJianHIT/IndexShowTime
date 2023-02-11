@@ -196,7 +196,7 @@ public class ParserStockInfoUtil {
         }
         String jsonStr = stockStr.substring(stockStr.indexOf("=") + 1);
         HashMap mapInfo = new Gson().fromJson(jsonStr, HashMap.class);
-        System.out.println(mapInfo);
+        // System.out.println(mapInfo);
         Collection values = mapInfo.values();
         List<StockBlockRtInfo> collect = (List<StockBlockRtInfo>) mapInfo.values().stream().map(restStr -> {
             String infos = (String) restStr;
