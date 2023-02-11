@@ -31,6 +31,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.*;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 /**
@@ -275,13 +276,33 @@ public class StockServiceImpl implements StockService {
         // TODO:mock数据
         lastDate = DateTime.parse("2022-01-07 14:50:00", DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss")).toDate();
 
-        // 2、插入mapper接口获取统计数据
+        // 2、插入mapper接口获取统计数据（无序的）
         List<Map> infos = stockRtInfoMapper.getStockUpDownRegion(lastDate);
+
+        // 保证涨幅区间按照从小到大排序，且对于没有数据的涨幅区间默认为0
+        // 2.1 获取涨幅区间顺序集合
+        List<String> upDownRangeList = stockInfoConfig.getUpDownRange();
+
+        // 2.2 遍历顺序集合，在统计数据（无序）中查找对应结果，没有则设置为0
+        List<Map> newList = upDownRangeList.stream().map(item->{
+            Optional<Map> optional = infos.stream().filter(map -> map.get("title").equals(item)).findFirst();
+            Map tmp = null;
+            // 判断结果是否有map
+            if (optional.isPresent()) {
+                tmp = optional.get();
+            } else {
+                tmp = new HashMap();
+                tmp.put("title", item);
+                tmp.put("count", 0);
+            }
+            return tmp;
+        }).collect(Collectors.toList());
+
         // 3、组装数据并响应
         HashMap<String, Object> data = new HashMap<>();
         String stringDataTime = dateTime4Stock.toString(DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss"));
         data.put("time", stringDataTime);
-        data.put("infos", infos);
+        data.put("infos", newList);
         return R.ok(data);
     }
 }

@@ -29,5 +29,9 @@ public class StockInfoConfig {
      * 外股code集合
      */
     private List<String> outer;
+    /**
+     * 定义股票涨幅区间的顺序
+     */
+    private List<String> upDownRange;
 }
 
