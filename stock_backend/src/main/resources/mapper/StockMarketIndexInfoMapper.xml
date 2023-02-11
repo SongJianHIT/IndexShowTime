@@ -69,6 +69,20 @@
                 <if test="tradeVolume != null">trade_volume = #{tradeVolume,jdbcType=BIGINT},</if>
         </trim>
     </insert>
+    <insert id="insertBatch">
+        insert into stock_market_index_info
+            (id,mark_Id,cur_time
+            ,mark_name,cur_point,current_price
+            ,updown_rate,trade_account,trade_volume
+            )
+        values
+            <foreach collection="stockMarketInfoList" item="smi" separator=",">
+                (#{smi.id},#{smi.markId,jdbcType=CHAR},#{smi.curTime,jdbcType=TIMESTAMP}
+                ,#{smi.markName,jdbcType=VARCHAR},#{smi.curPoint,jdbcType=DECIMAL},#{smi.currentPrice,jdbcType=DECIMAL}
+                ,#{smi.updownRate,jdbcType=DECIMAL},#{smi.tradeAccount,jdbcType=BIGINT},#{smi.tradeVolume,jdbcType=BIGINT}
+                )
+            </foreach>
+    </insert>
     <update id="updateByPrimaryKeySelective" parameterType="tech.songjian.stock.pojo.StockMarketIndexInfo">
         update stock_market_index_info
         <set>

@@ -33,5 +33,13 @@ public class StockInfoConfig {
      * 定义股票涨幅区间的顺序
      */
     private List<String> upDownRange;
+    /**
+     * 大盘股票数据url地址
+     */
+    private String marketUrl;
+    /**
+     * 板块Url地址
+     */
+    private String blockUrl;
 }
 

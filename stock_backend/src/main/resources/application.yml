@@ -90,4 +90,6 @@ stock:
     - "3~5%"
     - "5~7%"
     - ">7%"
+  marketUrl: http://hq.sinajs.cn/list=    # 大盘 股票数据接口
+  blockUrl: http://vip.stock.finance.sina.com.cn/q/view/newSinaHy.php   #板块数据接口
 

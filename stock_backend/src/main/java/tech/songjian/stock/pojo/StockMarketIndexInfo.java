@@ -3,6 +3,8 @@ package tech.songjian.stock.pojo;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+
+import lombok.Builder;
 import lombok.Data;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -11,6 +13,7 @@ import org.apache.ibatis.annotations.Mapper;
  * @TableName stock_market_index_info
  */
 @Data
+@Builder
 public class StockMarketIndexInfo implements Serializable {
     /**
      * 主键字段（无业务意义）
