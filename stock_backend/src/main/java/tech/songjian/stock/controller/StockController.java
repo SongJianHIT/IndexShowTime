@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import tech.songjian.stock.common.domain.InnerMarketDomain;
+import tech.songjian.stock.common.domain.Stock4EvrDayDomain;
 import tech.songjian.stock.common.domain.Stock4MinuteDomain;
 import tech.songjian.stock.common.domain.StockUpdownDomain;
 import tech.songjian.stock.pojo.StockBlockRtInfo;
@@ -127,6 +128,16 @@ public class StockController {
     @GetMapping("/stock/screen/time-sharing")
     public R<List<Stock4MinuteDomain>> stockScreenTimeSharing(@RequestParam("code") String stockCode) {
         return stockService.stockScreenTimeSharing(stockCode);
+    }
+
+    /**
+     * 个股日K数据查询 ，可以根据时间区间查询数日的K线数据
+     * @param code
+     * @return
+     */
+    @GetMapping("/stock/screen/dkline")
+    public R<List<Stock4EvrDayDomain>> stockScreenDKLine(String code) {
+        return stockService.stockScreenDKLine(code);
     }
 
 }

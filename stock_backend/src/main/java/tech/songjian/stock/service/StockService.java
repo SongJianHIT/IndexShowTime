@@ -2,6 +2,7 @@ package tech.songjian.stock.service;
 
 import com.sun.deploy.net.HttpResponse;
 import tech.songjian.stock.common.domain.InnerMarketDomain;
+import tech.songjian.stock.common.domain.Stock4EvrDayDomain;
 import tech.songjian.stock.common.domain.Stock4MinuteDomain;
 import tech.songjian.stock.common.domain.StockUpdownDomain;
 import tech.songjian.stock.pojo.StockBlockRtInfo;
@@ -91,4 +92,11 @@ public interface StockService {
      * @return
      */
     R<List<Stock4MinuteDomain>> stockScreenTimeSharing(String stockCode);
+
+    /**
+     * 个股日K数据查询 ，可以根据时间区间查询数日的K线数据
+     * @param code
+     * @return
+     */
+    R<List<Stock4EvrDayDomain>> stockScreenDKLine(String code);
 }

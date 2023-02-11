@@ -231,4 +231,35 @@
           AND
             sri.cur_time BETWEEN #{startTime} AND #{endTime}
     </select>
+    <select id="getStockRtInfo4EvrDat" resultType="tech.songjian.stock.common.domain.Stock4EvrDayDomain">
+        SELECT
+            date_format(sri2.cur_time,'%Y%m%d') AS date,
+            sri2.trade_amount AS tradeAmt,
+            sri2.stock_code AS code,
+            sri2.min_price AS lowPrice,
+            sri2.stock_name AS name,
+            sri2.max_price AS highPrice,
+            sri2.open_price AS openPrice,
+            sri2.trade_volume AS tradeVol,
+            sri2.cur_price AS closePrice,
+            sri2.pre_close_price AS preClosePrice
+        FROM
+            stock_rt_info AS sri2
+        WHERE
+            sri2.stock_code = #{stockCode}
+          AND
+            sri2.cur_time IN (
+            SELECT
+            MAX(sri.cur_time) AS closeDate
+            FROM
+            stock_rt_info AS sri
+            WHERE
+            sri.stock_code = #{stockCode}
+          AND
+            sri.cur_time BETWEEN #{startTime} AND #{endTime}
+            GROUP BY
+            DATE_FORMAT(sri.cur_time, '%Y%m%d')
+            )
+        ORDER BY sri2.cur_time ASC
+    </select>
 </mapper>

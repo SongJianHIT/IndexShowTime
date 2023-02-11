@@ -11,10 +11,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
-import tech.songjian.stock.common.domain.InnerMarketDomain;
-import tech.songjian.stock.common.domain.Stock4MinuteDomain;
-import tech.songjian.stock.common.domain.StockExcelDomain;
-import tech.songjian.stock.common.domain.StockUpdownDomain;
+import tech.songjian.stock.common.domain.*;
 import tech.songjian.stock.config.vo.StockInfoConfig;
 import tech.songjian.stock.mapper.StockBlockRtInfoMapper;
 import tech.songjian.stock.mapper.StockBusinessMapper;
@@ -331,6 +328,32 @@ public class StockServiceImpl implements StockService {
             list = new ArrayList<>();
         }
         return R.ok(list);
+    }
+
+    /**
+     * 个股日K数据查询 ，可以根据时间区间查询数日的K线数据
+     * @param code
+     * @return
+     */
+    @Override
+    public R<List<Stock4EvrDayDomain>> stockScreenDKLine(String code) {
+        // 1、获取查询日期范围
+        // 1.1 获取截止时间
+        DateTime endDateTime = DateTimeUtil.getLastDate4Stock(DateTime.now());
+        Date endTime = endDateTime.toDate();
+        // 1.2 获取开始时间
+        DateTime startDateTime = endDateTime.minusDays(10);
+        Date startTime = startDateTime.toDate();
+        // TODO:mock数据
+        endTime = DateTime.parse("2021-12-30 09:30:00", DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss")).toDate();
+        startTime = DateTime.parse("2021-12-20 15:00:00", DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss")).toDate();
+        // 2、调用mapper接口获取查询结果
+        List<Stock4EvrDayDomain> data = stockRtInfoMapper.getStockRtInfo4EvrDat(code, startTime, endTime);
+        if (CollectionUtils.isEmpty(data)) {
+            data = new ArrayList<>();
+        }
+        // 3、封装结果返回
+        return R.ok(data);
     }
 }
 

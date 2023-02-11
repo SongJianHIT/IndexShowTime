@@ -4,8 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bb70c982-b7b2-4fde-88ec-edcbdeff92e7" name="Changes" comment="个股涨跌幅度区间统计功能开发">
-      <change afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/common/domain/Stock4MinuteDomain.java" afterDir="false" />
+    <list default="true" id="bb70c982-b7b2-4fde-88ec-edcbdeff92e7" name="Changes" comment="个股分时K线图功能开发">
+      <change afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/common/domain/Stock4EvrDayDomain.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/controller/StockController.java" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/controller/StockController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/mapper/StockRtInfoMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/mapper/StockRtInfoMapper.java" afterDir="false" />
@@ -201,6 +201,8 @@
       <workItem from="1676017841093" duration="5044000" />
       <workItem from="1676031665163" duration="2032000" />
       <workItem from="1676033905042" duration="13210000" />
+      <workItem from="1676086556034" duration="1946000" />
+      <workItem from="1676095053672" duration="1971000" />
     </task>
     <task id="LOCAL-00001" summary="验证码登入功能实现">
       <created>1675761947991</created>
@@ -279,7 +281,14 @@
       <option name="project" value="LOCAL" />
       <updated>1676083325471</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="个股分时K线图功能开发">
+      <created>1676086578003</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1676086578003</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -306,6 +315,7 @@
     <MESSAGE value="涨幅榜excel文件下载功能开发" />
     <MESSAGE value="股票成交量对比功能开发" />
     <MESSAGE value="个股涨跌幅度区间统计功能开发" />
-    <option name="LAST_COMMIT_MESSAGE" value="个股涨跌幅度区间统计功能开发" />
+    <MESSAGE value="个股分时K线图功能开发" />
+    <option name="LAST_COMMIT_MESSAGE" value="个股分时K线图功能开发" />
   </component>
 </project>

@@ -2,6 +2,7 @@ package tech.songjian.stock.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import tech.songjian.stock.common.domain.Stock4EvrDayDomain;
 import tech.songjian.stock.common.domain.Stock4MinuteDomain;
 import tech.songjian.stock.common.domain.StockUpdownDomain;
 import tech.songjian.stock.pojo.StockRtInfo;
@@ -65,4 +66,14 @@ public interface StockRtInfoMapper {
      * @return
      */
     List<Stock4MinuteDomain> getStockInfoByCodeAndDate(@Param("stockCode") String stockCode, @Param("startTime") Date startTime, @Param("endTime") Date endTime);
+
+
+    /**
+     * 个股日K数据查询 ，可以根据时间区间查询数日的K线数据
+     * @param stockCode
+     * @param startTime
+     * @param endTime
+     * @return
+     */
+    List<Stock4EvrDayDomain> getStockRtInfo4EvrDat(@Param("stockCode") String stockCode, @Param("startTime") Date startTime, @Param("endTime") Date endTime);
 }
