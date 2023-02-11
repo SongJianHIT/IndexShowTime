@@ -3,13 +3,20 @@ package tech.songjian.stock.pojo;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * 股票板块详情信息表
  * @TableName stock_block_rt_info
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class StockBlockRtInfo implements Serializable {
     /**
      * 板块主键ID（业务无关）
@@ -19,12 +26,12 @@ public class StockBlockRtInfo implements Serializable {
     /**
      * 表示，如：new_blhy-玻璃行业
      */
-    private String code;
+    private String label;
 
     /**
      * 板块名称
      */
-    private String name;
+    private String blockName;
 
     /**
      * 公司数量
@@ -44,17 +51,17 @@ public class StockBlockRtInfo implements Serializable {
     /**
      * 交易量
      */
-    private Long tradeAmt;
+    private Long tradeAmount;
 
     /**
      * 交易金额
      */
-    private BigDecimal tradeVol;
+    private BigDecimal tradeVolume;
 
     /**
      * 当前日期（精确到秒）
      */
-    private String curDate;
+    private Date curTime;
 
     private static final long serialVersionUID = 1L;
 }

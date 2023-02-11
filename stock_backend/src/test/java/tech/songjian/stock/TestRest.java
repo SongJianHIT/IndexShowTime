@@ -27,5 +27,10 @@ public class TestRest {
     public void testInner() {
         stockTimerTaskService.collectInnerMarketInfo();
     }
+
+    @Test
+    public void TestAShare() {
+        stockTimerTaskService.collectAShareInfo();
+    }
 }
 

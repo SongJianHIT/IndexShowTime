@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import tech.songjian.stock.utils.IdWorker;
+import tech.songjian.stock.utils.ParserStockInfoUtil;
 
 /**
  * @author by itheima
@@ -30,5 +31,10 @@ public class CommonConfig {
     @Bean
     public IdWorker idWorker() {
         return new IdWorker();
+    }
+
+    @Bean
+    public ParserStockInfoUtil parserStockInfoUtil(IdWorker idWorker) {
+        return new ParserStockInfoUtil(idWorker);
     }
 }
