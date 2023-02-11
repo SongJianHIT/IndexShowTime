@@ -212,4 +212,23 @@
         ) AS tmp2
         GROUP BY tmp2.title
     </select>
+    <select id="getStockInfoByCodeAndDate" resultType="tech.songjian.stock.common.domain.Stock4MinuteDomain">
+        SELECT
+            DATE_FORMAT(sri.cur_time, '%Y%m%d%H%i') AS date,
+	        sri.trade_amount AS tradeAmt,
+	        sri.stock_code AS code,
+	        sri.min_price AS lowPrice,
+	        sri.pre_close_price AS preClosePrice,
+	        sri.stock_name AS name,
+	        sri.max_price AS highPrice,
+	        sri.open_price AS openPrice,
+	        sri.trade_volume AS tradeVol,
+	        sri.cur_price AS tradePrice
+        FROM
+            stock_rt_info AS sri
+        WHERE
+            sri.stock_code = #{stockCode}
+          AND
+            sri.cur_time BETWEEN #{startTime} AND #{endTime}
+    </select>
 </mapper>

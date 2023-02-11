@@ -2,6 +2,7 @@ package tech.songjian.stock.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import tech.songjian.stock.common.domain.Stock4MinuteDomain;
 import tech.songjian.stock.common.domain.StockUpdownDomain;
 import tech.songjian.stock.pojo.StockRtInfo;
 
@@ -55,4 +56,13 @@ public interface StockRtInfoMapper {
      * @return
      */
     List<Map> getStockUpDownRegion(Date timePoint);
+
+    /**
+     * 查询个股的分时行情数据，也就是统计指定股票T日每分钟的交易数据；
+     * @param stockCode 股票编码
+     * @param startTime 开始时间
+     * @param endTime 结束时间
+     * @return
+     */
+    List<Stock4MinuteDomain> getStockInfoByCodeAndDate(@Param("stockCode") String stockCode, @Param("startTime") Date startTime, @Param("endTime") Date endTime);
 }

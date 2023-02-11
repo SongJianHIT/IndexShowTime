@@ -2,6 +2,7 @@ package tech.songjian.stock.service;
 
 import com.sun.deploy.net.HttpResponse;
 import tech.songjian.stock.common.domain.InnerMarketDomain;
+import tech.songjian.stock.common.domain.Stock4MinuteDomain;
 import tech.songjian.stock.common.domain.StockUpdownDomain;
 import tech.songjian.stock.pojo.StockBlockRtInfo;
 import tech.songjian.stock.pojo.StockBusiness;
@@ -83,4 +84,11 @@ public interface StockService {
      * @return
      */
     R<Map> getStockUpDownRegion();
+
+    /**
+     * 查询个股的分时行情数据，也就是统计指定股票T日每分钟的交易数据；
+     * @param stockCode
+     * @return
+     */
+    R<List<Stock4MinuteDomain>> stockScreenTimeSharing(String stockCode);
 }

@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import tech.songjian.stock.common.domain.InnerMarketDomain;
+import tech.songjian.stock.common.domain.Stock4MinuteDomain;
 import tech.songjian.stock.common.domain.StockExcelDomain;
 import tech.songjian.stock.common.domain.StockUpdownDomain;
 import tech.songjian.stock.config.vo.StockInfoConfig;
@@ -278,14 +279,17 @@ public class StockServiceImpl implements StockService {
 
         // 2、插入mapper接口获取统计数据（无序的）
         List<Map> infos = stockRtInfoMapper.getStockUpDownRegion(lastDate);
-
+        if (CollectionUtils.isEmpty(infos)) {
+            infos = new ArrayList<>();
+        }
         // 保证涨幅区间按照从小到大排序，且对于没有数据的涨幅区间默认为0
         // 2.1 获取涨幅区间顺序集合
         List<String> upDownRangeList = stockInfoConfig.getUpDownRange();
 
         // 2.2 遍历顺序集合，在统计数据（无序）中查找对应结果，没有则设置为0
+        List<Map> finalInfos = infos;
         List<Map> newList = upDownRangeList.stream().map(item->{
-            Optional<Map> optional = infos.stream().filter(map -> map.get("title").equals(item)).findFirst();
+            Optional<Map> optional = finalInfos.stream().filter(map -> map.get("title").equals(item)).findFirst();
             Map tmp = null;
             // 判断结果是否有map
             if (optional.isPresent()) {
@@ -304,6 +308,29 @@ public class StockServiceImpl implements StockService {
         data.put("time", stringDataTime);
         data.put("infos", newList);
         return R.ok(data);
+    }
+
+    /**
+     * 查询个股的分时行情数据，也就是统计指定股票T日每分钟的交易数据；
+     * @param stockCode
+     * @return
+     */
+    @Override
+    public R<List<Stock4MinuteDomain>> stockScreenTimeSharing(String stockCode) {
+        // 1、获取最近最新时间交易时间点和对应的开盘日期
+        DateTime lastDateTime = DateTimeUtil.getLastDate4Stock(DateTime.now());
+        DateTime openDateTime = DateTimeUtil.getOpenDate(lastDateTime);
+        Date endTime = lastDateTime.toDate();
+        Date startTime = openDateTime.toDate();
+        // TODO:mock数据
+        endTime = DateTime.parse("2022-01-07 14:48:00", DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss")).toDate();
+        startTime = DateTime.parse("2022-01-07 09:30:00", DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss")).toDate();
+        // 2、调用mapper接口进行查询
+        List<Stock4MinuteDomain> list = stockRtInfoMapper.getStockInfoByCodeAndDate(stockCode, startTime, endTime);
+        if (CollectionUtils.isEmpty(list)) {
+            list = new ArrayList<>();
+        }
+        return R.ok(list);
     }
 }
 

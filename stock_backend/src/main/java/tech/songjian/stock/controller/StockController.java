@@ -1,12 +1,13 @@
 package tech.songjian.stock.controller;
 
 
-import com.sun.deploy.net.HttpResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import tech.songjian.stock.common.domain.InnerMarketDomain;
+import tech.songjian.stock.common.domain.Stock4MinuteDomain;
 import tech.songjian.stock.common.domain.StockUpdownDomain;
 import tech.songjian.stock.pojo.StockBlockRtInfo;
 import tech.songjian.stock.pojo.StockBusiness;
@@ -116,4 +117,16 @@ public class StockController {
     public R<Map> getStockUpDownRegion(){
         return stockService.getStockUpDownRegion();
     }
+
+    /**
+     * 查询个股的分时行情数据，也就是统计指定股票T日每分钟的交易数据；
+     *
+     * @param stockCode 股票编码
+     * @return
+     */
+    @GetMapping("/stock/screen/time-sharing")
+    public R<List<Stock4MinuteDomain>> stockScreenTimeSharing(@RequestParam("code") String stockCode) {
+        return stockService.stockScreenTimeSharing(stockCode);
+    }
+
 }
