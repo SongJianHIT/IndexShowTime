@@ -7,6 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="stock_backend" />
+        <module name="stock_xxljob_admin" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

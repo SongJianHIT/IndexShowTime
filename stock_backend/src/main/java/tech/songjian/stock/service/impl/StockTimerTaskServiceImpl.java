@@ -143,8 +143,8 @@ public class StockTimerTaskServiceImpl implements StockTimerTaskService {
         String curTime = DateTime.now().toString(DateTimeFormat.forPattern("yyyyMMddHHmmss"));
         log.info("采集的大盘数据：{},当前时间：{}",list,curTime);
 
-        int count = stockMarketIndexInfoMapper.insertBatch(list);
-        log.info("批量插入 {} 条大盘数据", count);
+//        int count = stockMarketIndexInfoMapper.insertBatch(list);
+//        log.info("批量插入 {} 条大盘数据", count);
     }
 
 
@@ -175,10 +175,10 @@ public class StockTimerTaskServiceImpl implements StockTimerTaskService {
             log.info("数据量：{}",infos.size());
 
             // 批量插入
-            int inserts = stockRtInfoMapper.insertBatch(infos);
-            if (inserts > 0) {
-                log.info("插入股票详细数据 {} 条", inserts);
-            }
+//            int inserts = stockRtInfoMapper.insertBatch(infos);
+//            if (inserts > 0) {
+//                log.info("插入股票详细数据 {} 条", inserts);
+//            }
         });
     }
 
@@ -191,11 +191,12 @@ public class StockTimerTaskServiceImpl implements StockTimerTaskService {
         String result = restTemplate.getForObject(stockInfoConfig.getBlockUrl(), String.class);
         // 2、将响应数据转化为集合数据
         List<StockBlockRtInfo> infos = parserStockInfoUtil.parse4StockBlock(result);
+        log.info("获取板块数据 {} 条", infos.size());
         // 3、批量保存集合数据
-        int insert = stockBlockRtInfoMapper.insertBatch(infos);
-        if (insert > 0) {
-            log.info("插入板块数据 {} 条", insert);
-        }
+//        int insert = stockBlockRtInfoMapper.insertBatch(infos);
+//        if (insert > 0) {
+//            log.info("插入板块数据 {} 条", insert);
+//        }
     }
 }
 

@@ -9,6 +9,7 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>stock_backend</module>
+        <module>stock_xxljob_admin</module>
     </modules>
     <packaging>pom</packaging>
     <properties>

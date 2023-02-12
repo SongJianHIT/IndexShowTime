@@ -93,3 +93,16 @@ stock:
   marketUrl: http://hq.sinajs.cn/list=    # 大盘 股票数据接口
   blockUrl: http://vip.stock.finance.sina.com.cn/q/view/newSinaHy.php   #板块数据接口
 
+# 配置 xxl-job
+xxl:
+  job:
+    accessToken:
+    admin:
+      addresses: http://127.0.0.1:8082/songjian-job-admin
+    executor:
+      appname: songjian-stock-job-executor
+      address:
+      ip:
+      port: 6666
+      logpath: ./data/applogs/xxl-job/jobhandler
+      logretentiondays: 30

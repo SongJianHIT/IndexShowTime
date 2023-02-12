@@ -4,14 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bb70c982-b7b2-4fde-88ec-edcbdeff92e7" name="Changes" comment="股票实时数据采集与插入">
+    <list default="true" id="bb70c982-b7b2-4fde-88ec-edcbdeff92e7" name="Changes" comment="股票板块数据采集与插入">
+      <change afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/job/StockTimerJob.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/job/XxlJobConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/stock_backend/src/test/java/tech/songjian/stock/TestInteger.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/mapper/StockBlockRtInfoMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/mapper/StockBlockRtInfoMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/service/StockTimerTaskService.java" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/service/StockTimerTaskService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stock_backend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/service/impl/StockTimerTaskServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/service/impl/StockTimerTaskServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/utils/ParserStockInfoUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/utils/ParserStockInfoUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stock_backend/src/main/resources/mapper/StockBlockRtInfoMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/resources/mapper/StockBlockRtInfoMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stock_backend/src/test/java/tech/songjian/stock/TestRest.java" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/test/java/tech/songjian/stock/TestRest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stock_backend/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/resources/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,7 +67,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
     "jdk.selected.JAVA_MODULE": "1.8 (2)",
-    "last_opened_file_path": "/Users/mac/IdeaProjects/Stock/stock_parent/stock_backend/src/main/java/tech/songjian/stock/utils",
+    "last_opened_file_path": "/Users/mac/IdeaProjects/Stock/stock_parent",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -81,11 +84,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/utils" />
       <recent name="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/mapper" />
       <recent name="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock" />
       <recent name="$PROJECT_DIR$/stock_backend/src/test/java/tech/songjian/stock" />
-      <recent name="$PROJECT_DIR$/stock_backend1/src/main/java" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/stock_backend/src/main/resources/mapper" />
@@ -95,24 +98,12 @@
       <recent name="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/pojo" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="tech.songjian.stock.job" />
       <recent name="tech.songjian.stock.common.domain" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.TestRest.TestBlock">
-    <configuration name="StockApp" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="tech.songjian.stock.StockApp" />
-      <module name="stock_backend" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="tech.songjian.stock.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TestRest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Spring Boot.StockApp">
+    <configuration name="TestInteger.test1" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="stock_backend" />
       <extension name="coverage">
         <pattern>
@@ -121,8 +112,25 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="tech.songjian.stock" />
-      <option name="MAIN_CLASS_NAME" value="tech.songjian.stock.TestRest" />
-      <option name="TEST_OBJECT" value="class" />
+      <option name="MAIN_CLASS_NAME" value="tech.songjian.stock.TestInteger" />
+      <option name="METHOD_NAME" value="test1" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestInteger.test2" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="stock_backend" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="tech.songjian.stock.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="tech.songjian.stock" />
+      <option name="MAIN_CLASS_NAME" value="tech.songjian.stock.TestInteger" />
+      <option name="METHOD_NAME" value="test2" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -159,29 +167,33 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TestRest.testInner" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="StockApp" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <module name="stock_backend" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="tech.songjian.stock.StockApp" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="tech.songjian.stock.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="tech.songjian.stock" />
-      <option name="MAIN_CLASS_NAME" value="tech.songjian.stock.TestRest" />
-      <option name="METHOD_NAME" value="testInner" />
-      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="XxlJobAdminApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="stock_xxljob_admin" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.xxl.job.admin.XxlJobAdminApplication" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Spring Boot.StockApp" />
+        <item itemvalue="JUnit.TestInteger.test2" />
+        <item itemvalue="JUnit.TestInteger.test1" />
         <item itemvalue="JUnit.TestRest.TestBlock" />
         <item itemvalue="JUnit.TestRest.TestAShare" />
-        <item itemvalue="JUnit.TestRest.testInner" />
-        <item itemvalue="JUnit.TestRest" />
-        <item itemvalue="Application.StockApp" />
       </list>
     </recent_temporary>
   </component>
@@ -206,7 +218,9 @@
       <workItem from="1676033905042" duration="13210000" />
       <workItem from="1676086556034" duration="1946000" />
       <workItem from="1676095053672" duration="4949000" />
-      <workItem from="1676101812794" duration="9859000" />
+      <workItem from="1676101812794" duration="14506000" />
+      <workItem from="1676121658487" duration="1898000" />
+      <workItem from="1676166877015" duration="5815000" />
     </task>
     <task id="LOCAL-00001" summary="验证码登入功能实现">
       <created>1675761947991</created>
@@ -313,7 +327,14 @@
       <option name="project" value="LOCAL" />
       <updated>1676109923109</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="股票板块数据采集与插入">
+      <created>1676115409803</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1676115409803</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -344,6 +365,7 @@
     <MESSAGE value="个股日K线图功能开发" />
     <MESSAGE value="国内大盘实时数据采集与保存" />
     <MESSAGE value="股票实时数据采集与插入" />
-    <option name="LAST_COMMIT_MESSAGE" value="股票实时数据采集与插入" />
+    <MESSAGE value="股票板块数据采集与插入" />
+    <option name="LAST_COMMIT_MESSAGE" value="股票板块数据采集与插入" />
   </component>
 </project>
