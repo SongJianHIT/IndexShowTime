@@ -276,4 +276,20 @@
             )
         ORDER BY sri2.cur_time ASC
     </select>
+    <select id="burSearchByCode" resultType="java.util.Map">
+        SELECT
+            *
+        FROM
+            (
+                SELECT DISTINCT
+                    sri.stock_code AS code,
+                    sri.stock_name AS name
+                FROM
+                    stock_rt_info AS sri
+                WHERE
+                    DATE_FORMAT(sri.cur_time,'%Y%m%d') = DATE_FORMAT(#{date},'%Y%m%d')
+            ) AS sri2
+        WHERE
+            sri2.code LIKE #{str}
+    </select>
 </mapper>

@@ -83,4 +83,13 @@ public interface StockRtInfoMapper {
      * @return
      */
     int insertBatch(@Param("stockRtInfoList") List<StockRtInfo> infos);
+
+    /**
+     * 根据个股代码进行模糊查询
+     *
+     * @param str
+     * @param date
+     * @return
+     */
+    List<Map> burSearchByCode(@Param("str") String str, @Param("date") Date date);
 }

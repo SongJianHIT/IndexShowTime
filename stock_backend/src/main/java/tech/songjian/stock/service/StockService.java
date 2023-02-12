@@ -102,4 +102,11 @@ public interface StockService {
      * @return
      */
     R<List<StockExternalIndexDomain>> getExternalIndexInfo();
+
+    /**
+     * 根据个股代码进行模糊查询
+     * @param searchStr
+     * @return
+     */
+    R<List> burSearchByCode(String searchStr);
 }

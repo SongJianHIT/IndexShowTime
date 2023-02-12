@@ -377,5 +377,22 @@ public class StockServiceImpl implements StockService {
         // 4、返回
         return R.ok(list);
     }
+
+    /**
+     * 根据个股代码进行模糊查询
+     * @param searchStr
+     * @return
+     */
+    @Override
+    public R<List> burSearchByCode(String searchStr) {
+        // 1、拼接模糊查询字符串
+        searchStr = '%' + searchStr + '%';
+        Date date = DateTimeUtil.getLastDate4Stock(DateTime.now()).toDate();
+        // TODO mock数据
+        date = DateTime.parse("2022-01-02 09:30:00", DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss")).toDate();
+        // 2、调用 mapper 查询
+        List<Map> res = stockRtInfoMapper.burSearchByCode(searchStr, date);
+        return R.ok(res);
+    }
 }
 
