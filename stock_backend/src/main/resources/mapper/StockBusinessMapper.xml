@@ -32,6 +32,17 @@
     <select id="getStockCodeList" resultType="java.lang.String">
         select sec_code from stock_business
     </select>
+    <select id="getStockBusinessByCode" resultType="tech.songjian.stock.common.domain.StockBusinessDomain">
+        SELECT
+            sb.sec_code AS code,
+            sb.sec_name AS name,
+            sb.business AS business,
+            sb.sector_name AS trade
+        FROM
+            stock_business AS sb
+        WHERE
+            sb.sec_code = #{code}
+    </select>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
         delete from stock_business

@@ -1,5 +1,7 @@
 package tech.songjian.stock.mapper;
 
+import org.apache.ibatis.annotations.Param;
+import tech.songjian.stock.common.domain.StockBusinessDomain;
 import tech.songjian.stock.pojo.StockBusiness;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -31,6 +33,12 @@ public interface StockBusinessMapper {
      */
     List<String> getStockCodeList();
 
+    /**
+     * 根据股票代码查询个股业务
+     * @param code
+     * @return
+     */
+    StockBusinessDomain getStockBusinessByCode(@Param("code") String code);
 }
 
 

@@ -4,13 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bb70c982-b7b2-4fde-88ec-edcbdeff92e7" name="Changes" comment="外盘指数显示功能开发">
+    <list default="true" id="bb70c982-b7b2-4fde-88ec-edcbdeff92e7" name="Changes" comment="根据个股代码模糊查询">
+      <change afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/common/domain/StockBusinessDomain.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/controller/StockController.java" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/controller/StockController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/mapper/StockRtInfoMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/mapper/StockRtInfoMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/mapper/StockBusinessMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/mapper/StockBusinessMapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/service/StockService.java" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/service/StockService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/service/impl/StockServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/service/impl/StockServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stock_backend/src/main/resources/mapper/StockRtInfoMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/resources/mapper/StockRtInfoMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stock_backend/src/main/resources/mapper/StockBusinessMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/resources/mapper/StockBusinessMapper.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -218,7 +219,7 @@
       <workItem from="1676121658487" duration="1898000" />
       <workItem from="1676166877015" duration="12698000" />
       <workItem from="1676202340075" duration="2162000" />
-      <workItem from="1676207991251" duration="8298000" />
+      <workItem from="1676207991251" duration="10094000" />
     </task>
     <task id="LOCAL-00001" summary="验证码登入功能实现">
       <created>1675761947991</created>
@@ -353,7 +354,14 @@
       <option name="project" value="LOCAL" />
       <updated>1676213837332</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="根据个股代码模糊查询">
+      <created>1676216611772</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1676216611772</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -388,6 +396,7 @@
     <MESSAGE value="项目整合xxl-job定时框架（未序列化）" />
     <MESSAGE value="异步采集A股数据，整合线程池" />
     <MESSAGE value="外盘指数显示功能开发" />
-    <option name="LAST_COMMIT_MESSAGE" value="外盘指数显示功能开发" />
+    <MESSAGE value="根据个股代码模糊查询" />
+    <option name="LAST_COMMIT_MESSAGE" value="根据个股代码模糊查询" />
   </component>
 </project>

@@ -155,4 +155,14 @@ public class StockController {
     public R<List> burSearchByCode(String searchStr) {
         return stockService.burSearchByCode(searchStr);
     }
+
+    /**
+     * 根据股票编码查询个股主营业务
+     * @param code
+     * @return
+     */
+    @GetMapping("/stock/describe")
+    public R<StockBusinessDomain> getStockBusinessByCode(String code) {
+        return stockService.getStockBusinessByCode(code);
+    }
 }

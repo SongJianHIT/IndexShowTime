@@ -394,5 +394,19 @@ public class StockServiceImpl implements StockService {
         List<Map> res = stockRtInfoMapper.burSearchByCode(searchStr, date);
         return R.ok(res);
     }
+
+    /**
+     * 根据股票编码查询个股主营业务
+     * @param code
+     * @return
+     */
+    @Override
+    public R<StockBusinessDomain> getStockBusinessByCode(String code) {
+        StockBusinessDomain stockBusinesses = stockBusinessMapper.getStockBusinessByCode(code);
+        if (stockBusinesses == null) {
+            return R.error(ResponseCode.NO_RESPONSE_DATA.getMessage());
+        }
+        return R.ok(stockBusinesses);
+    }
 }
 
