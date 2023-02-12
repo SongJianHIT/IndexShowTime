@@ -10,6 +10,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import tech.songjian.stock.config.vo.StockInfoConfig;
+import tech.songjian.stock.config.vo.TaskThreadPollInfo;
 
 /**
  * StockApp
@@ -20,7 +21,7 @@ import tech.songjian.stock.config.vo.StockInfoConfig;
  */
 
 @SpringBootApplication
-@EnableConfigurationProperties(StockInfoConfig.class)   // 开启配置初始化，加入IOC容器
+@EnableConfigurationProperties({StockInfoConfig.class, TaskThreadPollInfo.class})   // 开启配置初始化，加入IOC容器
 //@MapperScan("tech.songjian.stock.mapper")
 public class StockApp {
     public static void main(String[] args) {

@@ -106,3 +106,11 @@ xxl:
       port: 6666
       logpath: ./data/applogs/xxl-job/jobhandler
       logretentiondays: 30
+
+## 设置定时任务线程池基本参数
+task:
+  pool:
+    corePoolSize: 5 # 核心线程数
+    maxPoolSize: 20 # 最大线程数
+    keepAliveSeconds: 300 # 空闲线程活跃时间
+    queueCapacity: 100 # 设置队列容量

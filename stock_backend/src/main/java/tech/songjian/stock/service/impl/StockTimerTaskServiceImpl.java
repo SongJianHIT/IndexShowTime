@@ -12,6 +12,7 @@ import org.joda.time.format.DateTimeFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.client.RestTemplate;
@@ -71,6 +72,10 @@ public class StockTimerTaskServiceImpl implements StockTimerTaskService {
 
     @Autowired
     private StockBlockRtInfoMapper stockBlockRtInfoMapper;
+
+    @Autowired
+    private ThreadPoolTaskExecutor threadPoolTaskExecutor;
+
     /**
      * 获取国内大盘的实时数据信息
      */
@@ -165,6 +170,7 @@ public class StockTimerTaskServiceImpl implements StockTimerTaskService {
         headers.add("User-Agent","Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.121 Safari/537.36");
         HttpEntity<String> entity = new HttpEntity<>(headers);
         // 2、将股票code集合分片处理，进行均等分
+        /**  单线程串行
         Lists.partition(stockCodeList,20).forEach(list->{
             //拼接股票url地址
             String stockUrl=stockInfoConfig.getMarketUrl()+String.join(",",list);
@@ -175,10 +181,33 @@ public class StockTimerTaskServiceImpl implements StockTimerTaskService {
             log.info("数据量：{}",infos.size());
 
             // 批量插入
-//            int inserts = stockRtInfoMapper.insertBatch(infos);
-//            if (inserts > 0) {
-//                log.info("插入股票详细数据 {} 条", inserts);
-//            }
+            int inserts = stockRtInfoMapper.insertBatch(infos);
+            if (inserts > 0) {
+                log.info("插入股票详细数据 {} 条", inserts);
+            }
+        });*/
+        // 多线程，异步执行
+        Lists.partition(stockCodeList,20).forEach(list->{
+            // 加入线程池后，异步多线程处理数据采集
+            // 提高操作效率，但数据库IO会增加
+            threadPoolTaskExecutor.execute(new Runnable() {
+                @Override
+                public void run() {
+                    //拼接股票url地址
+                    String stockUrl=stockInfoConfig.getMarketUrl()+String.join(",",list);
+                    //获取响应数据
+                    String result = restTemplate.postForObject(stockUrl, entity, String.class);
+                    // 解析处理, 3:表示A股股票
+                    List<StockRtInfo> infos = parserStockInfoUtil.parser4StockOrMarketInfo(result, 3);
+                    log.info("数据量：{}",infos.size());
+
+                    // 批量插入
+//                    int inserts = stockRtInfoMapper.insertBatch(infos);
+//                    if (inserts > 0) {
+//                        log.info("插入股票详细数据 {} 条", inserts);
+//                    }
+                }
+            });
         });
     }
 
