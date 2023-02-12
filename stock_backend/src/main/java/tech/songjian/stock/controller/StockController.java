@@ -6,10 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import tech.songjian.stock.common.domain.InnerMarketDomain;
-import tech.songjian.stock.common.domain.Stock4EvrDayDomain;
-import tech.songjian.stock.common.domain.Stock4MinuteDomain;
-import tech.songjian.stock.common.domain.StockUpdownDomain;
+import tech.songjian.stock.common.domain.*;
 import tech.songjian.stock.pojo.StockBlockRtInfo;
 import tech.songjian.stock.pojo.StockBusiness;
 import tech.songjian.stock.service.StockService;
@@ -54,7 +51,7 @@ public class StockController {
      * @return
      */
     @GetMapping("/sector/all")
-    public R<List<StockBlockRtInfo>> sectorAll() {
+    public R<List<StockBlockDomain>> sectorAll() {
         return stockService.sectorAllLimit();
     }
 
@@ -140,4 +137,12 @@ public class StockController {
         return stockService.stockScreenDKLine(code);
     }
 
+    /**
+     * 外盘指数行情数据查询，根据时间和大盘点数降序排序取前4
+     * @return
+     */
+    @GetMapping("/external/index")
+    public R<List<StockExternalIndexDomain>> getExternalIndexInfo() {
+        return stockService.getExternalIndexInfo();
+    }
 }

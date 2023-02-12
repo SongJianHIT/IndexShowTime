@@ -199,7 +199,7 @@ public class StockTimerTaskServiceImpl implements StockTimerTaskService {
                     String result = restTemplate.postForObject(stockUrl, entity, String.class);
                     // 解析处理, 3:表示A股股票
                     List<StockRtInfo> infos = parserStockInfoUtil.parser4StockOrMarketInfo(result, 3);
-                    log.info("数据量：{}",infos.size());
+                    log.info(infos.toString());
 
                     // 批量插入
 //                    int inserts = stockRtInfoMapper.insertBatch(infos);

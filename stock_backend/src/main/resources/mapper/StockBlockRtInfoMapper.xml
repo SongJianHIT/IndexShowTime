@@ -127,7 +127,7 @@
         where   id = #{id,jdbcType=VARCHAR}
     </update>
 
-    <select id="sectorAllLimit" resultType="tech.songjian.stock.pojo.StockBlockRtInfo">
+    <select id="sectorAllLimit" resultType="tech.songjian.stock.common.domain.StockBlockDomain">
         select
             sbr.company_num  as companyNum,
             sbr.trade_amount as tradeAmt,

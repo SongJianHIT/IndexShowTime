@@ -6,6 +6,13 @@
 package tech.songjian.stock;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+
+import java.util.Collections;
+import java.util.Vector;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * TestInteger
@@ -27,6 +34,7 @@ public class TestInteger {
         System.out.println(i3 == i4);   // false
 
     }
+
     @Test
     public void test2() {
         // 使用 常量 直接赋值
@@ -38,6 +46,12 @@ public class TestInteger {
         String a3 = new String("123");
         String a4 = new String("123");
         System.out.println(a3 == a4);
+
+        int core = Runtime.getRuntime().availableProcessors();
+        System.out.println(core);
+
+        CopyOnWriteArrayList
     }
+
 }
 

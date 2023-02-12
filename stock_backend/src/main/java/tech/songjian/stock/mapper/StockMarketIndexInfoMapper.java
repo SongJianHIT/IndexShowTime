@@ -3,6 +3,7 @@ package tech.songjian.stock.mapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import tech.songjian.stock.common.domain.InnerMarketDomain;
+import tech.songjian.stock.common.domain.StockExternalIndexDomain;
 import tech.songjian.stock.pojo.StockMarketIndexInfo;
 
 import java.util.Date;
@@ -50,6 +51,14 @@ public interface StockMarketIndexInfoMapper {
      * @return
      */
     int insertBatch(@Param("stockMarketInfoList") List<StockMarketIndexInfo> infos);
+
+    /**
+     * 外盘指数行情数据查询，根据时间和大盘点数降序排序取前4
+     * @param marketIds
+     * @param date
+     * @return
+     */
+    List<StockExternalIndexDomain> getExternalIndexInfoTop4(@Param("marketIds") List<String> marketIds, @Param("timePoint") Date timePoint);
 }
 
 

@@ -91,9 +91,9 @@ public class StockServiceImpl implements StockService {
      * @return
      */
     @Override
-    public R<List<StockBlockRtInfo>> sectorAllLimit() {
+    public R<List<StockBlockDomain>> sectorAllLimit() {
         //1.调用 mapper 接口获取数据 TODO 优化 避免全表查询 根据时间范围查询，提高查询效率
-        List<StockBlockRtInfo> infos = stockBlockRtInfoMapper.sectorAllLimit();
+        List<StockBlockDomain> infos = stockBlockRtInfoMapper.sectorAllLimit();
         //2.组装数据
         if (CollectionUtils.isEmpty(infos)) {
             return R.error(ResponseCode.NO_RESPONSE_DATA.getMessage());
@@ -354,6 +354,28 @@ public class StockServiceImpl implements StockService {
         }
         // 3、封装结果返回
         return R.ok(data);
+    }
+
+    /**
+     * 外盘指数行情数据查询，根据时间和大盘点数降序排序取前4
+     * @return
+     */
+    @Override
+    public R<List<StockExternalIndexDomain>> getExternalIndexInfo() {
+        // 1、获取国外大盘market_id
+        List<String> marketIds = stockInfoConfig.getOuter();
+        // 2、获取最近交易日期
+        DateTime lastDate = DateTimeUtil.getLastDate4Stock(DateTime.now());
+        Date date = lastDate.toDate();
+        //TODO mock测试数据，后期数据通过第三方接口动态获取试试数据
+        date = DateTime.parse("2022-01-02 09:30:00", DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss")).toDate();
+        // 3、调用 mapper 接口获取数据
+        List<StockExternalIndexDomain> list = stockMarketIndexInfoMapper.getExternalIndexInfoTop4(marketIds, date);
+        if (CollectionUtils.isEmpty(list)) {
+            list = new ArrayList<>();
+        }
+        // 4、返回
+        return R.ok(list);
     }
 }
 

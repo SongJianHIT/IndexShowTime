@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * @author by itheima
@@ -45,5 +46,8 @@ public class StockBlockDomain {
      *交易金额
      */
     private BigDecimal tradeVol;
-    private String updownRate;
+    /**
+     * 涨幅
+     */
+    private BigDecimal updownRate;
 }

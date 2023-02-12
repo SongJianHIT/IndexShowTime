@@ -166,4 +166,26 @@
         GROUP BY smi.cur_time
         ORDER BY smi.cur_time ASC
     </select>
+    <select id="getExternalIndexInfoTop4"
+            resultType="tech.songjian.stock.common.domain.StockExternalIndexDomain">
+        SELECT
+            smii.cur_point AS curPoint,
+            DATE_FORMAT(smii.cur_time,'%Y%m%d') AS curTime,
+            smii.mark_name AS name,
+            smii.current_price AS tradePrice,
+            smii.updown_rate AS updownRate
+        FROM
+            stock_market_index_info AS smii
+        WHERE
+            smii.mark_Id IN
+            <foreach collection="marketIds" item="marketId" open="(" separator="," close=")">
+                #{marketId}
+            </foreach>
+        AND
+            DATE_FORMAT(#{timePoint},'%Y%m%d') = DATE_FORMAT(smii.cur_time,'%Y%m%d')
+        ORDER BY
+            smii.cur_time DESC,
+            smii.cur_point DESC
+            LIMIT 4
+    </select>
 </mapper>

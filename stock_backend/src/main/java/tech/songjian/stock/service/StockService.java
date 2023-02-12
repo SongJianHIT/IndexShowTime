@@ -1,10 +1,7 @@
 package tech.songjian.stock.service;
 
 import com.sun.deploy.net.HttpResponse;
-import tech.songjian.stock.common.domain.InnerMarketDomain;
-import tech.songjian.stock.common.domain.Stock4EvrDayDomain;
-import tech.songjian.stock.common.domain.Stock4MinuteDomain;
-import tech.songjian.stock.common.domain.StockUpdownDomain;
+import tech.songjian.stock.common.domain.*;
 import tech.songjian.stock.pojo.StockBlockRtInfo;
 import tech.songjian.stock.pojo.StockBusiness;
 import tech.songjian.stock.vo.resp.PageResult;
@@ -40,7 +37,7 @@ public interface StockService {
      * 沪深两市板块分时行情数据查询，以交易时间和交易总金额降序查询，取前10条数据
      * @return
      */
-    R<List<StockBlockRtInfo>> sectorAllLimit();
+    R<List<StockBlockDomain>> sectorAllLimit();
 
     /**
      * 统计沪深两个城市的最新交易数据
@@ -99,4 +96,10 @@ public interface StockService {
      * @return
      */
     R<List<Stock4EvrDayDomain>> stockScreenDKLine(String code);
+
+    /**
+     * 外盘指数行情数据查询，根据时间和大盘点数降序排序取前4
+     * @return
+     */
+    R<List<StockExternalIndexDomain>> getExternalIndexInfo();
 }
