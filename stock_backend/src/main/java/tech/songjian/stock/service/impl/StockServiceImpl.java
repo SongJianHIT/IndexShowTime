@@ -5,6 +5,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.google.gson.Gson;
 import com.sun.deploy.net.HttpResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.springframework.beans.BeanUtils;
@@ -38,6 +39,7 @@ import java.util.stream.Collectors;
  * @Description
  */
 @Service("stockService")
+@Slf4j
 public class StockServiceImpl implements StockService {
 
     @Autowired
@@ -439,6 +441,20 @@ public class StockServiceImpl implements StockService {
         date = DateTime.parse("2021-12-30 09:32:00", DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss")).toDate();
         // 调用mapper接口获取数据
         StockDetailSecDomain details = stockRtInfoMapper.getStockDetailsByCode(code, date);
+        if (details == null) {
+            return R.error(ResponseCode.NO_RESPONSE_DATA.getMessage());
+        }
+        return R.ok(details);
+    }
+
+    /**
+     * 个股交易流水行情数据查询--查询最新交易流水，按照交易时间降序取前10
+     * @return
+     */
+    @Override
+    public R<List<StockTradeSecDomain>> getStockTradeSec(String code) {
+        List<StockTradeSecDomain> details = stockRtInfoMapper.getStockTradeSec(code);
+        // log.info(details.toString());
         if (details == null) {
             return R.error(ResponseCode.NO_RESPONSE_DATA.getMessage());
         }

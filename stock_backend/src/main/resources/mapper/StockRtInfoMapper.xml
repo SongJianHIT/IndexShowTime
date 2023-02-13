@@ -336,4 +336,19 @@
           AND
             sri.cur_time = #{date}
     </select>
+    <select id="getStockTradeSec" resultType="tech.songjian.stock.common.domain.StockTradeSecDomain">
+        SELECT
+            sri.trade_amount AS tradeAmt,
+            sri.trade_volume AS tradeVol,
+            sri.cur_price AS tradePrice,
+            DATE_FORMAT(sri.cur_time,'%Y%m%d%H%i') AS date
+        FROM
+            stock_rt_info AS sri
+        WHERE
+            sri.stock_code = #{code}
+        ORDER BY
+            date DESC
+        LIMIT
+            10
+    </select>
 </mapper>

@@ -185,4 +185,13 @@ public class StockController {
     public R<StockDetailSecDomain> getStockDetailsByCode(String code) {
         return stockService.getStockDetailsByCode(code);
     }
+
+    /**
+     * 个股交易流水行情数据查询--查询最新交易流水，按照交易时间降序取前10
+     * @return
+     */
+    @GetMapping("/stock/screen/second")
+    public R<List<StockTradeSecDomain>> getStockTradeSec(String code) {
+        return stockService.getStockTradeSec(code);
+    }
 }
