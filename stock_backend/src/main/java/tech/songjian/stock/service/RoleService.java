@@ -6,6 +6,7 @@
 package tech.songjian.stock.service;
 
 import tech.songjian.stock.common.domain.OwnRoleAndAllRoleIdsDomain;
+import tech.songjian.stock.vo.req.UpdateRoleInfoReq;
 import tech.songjian.stock.vo.resp.R;
 
 /**
@@ -23,4 +24,11 @@ public interface RoleService {
      * @return
      */
     R<OwnRoleAndAllRoleIdsDomain> getUsersRoles(String userId);
+
+    /**
+     * 更新用户角色信息
+     * @param req
+     * @return
+     */
+    R<String> updateRoleInfo(UpdateRoleInfoReq req);
 }

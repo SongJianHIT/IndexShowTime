@@ -6,12 +6,10 @@
 package tech.songjian.stock.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import tech.songjian.stock.common.domain.OwnRoleAndAllRoleIdsDomain;
 import tech.songjian.stock.service.RoleService;
+import tech.songjian.stock.vo.req.UpdateRoleInfoReq;
 import tech.songjian.stock.vo.resp.R;
 
 import java.util.Map;
@@ -38,6 +36,16 @@ public class RoleController {
     @GetMapping("/roles/{userId}")
     public R<OwnRoleAndAllRoleIdsDomain> getUsersRoles(@PathVariable String userId) {
         return roleService.getUsersRoles(userId);
+    }
+
+    /**
+     * 更新用户角色信息
+     * @param req
+     * @return
+     */
+    @PutMapping("/roles")
+    public R<String> updateRoleInfo(@RequestBody UpdateRoleInfoReq req) {
+        return roleService.updateRoleInfo(req);
     }
 }
 

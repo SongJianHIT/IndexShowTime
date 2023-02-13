@@ -4,17 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bb70c982-b7b2-4fde-88ec-edcbdeff92e7" name="Changes" comment="新增用户功能开发">
-      <change afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/common/domain/OwnRoleAndAllRoleIdsDomain.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/controller/RoleController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/service/RoleService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/service/impl/RoleServiceImpl.java" afterDir="false" />
+    <list default="true" id="bb70c982-b7b2-4fde-88ec-edcbdeff92e7" name="Changes" comment="获取用户具有的角色信息">
+      <change afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/vo/req/UpdateRoleInfoReq.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/controller/StockController.java" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/controller/StockController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/mapper/SysRoleMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/mapper/SysRoleMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/mapper/SysUserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/mapper/SysUserMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/controller/RoleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/controller/RoleController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/mapper/SysUserRoleMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/mapper/SysUserRoleMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stock_backend/src/main/resources/mapper/SysRoleMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/resources/mapper/SysRoleMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/service/RoleService.java" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/service/RoleService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/service/impl/RoleServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/service/impl/RoleServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/stock_backend/src/main/resources/mapper/SysUserRoleMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/resources/mapper/SysUserRoleMapper.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -231,7 +227,8 @@
       <workItem from="1676248155513" duration="599000" />
       <workItem from="1676253644904" duration="5481000" />
       <workItem from="1676267374399" duration="14976000" />
-      <workItem from="1676287200290" duration="3817000" />
+      <workItem from="1676287200290" duration="4994000" />
+      <workItem from="1676293495713" duration="1323000" />
     </task>
     <task id="LOCAL-00001" summary="验证码登入功能实现">
       <created>1675761947991</created>
@@ -436,7 +433,14 @@
       <option name="project" value="LOCAL" />
       <updated>1676289024862</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="获取用户具有的角色信息">
+      <created>1676291047604</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1676291047604</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -454,7 +458,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="A股大盘数据查询" />
     <MESSAGE value="板块指数查询功能开发" />
     <MESSAGE value="涨幅榜前十功能开发" />
     <MESSAGE value="涨幅榜更多功能开发" />
@@ -479,6 +482,7 @@
     <MESSAGE value="带权限数据的用户登入功能开发" />
     <MESSAGE value="多条件分页查询用户信息" />
     <MESSAGE value="新增用户功能开发" />
-    <option name="LAST_COMMIT_MESSAGE" value="新增用户功能开发" />
+    <MESSAGE value="获取用户具有的角色信息" />
+    <option name="LAST_COMMIT_MESSAGE" value="获取用户具有的角色信息" />
   </component>
 </project>
