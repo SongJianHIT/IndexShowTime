@@ -3,6 +3,9 @@ package tech.songjian.stock.mapper;
 import tech.songjian.stock.pojo.SysUser;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import tech.songjian.stock.vo.req.ConditionalQueryUserReq;
+
+import java.util.List;
 
 /**
  * @Entity tech.songjian.stock.pojo.SysUser
@@ -37,6 +40,12 @@ public interface SysUserMapper {
     SysUser getUserPermissionInfo(String username);
 
 
+    /**
+     * 多条件综合查询用户分页信息，条件包含：分页信息 用户创建日期范围
+     * @param req
+     * @return
+     */
+    List<SysUser> conditionQueryUser(@Param("req") ConditionalQueryUserReq req);
 }
 
 

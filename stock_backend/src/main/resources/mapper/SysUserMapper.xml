@@ -79,6 +79,30 @@
                  inner join sys_permission p on rp.permission_id = p.id
         where u.username = #{username};
     </select>
+    <select id="conditionQueryUser" resultType="tech.songjian.stock.pojo.SysUser">
+        SELECT
+        u1.*,
+        u2.username AS createUserName,
+        u3.username AS updateUserName
+        FROM
+        sys_user u1
+        LEFT JOIN sys_user u2 on u1.create_id = u2.id
+        LEFT JOIN sys_user u3 on u1.update_id = u3.id
+        <where>
+            <if test="req.username!=null and req.username!=''">
+                u1.username = #{req.username}
+            </if>
+            <if test="req.nickName!=null and req.nickName!=''">
+                and u1.nick_name = #{req.nickName}
+            </if>
+            <if test="req.startTime!=null and req.startTime.trim()!=''">
+                and u1.create_time &gt;=#{req.startTime}
+            </if>
+            <if test="req.endTime!=null and req.endTime.trim()!=''">
+                and u1.create_time &lt;=#{req.endTime}
+            </if>
+        </where>
+    </select>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
         delete from sys_user

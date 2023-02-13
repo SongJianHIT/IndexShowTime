@@ -1,5 +1,7 @@
 package tech.songjian.stock.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.google.common.base.Strings;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.BeanUtils;
@@ -13,11 +15,9 @@ import tech.songjian.stock.pojo.SysPermission;
 import tech.songjian.stock.pojo.SysUser;
 import tech.songjian.stock.service.UserService;
 import tech.songjian.stock.utils.IdWorker;
+import tech.songjian.stock.vo.req.ConditionalQueryUserReq;
 import tech.songjian.stock.vo.req.LoginReqVo;
-import tech.songjian.stock.vo.resp.LoginRespVo;
-import tech.songjian.stock.vo.resp.NewLoginReqVo;
-import tech.songjian.stock.vo.resp.R;
-import tech.songjian.stock.vo.resp.ResponseCode;
+import tech.songjian.stock.vo.resp.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -188,5 +188,39 @@ public class UserServiceImpl implements UserService {
         map.put("rkey", sessionId);
         // 4、返回数据
         return R.ok(map);
+    }
+
+    /**
+     * 多条件查询用户信息
+     * @param req
+     * @return
+     */
+    @Override
+    public R<ConditionQueryUserResp> conditionQueryUser(ConditionalQueryUserReq req) {
+
+        // 调用mapper接口
+        int page = (Integer.parseInt(req.getPageNum()));
+        int pageSize = Integer.parseInt(req.getPageSize());
+        PageHelper.startPage(page, pageSize);
+
+        List<SysUser> users = sysUserMapper.conditionQueryUser(req);
+        ConditionQueryUserResp resp = new ConditionQueryUserResp();
+
+        // 分页信息处理
+        PageInfo<SysUser> pageInfo = new PageInfo<>(users);
+
+        // 总条数
+        resp.setTotalRows(pageInfo.getTotal());
+        // 总页数
+        resp.setTotalPages(pageInfo.getPages());
+        // 当前页号
+        resp.setPageNum(page);
+        // 当前页大小
+        resp.setPageSize(pageSize);
+        // 当前页条数
+        resp.setSize(users.size());
+        // 信息
+        resp.setRows(users);
+        return R.ok(resp);
     }
 }

@@ -1,9 +1,12 @@
 package tech.songjian.stock.controller;
 
+import com.github.pagehelper.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import tech.songjian.stock.service.UserService;
+import tech.songjian.stock.vo.req.ConditionalQueryUserReq;
 import tech.songjian.stock.vo.req.LoginReqVo;
+import tech.songjian.stock.vo.resp.ConditionQueryUserResp;
 import tech.songjian.stock.vo.resp.NewLoginReqVo;
 import tech.songjian.stock.vo.resp.R;
 
@@ -43,5 +46,13 @@ public class UserController {
         return userService.genCapchaCode();
     }
 
-
+    /**
+     * 多条件查询用户信息
+     * @param req
+     * @return
+     */
+    @PostMapping("/users")
+    public R<ConditionQueryUserResp> conditionQueryUser(@RequestBody ConditionalQueryUserReq req) {
+        return userService.conditionQueryUser(req);
+    }
 }

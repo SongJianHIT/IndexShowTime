@@ -1,6 +1,8 @@
 package tech.songjian.stock.service;
 
+import tech.songjian.stock.vo.req.ConditionalQueryUserReq;
 import tech.songjian.stock.vo.req.LoginReqVo;
+import tech.songjian.stock.vo.resp.ConditionQueryUserResp;
 import tech.songjian.stock.vo.resp.LoginRespVo;
 import tech.songjian.stock.vo.resp.NewLoginReqVo;
 import tech.songjian.stock.vo.resp.R;
@@ -25,4 +27,11 @@ public interface UserService {
      * @return
      */
     R<Map> genCapchaCode();
+
+    /**
+     * 多条件查询用户信息
+     * @param req
+     * @return
+     */
+    R<ConditionQueryUserResp> conditionQueryUser(ConditionalQueryUserReq req);
 }
