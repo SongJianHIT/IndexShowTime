@@ -165,4 +165,14 @@ public class StockController {
     public R<StockBusinessDomain> getStockBusinessByCode(String code) {
         return stockService.getStockBusinessByCode(code);
     }
+
+    /**
+     * 个股周K线展示
+     * @param code
+     * @return
+     */
+    @GetMapping("/stock/screen/weekkline")
+    public R<List<WeeklineDomain>> getRtStockWeekline(String code){
+        return stockService.getRtStockWeekline(code);
+    }
 }

@@ -292,4 +292,31 @@
         WHERE
             sri2.code LIKE #{str}
     </select>
+    <select id="getRtStockWeekline" resultType="tech.songjian.stock.common.domain.WeeklineDomain">
+        SELECT
+            tmp.avgPrice as avgPrice,
+            tmp.minPrice as minPrice,
+            sri1.open_price as openPrice,
+            tmp.maxPrice as maxPrice,
+            sri2.cur_price as closePrice,
+            DATE_FORMAT(tmp.maxDate,'%Y%m%d') as mxTime,
+            tmp.code as stock_code
+        from stock_rt_info sri1
+        inner join stock_rt_info sri2
+        inner join (select
+                        min(sri.cur_time) as minDate,
+                        max( sri.cur_time ) as maxDate,
+                        max(cur_price) as maxPrice,
+                        avg(cur_price) as avgPrice,
+                        min(cur_price) as minPrice,
+                        stock_code as code
+                    from
+                        stock_rt_info as sri
+                    where
+                        sri.stock_code =#{code}
+                    group by
+                        date_format( sri.cur_time, '%y%U')
+        ) tmp
+        on sri1.stock_code = tmp.code and sri1.cur_time =tmp.minDate and sri2.stock_code =tmp.code and sri2.cur_time = tmp.maxDate;
+    </select>
 </mapper>

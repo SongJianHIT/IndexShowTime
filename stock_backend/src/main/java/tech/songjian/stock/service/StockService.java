@@ -116,4 +116,11 @@ public interface StockService {
      * @return
      */
     R<StockBusinessDomain> getStockBusinessByCode(String code);
+
+    /**
+     * 个股周K线展示
+     * @param code
+     * @return
+     */
+    R<List<WeeklineDomain>> getRtStockWeekline(String code);
 }

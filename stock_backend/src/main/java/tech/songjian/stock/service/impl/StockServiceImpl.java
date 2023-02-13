@@ -408,5 +408,21 @@ public class StockServiceImpl implements StockService {
         }
         return R.ok(stockBusinesses);
     }
+
+    /**
+     * 个股周K线展示
+     * @param code
+     * @return
+     */
+    @Override
+    public R<List<WeeklineDomain>> getRtStockWeekline(String code) {
+        // 1 调用mapper层方法
+        List<WeeklineDomain> result = stockRtInfoMapper.getRtStockWeekline(code);
+        // 2 判断并返回结果
+        if(CollectionUtils.isEmpty(result)){
+            return R.error(ResponseCode.NO_RESPONSE_DATA.getMessage());
+        }
+        return R.ok(result);
+    }
 }
 

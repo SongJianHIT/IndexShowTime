@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Param;
 import tech.songjian.stock.common.domain.Stock4EvrDayDomain;
 import tech.songjian.stock.common.domain.Stock4MinuteDomain;
 import tech.songjian.stock.common.domain.StockUpdownDomain;
+import tech.songjian.stock.common.domain.WeeklineDomain;
 import tech.songjian.stock.pojo.StockRtInfo;
 
 import java.util.Date;
@@ -92,4 +93,11 @@ public interface StockRtInfoMapper {
      * @return
      */
     List<Map> burSearchByCode(@Param("str") String str, @Param("date") Date date);
+
+    /**
+     * 按照周分组查询
+     * @param code
+     * @return
+     */
+    List<WeeklineDomain> getRtStockWeekline(String code);
 }
