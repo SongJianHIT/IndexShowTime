@@ -26,6 +26,18 @@
         from sys_role
         where  id = #{id,jdbcType=VARCHAR}
     </select>
+    <select id="getAllRoles" resultType="tech.songjian.stock.pojo.SysRole">
+        SELECT
+            sr.id AS id,
+            sr.name AS name,
+            sr.description AS description,
+            sr.status AS status,
+            sr.create_time AS createTime,
+            sr.update_time AS updateTime,
+            sr.deleted AS deleted
+        FROM
+            sys_role AS sr;
+    </select>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
         delete from sys_role

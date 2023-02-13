@@ -49,7 +49,7 @@ public interface SysUserMapper {
 
     /**
      * 添加用户
-     * @param adduser
+     * @param user
      * @return
      */
     int insertUser(@Param("user") SysUser user);
