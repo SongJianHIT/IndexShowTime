@@ -50,7 +50,6 @@ public class TestInteger {
         int core = Runtime.getRuntime().availableProcessors();
         System.out.println(core);
 
-        CopyOnWriteArrayList
     }
 
 }

@@ -227,5 +227,80 @@ public class StockTimerTaskServiceImpl implements StockTimerTaskService {
             log.info("插入板块数据 {} 条", insert);
         }
     }
+
+    /**
+     * 采集国外大盘数据信息
+     *
+     */
+    @Override
+    public void collectOuterMarketInfo() {
+        // 1、定义采集的url接口，生成完整的url地址
+        String marketUrl = stockInfoConfig.getMarketUrl() + String.join(",", stockInfoConfig.getOuter());
+        // 2、调用 restTemplate 采集数据
+        // 2.1、组装请求头
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Referer", "https://finance.sina.com.cn/stock/");
+        headers.add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.121 Safari/537.36");
+        // 2.2、组装请求对象
+        HttpEntity<Object> entity = new HttpEntity<>(headers);
+        // 2.3、发起请求
+        String result = restTemplate.postForObject(marketUrl, entity, String.class);
+        log.info(result);
+
+        // 3、正则匹配
+        String reg="var hq_str_(.+)=\"(.+)\";";
+        // 3.2、正则匹配
+        Pattern pattern = Pattern.compile(reg);
+        Matcher matcher = pattern.matcher(result);
+        // 3.3、收集大盘封装后后的对象
+        List<StockMarketIndexInfo> list = new ArrayList<>();
+        while (matcher.find()) {
+            // 获取大盘的id
+            String marketCode = matcher.group(1);
+            // 其它信息
+            String other = matcher.group(2);
+            String[] others = other.split(",");
+            // 大盘名称
+            String marketName = others[0];
+            // 当前点
+            BigDecimal curPoint = new BigDecimal(others[1]);
+            // 当前价格
+            BigDecimal curPrice = new BigDecimal(others[2]);
+            // 涨跌率
+            BigDecimal upDownRate = new BigDecimal(others[3]);
+            // 成交量
+            Long tradeAmount = null;
+            // 成交金额
+            Long tradeVol = null;
+            // 当前日期
+            Date now = DateTimeUtil.getDateTimeWithoutSecond(DateTime.now()).toDate();
+
+            //封装对象
+            StockMarketIndexInfo stockMarketIndexInfo = StockMarketIndexInfo.builder()
+                    .id(idWorker.nextId()+"")
+                    .markName(marketName)
+                    .tradeVolume(tradeVol)
+                    .tradeAccount(tradeAmount)
+                    .updownRate(upDownRate)
+                    .curTime(now)
+                    .curPoint(curPoint)
+                    .currentPrice(curPrice)
+                    .markId(marketCode)
+                    .build();
+
+            // 添加集合
+            list.add(stockMarketIndexInfo);
+        }
+        log.info("集合长度：{}，内容：{}", list.size(), list);
+        if (CollectionUtils.isEmpty(list)) {
+            log.info("");
+            return;
+        }
+        String curTime = DateTime.now().toString(DateTimeFormat.forPattern("yyyyMMddHHmmss"));
+        log.info("采集的大盘数据：{},当前时间：{}",list,curTime);
+
+        int count = stockMarketIndexInfoMapper.insertBatch(list);
+        log.info("批量插入 {} 条大盘数据", count);
+    }
 }
 

@@ -37,5 +37,10 @@ public class TestRest {
     public void TestBlock() {
         stockTimerTaskService.getStockSectorRtIndex();
     }
+
+    @Test
+    public void TestOuter() {
+        stockTimerTaskService.collectOuterMarketInfo();
+    }
 }
 
