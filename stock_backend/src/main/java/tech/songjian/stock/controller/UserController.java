@@ -7,10 +7,9 @@ import tech.songjian.stock.pojo.SysUser;
 import tech.songjian.stock.service.UserService;
 import tech.songjian.stock.vo.req.ConditionalQueryUserReq;
 import tech.songjian.stock.vo.req.LoginReqVo;
-import tech.songjian.stock.vo.resp.ConditionQueryUserResp;
-import tech.songjian.stock.vo.resp.NewLoginReqVo;
-import tech.songjian.stock.vo.resp.R;
+import tech.songjian.stock.vo.resp.*;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -66,4 +65,33 @@ public class UserController {
     public R addUsers(@RequestBody SysUser adduser){
         return userService.addUsers(adduser);
     }
+
+    /**
+     * 批量删除用户信息，delete请求可通过请求体携带数据
+     * @param userIds
+     * @return
+     */
+    @DeleteMapping("/user")
+    public R<String> deleteByUserId(@RequestBody List<Long> userIds) {
+        return userService.deleteByUserId(userIds);
+    }
+
+    /**
+     * 根据用户id查询用户信息
+     * @param userId
+     * @return
+     */
+    @GetMapping("/user/info/{userId}")
+    public R<GetUserInfoVo> getUserInfoById(@PathVariable Long userId) {
+        return userService.getUserInfoById(userId);
+    }
+
+    @PutMapping("/user")
+    public R<String> updateUserInfo(@RequestBody GetUserInfoVo getUserInfoVo) {
+        return userService.updateUserInfo(getUserInfoVo);
+    }
+
+
+
+
 }

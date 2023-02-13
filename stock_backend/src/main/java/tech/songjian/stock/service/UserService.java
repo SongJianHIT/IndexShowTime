@@ -3,11 +3,9 @@ package tech.songjian.stock.service;
 import tech.songjian.stock.pojo.SysUser;
 import tech.songjian.stock.vo.req.ConditionalQueryUserReq;
 import tech.songjian.stock.vo.req.LoginReqVo;
-import tech.songjian.stock.vo.resp.ConditionQueryUserResp;
-import tech.songjian.stock.vo.resp.LoginRespVo;
-import tech.songjian.stock.vo.resp.NewLoginReqVo;
-import tech.songjian.stock.vo.resp.R;
+import tech.songjian.stock.vo.resp.*;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -42,4 +40,19 @@ public interface UserService {
      * @return
      */
     R addUsers(SysUser adduser);
+
+
+    /**
+     * 批量删除用户信息，delete请求可通过请求体携带数据
+     * @param userIds
+     * @return
+     */
+    R<String> deleteByUserId(List<Long> userIds);
+
+    /**
+     * 根据用户id查询用户信息
+     * @param userId
+     * @return
+     */
+    R<GetUserInfoVo> getUserInfoById(Long userId);
 }

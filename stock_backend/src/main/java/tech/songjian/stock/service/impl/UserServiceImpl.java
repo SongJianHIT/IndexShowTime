@@ -3,6 +3,7 @@ package tech.songjian.stock.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.google.common.base.Strings;
+import groovy.util.logging.Slf4j;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.joda.time.DateTime;
 import org.springframework.beans.BeanUtils;
@@ -33,6 +34,7 @@ import java.util.stream.Collectors;
  * @Description 用户服务实现
  */
 @Service("userService")
+@Slf4j
 public class UserServiceImpl implements UserService {
 
     @Autowired
@@ -244,5 +246,33 @@ public class UserServiceImpl implements UserService {
             return R.error(ResponseCode.ERROR.getMessage());
         }
         return R.ok(ResponseCode.SUCCESS.getMessage());
+    }
+
+    /**
+     * 批量删除用户信息，delete请求可通过请求体携带数据
+     * @param userIds
+     * @return
+     */
+    @Override
+    public R<String> deleteByUserId(List<Long> userIds) {
+        for (Long id : userIds) {
+            int res = sysUserMapper.deleteByUserId(id);
+            if (res == 0) {
+                return R.error(ResponseCode.ERROR.getMessage());
+            }
+        }
+        return R.ok(ResponseCode.SUCCESS.getMessage());
+    }
+
+    /**
+     * 根据用户id查询用户信息
+     * @param userId
+     * @return
+     */
+    @Override
+    public R<GetUserInfoVo> getUserInfoById(Long userId) {
+        GetUserInfoVo info = sysUserMapper.getUserInfoById(userId);
+        System.out.println(info.toString());
+        return R.ok(info);
     }
 }

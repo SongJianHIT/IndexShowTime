@@ -103,10 +103,27 @@
             </if>
         </where>
     </select>
+    <select id="getUserInfoById" resultType="tech.songjian.stock.vo.resp.GetUserInfoVo">
+        select
+            su.id as id,
+            su.username as username,
+            su.phone as phone,
+            su.nick_name as nickName,
+            su.real_name as realName,
+            su.sex as sex,
+            su.status as status,
+            su.email as email
+        from sys_user as su
+        where su.id = #{userId}
+    </select>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
         delete from sys_user
         where  id = #{id,jdbcType=VARCHAR}
+    </delete>
+    <delete id="deleteByUserId">
+        delete from sys_user
+        where  id = #{id}
     </delete>
     <insert id="insert" keyColumn="id" keyProperty="id" parameterType="tech.songjian.stock.pojo.SysUser" useGeneratedKeys="true">
         insert into sys_user

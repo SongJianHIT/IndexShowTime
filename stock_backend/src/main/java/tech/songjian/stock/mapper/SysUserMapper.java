@@ -4,6 +4,7 @@ import tech.songjian.stock.pojo.SysUser;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import tech.songjian.stock.vo.req.ConditionalQueryUserReq;
+import tech.songjian.stock.vo.resp.GetUserInfoVo;
 
 import java.util.List;
 
@@ -53,6 +54,19 @@ public interface SysUserMapper {
      * @return
      */
     int insertUser(@Param("user") SysUser user);
+
+    /**
+     * 根据用户id删除
+     * @param id
+     */
+    int deleteByUserId(@Param("id") Long id);
+
+    /**
+     * 根据用户id查询用户信息
+     * @param userId
+     * @return
+     */
+    GetUserInfoVo getUserInfoById(@Param("userId") Long userId);
 }
 
 
