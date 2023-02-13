@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.google.common.base.Strings;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.joda.time.DateTime;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -45,6 +46,7 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private RedisTemplate redisTemplate;
+
 
     /**
      * 用户登录功能实现
@@ -208,7 +210,6 @@ public class UserServiceImpl implements UserService {
 
         // 分页信息处理
         PageInfo<SysUser> pageInfo = new PageInfo<>(users);
-
         // 总条数
         resp.setTotalRows(pageInfo.getTotal());
         // 总页数
@@ -222,5 +223,26 @@ public class UserServiceImpl implements UserService {
         // 信息
         resp.setRows(users);
         return R.ok(resp);
+    }
+
+    /**
+     * 添加用户信息
+     * @param adduser
+     * @return
+     */
+    @Override
+    public R addUsers(SysUser adduser) {
+        // 调用mapper层方法
+        // 全局主键设置
+        adduser.setId(new IdWorker().nextId() + "");
+        // 密码加密
+        adduser.setPassword(passwordEncoder.encode(adduser.getPassword()));
+        // 设置创建时间
+        adduser.setCreateTime(DateTime.now().toDate());
+        int insert = sysUserMapper.insertUser(adduser);
+        if (insert == 0) {
+            return R.error(ResponseCode.ERROR.getMessage());
+        }
+        return R.ok(ResponseCode.SUCCESS.getMessage());
     }
 }

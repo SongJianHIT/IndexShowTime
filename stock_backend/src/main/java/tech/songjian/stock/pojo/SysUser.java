@@ -92,5 +92,9 @@ public class SysUser implements Serializable {
      */
     private List<SysPermission> permissions;
 
+    private String createUserName;
+
+    private String updateUserName;
+
     private static final long serialVersionUID = 1L;
 }

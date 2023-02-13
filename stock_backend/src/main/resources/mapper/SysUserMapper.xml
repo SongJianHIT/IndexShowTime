@@ -160,6 +160,21 @@
                 <if test="updateTime != null">update_time = #{updateTime,jdbcType=TIMESTAMP},</if>
         </trim>
     </insert>
+    <insert id="insertUser">
+        insert into sys_user
+        ( id,username,password
+        ,phone,real_name,nick_name
+        ,email,status,sex
+        ,deleted,create_id,update_id
+        ,create_where,create_time,update_time
+        )
+        values (#{user.id,jdbcType=VARCHAR},#{user.username,jdbcType=VARCHAR},#{user.password,jdbcType=VARCHAR}
+               ,#{user.phone,jdbcType=VARCHAR},#{user.realName,jdbcType=VARCHAR},#{user.nickName,jdbcType=VARCHAR}
+               ,#{user.email,jdbcType=VARCHAR},#{user.status,jdbcType=TINYINT},#{user.sex,jdbcType=TINYINT}
+               ,#{user.deleted,jdbcType=TINYINT},#{user.createId,jdbcType=VARCHAR},#{user.updateId,jdbcType=VARCHAR}
+               ,#{user.createWhere,jdbcType=TINYINT},#{user.createTime,jdbcType=TIMESTAMP},#{user.updateTime,jdbcType=TIMESTAMP}
+               )
+    </insert>
     <update id="updateByPrimaryKeySelective" parameterType="tech.songjian.stock.pojo.SysUser">
         update sys_user
         <set>

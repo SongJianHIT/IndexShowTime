@@ -1,5 +1,6 @@
 package tech.songjian.stock.service;
 
+import tech.songjian.stock.pojo.SysUser;
 import tech.songjian.stock.vo.req.ConditionalQueryUserReq;
 import tech.songjian.stock.vo.req.LoginReqVo;
 import tech.songjian.stock.vo.resp.ConditionQueryUserResp;
@@ -34,4 +35,11 @@ public interface UserService {
      * @return
      */
     R<ConditionQueryUserResp> conditionQueryUser(ConditionalQueryUserReq req);
+
+    /**
+     * 添加用户信息
+     * @param adduser
+     * @return
+     */
+    R addUsers(SysUser adduser);
 }

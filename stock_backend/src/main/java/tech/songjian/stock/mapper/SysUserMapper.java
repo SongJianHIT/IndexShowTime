@@ -46,6 +46,13 @@ public interface SysUserMapper {
      * @return
      */
     List<SysUser> conditionQueryUser(@Param("req") ConditionalQueryUserReq req);
+
+    /**
+     * 添加用户
+     * @param adduser
+     * @return
+     */
+    int insertUser(@Param("user") SysUser user);
 }
 
 

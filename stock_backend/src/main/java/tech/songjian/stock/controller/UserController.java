@@ -3,6 +3,7 @@ package tech.songjian.stock.controller;
 import com.github.pagehelper.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import tech.songjian.stock.pojo.SysUser;
 import tech.songjian.stock.service.UserService;
 import tech.songjian.stock.vo.req.ConditionalQueryUserReq;
 import tech.songjian.stock.vo.req.LoginReqVo;
@@ -54,5 +55,15 @@ public class UserController {
     @PostMapping("/users")
     public R<ConditionQueryUserResp> conditionQueryUser(@RequestBody ConditionalQueryUserReq req) {
         return userService.conditionQueryUser(req);
+    }
+
+    /**
+     * 添加用户信息
+     * @param adduser
+     * @return
+     */
+    @PostMapping("/user")
+    public R addUsers(@RequestBody SysUser adduser){
+        return userService.addUsers(adduser);
     }
 }
