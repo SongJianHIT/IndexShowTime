@@ -169,23 +169,18 @@
     <select id="getExternalIndexInfoTop4"
             resultType="tech.songjian.stock.common.domain.StockExternalIndexDomain">
         SELECT
-            smii.cur_point AS curPoint,
-            DATE_FORMAT(smii.cur_time,'%Y%m%d') AS curTime,
-            smii.mark_name AS name,
-            smii.current_price AS tradePrice,
-            smii.updown_rate AS updownRate
-        FROM
-            stock_market_index_info AS smii
-        WHERE
-            smii.mark_Id IN
+            DATE_FORMAT(smi.cur_time,'%Y%m%d') as curTime,
+            smi.cur_point as curPoint,
+            smi.mark_name as name,
+            smi.current_price as tradePrice,
+            smi.updown_rate as updownRate
+        FROM stock_market_index_info as smi
+        where smi.cur_time = #{timePoint}
+        and smi.mark_Id in
             <foreach collection="marketIds" item="marketId" open="(" separator="," close=")">
                 #{marketId}
             </foreach>
-        AND
-            DATE_FORMAT(#{timePoint},'%Y%m%d') = DATE_FORMAT(smii.cur_time,'%Y%m%d')
-        ORDER BY
-            smii.cur_time DESC,
-            smii.cur_point DESC
-            LIMIT 4
+        order by curTime desc,smi.cur_point desc
+        limit 4;
     </select>
 </mapper>

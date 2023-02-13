@@ -368,7 +368,7 @@ public class StockServiceImpl implements StockService {
         DateTime lastDate = DateTimeUtil.getLastDate4Stock(DateTime.now());
         Date date = lastDate.toDate();
         //TODO mock测试数据，后期数据通过第三方接口动态获取试试数据
-        date = DateTime.parse("2022-01-02 09:30:00", DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss")).toDate();
+        date = DateTime.parse("2021-12-28 12:00:00", DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss")).toDate();
         // 3、调用 mapper 接口获取数据
         List<StockExternalIndexDomain> list = stockMarketIndexInfoMapper.getExternalIndexInfoTop4(marketIds, date);
         if (CollectionUtils.isEmpty(list)) {
