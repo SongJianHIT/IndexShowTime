@@ -2,6 +2,8 @@ package tech.songjian.stock.pojo;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+
 import lombok.Data;
 
 /**
@@ -84,6 +86,11 @@ public class SysUser implements Serializable {
      * 更新时间
      */
     private Date updateTime;
+
+    /*
+     * 存放user对应的所有权限数据
+     */
+    private List<SysPermission> permissions;
 
     private static final long serialVersionUID = 1L;
 }

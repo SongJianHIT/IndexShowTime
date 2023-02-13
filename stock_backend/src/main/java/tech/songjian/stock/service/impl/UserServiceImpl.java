@@ -7,18 +7,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import tech.songjian.stock.common.domain.PermissionDomain;
 import tech.songjian.stock.mapper.SysUserMapper;
+import tech.songjian.stock.pojo.SysPermission;
 import tech.songjian.stock.pojo.SysUser;
 import tech.songjian.stock.service.UserService;
 import tech.songjian.stock.utils.IdWorker;
 import tech.songjian.stock.vo.req.LoginReqVo;
 import tech.songjian.stock.vo.resp.LoginRespVo;
+import tech.songjian.stock.vo.resp.NewLoginReqVo;
 import tech.songjian.stock.vo.resp.R;
 import tech.songjian.stock.vo.resp.ResponseCode;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 /**
  * @author by itheima
@@ -40,8 +46,14 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private RedisTemplate redisTemplate;
 
+    /**
+     * 用户登录功能实现
+     * 功能描述：当前用户登录后，仅仅加载了用户表相关信息，接下来完成的功能是完善用户权限相关的信息；
+     * @param vo
+     * @return
+     */
     @Override
-    public R<LoginRespVo> login(LoginReqVo vo) {
+    public R<NewLoginReqVo> login(LoginReqVo vo) {
         // 1.判断vo是否存在 或者 用户名是否存在 或者 密码是否存在 或者 验证码是否存在 或者 rkey 是否存在
         if (vo == null || Strings.isNullOrEmpty(vo.getUsername()) || Strings.isNullOrEmpty(vo.getPassword())
             || Strings.isNullOrEmpty(vo.getCode()) || Strings.isNullOrEmpty(vo.getRkey())) {
@@ -57,6 +69,43 @@ public class UserServiceImpl implements UserService {
         // 1.3 redis删除key
         redisTemplate.delete(vo.getRkey());
 
+        // 2、根据用户名查询用户权限相关信息
+        SysUser user = sysUserMapper.getUserPermissionInfo(vo.getUsername());
+
+        // 将 user 中查询到的数据封装到 newLoginResVo 中
+        NewLoginReqVo result = new NewLoginReqVo();
+        BeanUtils.copyProperties(user, result);
+
+        // 将数据中的按钮权限封装到result中
+        List<String> permissions = new ArrayList<>();
+        List<SysPermission> sysPermissions = user.getPermissions();
+        for (SysPermission p : sysPermissions) {
+            if (!Strings.isNullOrEmpty(p.getPerms())) {
+                permissions.add(p.getPerms());
+            }
+        }
+        result.setPermissions(permissions);
+
+        // 处理权限树
+        // 获取跟节点，即父节点
+        List<PermissionDomain> menus = user.getPermissions().stream().filter(s -> "0".equals(s.getPid())).map(item -> {
+            PermissionDomain permissionDomain = new PermissionDomain();
+            permissionDomain.setId(item.getId());
+            permissionDomain.setName(item.getName());
+            permissionDomain.setIcon(item.getIcon());
+            permissionDomain.setTitle(item.getTitle());
+            permissionDomain.setPath(item.getUrl());
+            // 获取 SysPermission 类型的子权限树 传入的参数是 根节点的 id 和 采集到的 syspermission 类型数据
+            List<SysPermission> childMenus = getChildMenus(item.getId(), user.getPermissions());
+            item.setChildren(childMenus);
+            // 拷贝子权限树 类型转换 将 syspermission 类型的权限树 转换为 前端需要的 permissionDomain
+            permissionDomain.setChildren(new ArrayList<>());
+            permissionDomain.setChildren(copyChildren(item.getChildren(), permissionDomain.getChildren()));
+            return permissionDomain;
+        }).collect(Collectors.toList());
+        result.setMenus(menus);
+        return R.ok(result);
+/*
         // 2.根据用户名用户是否存在
         SysUser userInfo= sysUserMapper.findUserInfoByUserName(vo.getUsername());
         if (userInfo==null) {
@@ -71,9 +120,58 @@ public class UserServiceImpl implements UserService {
         // 4.属性赋值 两个类之间属性名称一致
         LoginRespVo respVo = new LoginRespVo();
         BeanUtils.copyProperties(userInfo,respVo);
-
-        return R.ok(respVo);
+*/
     }
+
+    /**
+     * 拷贝子权限树进行类型转换
+     * @param source SysPermission
+     * @param object PermissionDomain
+     * @return
+     */
+    private List<PermissionDomain> copyChildren(List<SysPermission> source, List<PermissionDomain> object) {
+        if (source != null && source.size() != 0) {
+            for (SysPermission s : source) {
+                PermissionDomain p = new PermissionDomain();
+                p.setChildren(new ArrayList<PermissionDomain>());
+                // 类型转换
+                p.setId(s.getId());
+                p.setTitle(s.getTitle());
+                p.setIcon(s.getIcon());
+                p.setPath(s.getUrl());
+                p.setName(s.getName());
+                object.add(p);
+                // 判断子权限是否还有子权限，有的话，需要递归拷贝
+                if (s.getChildren().size() != 0) {
+                    copyChildren(s.getChildren(), p.getChildren());
+                }
+            }
+        }
+        return object;
+    }
+
+    /**
+     * 递归获取子权限
+     * @param id 父权限id
+     * @param permissions 权限集合
+     * @return
+     */
+    private List<SysPermission> getChildMenus(String id, List<SysPermission> permissions) {
+        // 创建容器，存放权限
+        List<SysPermission> children = new ArrayList<>();
+        // 根据传过来的父权限id查询所有子权限
+        permissions.forEach(s -> {
+            if (id.equals(s.getPid())) {
+                children.add(s);
+            }
+        });
+        // 对每个子孩子进行递归
+        children.forEach(s -> {
+            s.setChildren(getChildMenus(s.getId(), permissions));
+        });
+        return children;
+    }
+
 
     @Override
     public R<Map> genCapchaCode() {

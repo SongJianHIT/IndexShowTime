@@ -4,12 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bb70c982-b7b2-4fde-88ec-edcbdeff92e7" name="Changes" comment="个股实时交易数据查询功能开发">
+    <list default="true" id="bb70c982-b7b2-4fde-88ec-edcbdeff92e7" name="Changes" comment="外盘数据采集功能开发">
+      <change afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/common/domain/PermissionDomain.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/vo/resp/NewLoginReqVo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/service/StockTimerTaskService.java" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/service/StockTimerTaskService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/service/impl/StockTimerTaskServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/service/impl/StockTimerTaskServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stock_backend/src/test/java/tech/songjian/stock/TestInteger.java" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/test/java/tech/songjian/stock/TestInteger.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stock_backend/src/test/java/tech/songjian/stock/TestRest.java" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/test/java/tech/songjian/stock/TestRest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/mapper/SysUserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/mapper/SysUserMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/pojo/SysPermission.java" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/pojo/SysPermission.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/pojo/SysUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/pojo/SysUser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/service/impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/service/impl/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stock_backend/src/main/resources/mapper/SysUserMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/resources/mapper/SysUserMapper.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,7 +102,7 @@
       <recent name="tech.songjian.stock.common.domain" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.TestRest.TestOuter">
+  <component name="RunManager" selected="Spring Boot.StockApp">
     <configuration name="TestInteger.test1" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="stock_backend" />
       <extension name="coverage">
@@ -184,8 +189,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.TestRest.TestOuter" />
         <item itemvalue="Spring Boot.StockApp" />
+        <item itemvalue="JUnit.TestRest.TestOuter" />
         <item itemvalue="JUnit.TestInteger.test2" />
         <item itemvalue="JUnit.TestInteger.test1" />
         <item itemvalue="JUnit.TestRest.TestBlock" />
@@ -220,7 +225,7 @@
       <workItem from="1676207991251" duration="11219000" />
       <workItem from="1676248155513" duration="599000" />
       <workItem from="1676253644904" duration="5481000" />
-      <workItem from="1676267374399" duration="4833000" />
+      <workItem from="1676267374399" duration="10550000" />
     </task>
     <task id="LOCAL-00001" summary="验证码登入功能实现">
       <created>1675761947991</created>
@@ -397,7 +402,14 @@
       <option name="project" value="LOCAL" />
       <updated>1676270762831</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="外盘数据采集功能开发">
+      <created>1676272258191</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1676272258191</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -437,6 +449,7 @@
     <MESSAGE value="个股周K线展示" />
     <MESSAGE value="个股最新分时行情功能开发" />
     <MESSAGE value="个股实时交易数据查询功能开发" />
-    <option name="LAST_COMMIT_MESSAGE" value="个股实时交易数据查询功能开发" />
+    <MESSAGE value="外盘数据采集功能开发" />
+    <option name="LAST_COMMIT_MESSAGE" value="外盘数据采集功能开发" />
   </component>
 </project>

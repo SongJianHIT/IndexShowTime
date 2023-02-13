@@ -2,6 +2,8 @@ package tech.songjian.stock.pojo;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+
 import lombok.Data;
 
 /**
@@ -84,6 +86,11 @@ public class SysPermission implements Serializable {
      * 是否删除(1未删除；0已删除)
      */
     private Integer deleted;
+
+    /**
+     * 权限
+     */
+    private List<SysPermission> children;
 
     private static final long serialVersionUID = 1L;
 }

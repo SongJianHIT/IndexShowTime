@@ -2,6 +2,7 @@ package tech.songjian.stock.service;
 
 import tech.songjian.stock.vo.req.LoginReqVo;
 import tech.songjian.stock.vo.resp.LoginRespVo;
+import tech.songjian.stock.vo.resp.NewLoginReqVo;
 import tech.songjian.stock.vo.resp.R;
 
 import java.util.Map;
@@ -17,7 +18,7 @@ public interface UserService {
      * @param vo
      * @return
      */
-    R<LoginRespVo> login(LoginReqVo vo);
+    R<NewLoginReqVo> login(LoginReqVo vo);
 
     /**
      * 生成验证码

@@ -28,6 +28,15 @@ public interface SysUserMapper {
      * @return
      */
     SysUser findUserInfoByUserName(@Param("username") String username);
+
+    /**
+     * 根据用户名查询用户信息和权限信息
+     * @param username
+     * @return
+     */
+    SysUser getUserPermissionInfo(String username);
+
+
 }
 
 
