@@ -2,10 +2,7 @@ package tech.songjian.stock.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import tech.songjian.stock.common.domain.Stock4EvrDayDomain;
-import tech.songjian.stock.common.domain.Stock4MinuteDomain;
-import tech.songjian.stock.common.domain.StockUpdownDomain;
-import tech.songjian.stock.common.domain.WeeklineDomain;
+import tech.songjian.stock.common.domain.*;
 import tech.songjian.stock.pojo.StockRtInfo;
 
 import java.util.Date;
@@ -100,4 +97,11 @@ public interface StockRtInfoMapper {
      * @return
      */
     List<WeeklineDomain> getRtStockWeekline(String code);
+
+    /**
+     * 获取个股最新分时行情数据，主要包含：
+     * 开盘价、前收盘价、最新价、最高价、最低价、成交金额和成交量、交易时间信息;
+     * @return
+     */
+    StockDetailSecDomain getStockDetailsByCode(@Param("code") String code, @Param("date") Date date);
 }

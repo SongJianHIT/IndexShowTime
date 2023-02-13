@@ -123,4 +123,11 @@ public interface StockService {
      * @return
      */
     R<List<WeeklineDomain>> getRtStockWeekline(String code);
+
+    /**
+     * 获取个股最新分时行情数据，主要包含：
+     * 开盘价、前收盘价、最新价、最高价、最低价、成交金额和成交量、交易时间信息;
+     * @return
+     */
+    R<StockDetailSecDomain> getStockDetailsByCode(String code);
 }

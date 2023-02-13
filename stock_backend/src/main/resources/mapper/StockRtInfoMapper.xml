@@ -319,4 +319,21 @@
         ) tmp
         on sri1.stock_code = tmp.code and sri1.cur_time =tmp.minDate and sri2.stock_code =tmp.code and sri2.cur_time = tmp.maxDate;
     </select>
+    <select id="getStockDetailsByCode" resultType="tech.songjian.stock.common.domain.StockDetailSecDomain">
+        SELECT
+            sri.trade_amount AS tradeAmt,
+            sri.pre_close_price AS preClosePrice,
+            sri.min_price AS lowPrice,
+            sri.max_price AS highPrice,
+            sri.open_price AS openPrice,
+            sri.trade_volume AS tradeVol,
+            sri.cur_price AS tradePrice,
+            DATE_FORMAT(sri.cur_time,'%Y%m%d%H%i') AS curDate
+        FROM
+            stock_rt_info AS sri
+        WHERE
+            sri.stock_code = #{code}
+          AND
+            sri.cur_time = #{date}
+    </select>
 </mapper>

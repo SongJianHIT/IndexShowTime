@@ -424,5 +424,25 @@ public class StockServiceImpl implements StockService {
         }
         return R.ok(result);
     }
+
+    /**
+     * 获取个股最新分时行情数据，主要包含：
+     * 开盘价、前收盘价、最新价、最高价、最低价、成交金额和成交量、交易时间信息;
+     * @return
+     */
+    @Override
+    public R<StockDetailSecDomain> getStockDetailsByCode(String code) {
+        // 获取当前时间
+        DateTime lastDate4Stock = DateTimeUtil.getLastDate4Stock(DateTime.now());
+        Date date = lastDate4Stock.toDate();
+        // TODO mock数据
+        date = DateTime.parse("2021-12-30 09:32:00", DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss")).toDate();
+        // 调用mapper接口获取数据
+        StockDetailSecDomain details = stockRtInfoMapper.getStockDetailsByCode(code, date);
+        if (details == null) {
+            return R.error(ResponseCode.NO_RESPONSE_DATA.getMessage());
+        }
+        return R.ok(details);
+    }
 }
 
