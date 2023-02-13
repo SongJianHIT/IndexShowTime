@@ -3,6 +3,7 @@ package tech.songjian.stock.service;
 import tech.songjian.stock.pojo.SysUser;
 import tech.songjian.stock.vo.req.ConditionalQueryUserReq;
 import tech.songjian.stock.vo.req.LoginReqVo;
+import tech.songjian.stock.vo.req.SetUserInfoVo;
 import tech.songjian.stock.vo.resp.*;
 
 import java.util.List;
@@ -55,4 +56,11 @@ public interface UserService {
      * @return
      */
     R<GetUserInfoVo> getUserInfoById(Long userId);
+
+    /**
+     * 更新用户信息
+     * @param setUserInfoVo
+     * @return
+     */
+    R<String> updateUserInfo(SetUserInfoVo setUserInfoVo);
 }

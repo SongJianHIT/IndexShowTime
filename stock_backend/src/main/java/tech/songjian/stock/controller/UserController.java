@@ -7,6 +7,7 @@ import tech.songjian.stock.pojo.SysUser;
 import tech.songjian.stock.service.UserService;
 import tech.songjian.stock.vo.req.ConditionalQueryUserReq;
 import tech.songjian.stock.vo.req.LoginReqVo;
+import tech.songjian.stock.vo.req.SetUserInfoVo;
 import tech.songjian.stock.vo.resp.*;
 
 import java.util.List;
@@ -86,9 +87,14 @@ public class UserController {
         return userService.getUserInfoById(userId);
     }
 
+    /**
+     * 更新用户信息
+     * @param getUserInfoVo
+     * @return
+     */
     @PutMapping("/user")
-    public R<String> updateUserInfo(@RequestBody GetUserInfoVo getUserInfoVo) {
-        return userService.updateUserInfo(getUserInfoVo);
+    public R<String> updateUserInfo(@RequestBody SetUserInfoVo setUserInfoVo) {
+        return userService.updateUserInfo(setUserInfoVo);
     }
 
 

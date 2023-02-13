@@ -67,6 +67,13 @@ public interface SysUserMapper {
      * @return
      */
     GetUserInfoVo getUserInfoById(@Param("userId") Long userId);
+
+    /**
+     * 更新用户信息
+     * @param user
+     * @return
+     */
+    int updateUserInfo(@Param("user") SysUser user);
 }
 
 

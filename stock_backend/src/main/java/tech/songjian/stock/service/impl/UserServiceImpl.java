@@ -19,12 +19,10 @@ import tech.songjian.stock.service.UserService;
 import tech.songjian.stock.utils.IdWorker;
 import tech.songjian.stock.vo.req.ConditionalQueryUserReq;
 import tech.songjian.stock.vo.req.LoginReqVo;
+import tech.songjian.stock.vo.req.SetUserInfoVo;
 import tech.songjian.stock.vo.resp.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
@@ -274,5 +272,25 @@ public class UserServiceImpl implements UserService {
         GetUserInfoVo info = sysUserMapper.getUserInfoById(userId);
         System.out.println(info.toString());
         return R.ok(info);
+    }
+
+    /**
+     * 更新用户信息
+     * @param setUserInfoVo
+     * @return
+     */
+    @Override
+    public R<String> updateUserInfo(SetUserInfoVo setUserInfoVo) {
+        SysUser user = new SysUser();
+        BeanUtils.copyProperties(setUserInfoVo, user);
+
+        Date updateTime = DateTime.now().toDate();
+        user.setUpdateTime(updateTime);
+        int col = sysUserMapper.updateUserInfo(user);
+
+        if (col <= 0) {
+            return R.error(ResponseCode.ERROR.getMessage());
+        }
+        return R.ok(ResponseCode.SUCCESS.getMessage());
     }
 }
