@@ -5,10 +5,14 @@
  */
 package tech.songjian.stock.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import tech.songjian.stock.common.domain.OwnRoleAndAllRoleIdsDomain;
+import tech.songjian.stock.common.domain.StockUpdownDomain;
 import tech.songjian.stock.mapper.SysRoleMapper;
 import tech.songjian.stock.mapper.SysUserRoleMapper;
 import tech.songjian.stock.pojo.SysRole;
@@ -16,6 +20,7 @@ import tech.songjian.stock.pojo.SysUserRole;
 import tech.songjian.stock.service.RoleService;
 import tech.songjian.stock.utils.IdWorker;
 import tech.songjian.stock.vo.req.UpdateRoleInfoReq;
+import tech.songjian.stock.vo.resp.PageResult;
 import tech.songjian.stock.vo.resp.R;
 import tech.songjian.stock.vo.resp.ResponseCode;
 
@@ -69,6 +74,26 @@ public class RoleServiceImpl implements RoleService {
             sysUserRoleMapper.inserByUserRoleIds(primaryKey, req.getUserId(), roleId, updateTime);
         }
         return R.ok(ResponseCode.SUCCESS.getMessage());
+    }
+
+    /**
+     * 分页查询角色信息
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    @Override
+    public R<PageResult<SysRole>> getRolesInfoByPage(Integer pageNum, Integer pageSize) {
+        // 开启 PageHelper
+        PageHelper.startPage(pageNum, pageSize);
+        List<SysRole> pages = sysRoleMapper.getRolesInfo();
+        if (CollectionUtils.isEmpty(pages)) {
+            return R.error(ResponseCode.NO_RESPONSE_DATA.getMessage());
+        }
+        // 3、组装 pageInfo 对象，他封装了一切的分页信息
+        PageInfo<SysRole> pageInfo = new PageInfo<>(pages);
+        PageResult<SysRole> pageResult = new PageResult<>(pageInfo);
+        return R.ok(pageResult);
     }
 }
 

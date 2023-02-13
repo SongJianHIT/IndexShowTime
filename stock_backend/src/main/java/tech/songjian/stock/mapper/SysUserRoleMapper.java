@@ -2,7 +2,9 @@ package tech.songjian.stock.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import tech.songjian.stock.pojo.SysRole;
 import tech.songjian.stock.pojo.SysUserRole;
+import tech.songjian.stock.vo.resp.PageResult;
 
 import java.util.Date;
 import java.util.List;
@@ -47,6 +49,11 @@ public interface SysUserRoleMapper {
      */
     void inserByUserRoleIds(@Param("primaryKey") long primaryKey, @Param("userId") String userId,
                             @Param("roleId") String roleId, @Param("updateTime") Date updateTime);
+
+
+
+
+
 }
 
 

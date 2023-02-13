@@ -8,8 +8,10 @@ package tech.songjian.stock.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import tech.songjian.stock.common.domain.OwnRoleAndAllRoleIdsDomain;
+import tech.songjian.stock.pojo.SysRole;
 import tech.songjian.stock.service.RoleService;
 import tech.songjian.stock.vo.req.UpdateRoleInfoReq;
+import tech.songjian.stock.vo.resp.PageResult;
 import tech.songjian.stock.vo.resp.R;
 
 import java.util.Map;
@@ -22,7 +24,7 @@ import java.util.Map;
  * @version
  */
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/api")
 public class RoleController {
 
     @Autowired
@@ -33,7 +35,7 @@ public class RoleController {
      * @param userId
      * @return
      */
-    @GetMapping("/roles/{userId}")
+    @GetMapping("/user/roles/{userId}")
     public R<OwnRoleAndAllRoleIdsDomain> getUsersRoles(@PathVariable String userId) {
         return roleService.getUsersRoles(userId);
     }
@@ -43,9 +45,18 @@ public class RoleController {
      * @param req
      * @return
      */
-    @PutMapping("/roles")
+    @PutMapping("/user/roles")
     public R<String> updateRoleInfo(@RequestBody UpdateRoleInfoReq req) {
         return roleService.updateRoleInfo(req);
+    }
+
+    /**
+     * 分页查询当前角色信息
+     * @return
+     */
+    @PostMapping("/roles")
+    public R<PageResult<SysRole>> getRolesInfoByPage(@RequestBody Map<String, Integer> pageInfo) {
+        return roleService.getRolesInfoByPage(pageInfo.get("pageNum"), pageInfo.get("pageSize"));
     }
 }
 

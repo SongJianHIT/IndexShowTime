@@ -29,7 +29,11 @@ public interface SysRoleMapper {
      */
     List<SysRole> getAllRoles();
 
-
+    /**
+     * 查询所有角色信息
+     * @return
+     */
+    List<SysRole> getRolesInfo();
 }
 
 

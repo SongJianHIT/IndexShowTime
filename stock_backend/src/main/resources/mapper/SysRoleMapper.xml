@@ -38,6 +38,17 @@
         FROM
             sys_role AS sr;
     </select>
+    <select id="getRolesInfo" resultType="tech.songjian.stock.pojo.SysRole">
+        select
+            sr.id as id,
+            sr.name as name,
+            sr.description as description,
+            sr.status as status,
+            sr.create_time as createTime,
+            sr.update_time as updateTime,
+            sr.deleted as deleted
+        from sys_role as sr
+    </select>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
         delete from sys_role

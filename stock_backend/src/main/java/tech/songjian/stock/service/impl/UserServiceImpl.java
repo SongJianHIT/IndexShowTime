@@ -71,8 +71,21 @@ public class UserServiceImpl implements UserService {
         // 1.3 redis删除key
         redisTemplate.delete(vo.getRkey());
 
+        SysUser userInfo= sysUserMapper.findUserInfoByUserName(vo.getUsername());
+        if (userInfo==null) {
+            return R.error(ResponseCode.DATA_ERROR.getMessage());
+        }
+
+        // 3.判断密码,不匹配
+        if (!passwordEncoder.matches(vo.getPassword(),userInfo.getPassword())) {
+            return R.error(ResponseCode.SYSTEM_PASSWORD_ERROR.getMessage());
+        }
+
         // 2、根据用户名查询用户权限相关信息
         SysUser user = sysUserMapper.getUserPermissionInfo(vo.getUsername());
+        if (user == null) {
+            return R.error("未设置用户权限，禁止登入！");
+        }
 
         // 将 user 中查询到的数据封装到 newLoginResVo 中
         NewLoginReqVo result = new NewLoginReqVo();
