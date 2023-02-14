@@ -9,11 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import tech.songjian.stock.common.domain.OwnRoleAndAllRoleIdsDomain;
 import tech.songjian.stock.pojo.SysRole;
+import tech.songjian.stock.service.PermissionService;
 import tech.songjian.stock.service.RoleService;
 import tech.songjian.stock.vo.req.UpdateRoleInfoReq;
 import tech.songjian.stock.vo.resp.PageResult;
 import tech.songjian.stock.vo.resp.R;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -29,6 +31,9 @@ public class RoleController {
 
     @Autowired
     private RoleService roleService;
+
+    @Autowired
+    private PermissionService permissionService;
 
     /**
      * 获取用户具有的角色信息，以及所有角色信息
@@ -58,5 +63,16 @@ public class RoleController {
     public R<PageResult<SysRole>> getRolesInfoByPage(@RequestBody Map<String, Integer> pageInfo) {
         return roleService.getRolesInfoByPage(pageInfo.get("pageNum"), pageInfo.get("pageSize"));
     }
+
+    /**
+     * 根据用户id查询用户关联权限
+     * @param roleId
+     * @return
+     */
+    @GetMapping("/role/{roleId}")
+    public R<List> getPermissionByUserId(@PathVariable String roleId) {
+        return permissionService.getPermissionByUserId(roleId);
+    }
+
 }
 

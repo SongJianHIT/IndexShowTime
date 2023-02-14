@@ -24,11 +24,29 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class PermissionDomain {
-    private String id; // 权限id
-    private String title; // 权限标题
-    private String icon; // 权限图标
-    private String path; // 请求地址
-    private String name; // 权限名称对应前端vue组件名称
-    private List<PermissionDomain> children; // 此id对应的子权限的集合
+    /**
+     * 权限id
+     */
+    private String id;
+    /**
+     * 权限标题
+     */
+    private String title;
+    /**
+     * 权限图标
+     */
+    private String icon;
+    /**
+     * 请求地址
+     */
+    private String path;
+    /**
+     * 权限名称对应前端vue组件名称
+     */
+    private String name;
+    /**
+     * 此id对应的子权限的集合
+     */
+    private List<PermissionDomain> children;
 }
 
