@@ -1,8 +1,10 @@
 package tech.songjian.stock.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import tech.songjian.stock.pojo.SysRole;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -34,6 +36,16 @@ public interface SysRoleMapper {
      * @return
      */
     List<SysRole> getRolesInfo();
+
+    /**
+     * 根据角色id修改角色名称和角色描述
+     * @param name
+     * @param description
+     */
+    void updateNameAndDesById(@Param("name") String name,
+                              @Param("description") String description,
+                              @Param("id") String id,
+                              @Param("updateTime") Date updateTime);
 }
 
 

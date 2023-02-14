@@ -4,6 +4,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import tech.songjian.stock.pojo.SysRolePermission;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -30,6 +31,13 @@ public interface SysRolePermissionMapper {
      * @return
      */
     List<String> getPermissionByUserId(@Param("roleId") String roleId);
+
+    /**
+     * 根据roleid删除权限
+     * @param roleId
+     */
+    void deleteByRoleId(@Param("roleId") String roleId);
+
 }
 
 

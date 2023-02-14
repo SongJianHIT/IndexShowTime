@@ -119,4 +119,12 @@
             deleted =  #{deleted,jdbcType=TINYINT}
         where   id = #{id,jdbcType=VARCHAR}
     </update>
+    <update id="updateNameAndDesById">
+        update sys_role
+        set
+            name =  #{name},
+            description =  #{description},
+            update_time =  #{updateTime}
+        where   id = #{id}
+    </update>
 </mapper>

@@ -8,6 +8,7 @@ package tech.songjian.stock.service;
 import tech.songjian.stock.common.domain.OwnRoleAndAllRoleIdsDomain;
 import tech.songjian.stock.pojo.SysRole;
 import tech.songjian.stock.vo.req.UpdateRoleInfoReq;
+import tech.songjian.stock.vo.req.UpdateRolePermissionReq;
 import tech.songjian.stock.vo.resp.PageResult;
 import tech.songjian.stock.vo.resp.R;
 
@@ -41,4 +42,11 @@ public interface RoleService {
      * @return
      */
     R<PageResult<SysRole>> getRolesInfoByPage(Integer pageNum, Integer pageSize);
+
+    /**
+     * 更新角色信息（包括权限信息）
+     * @param updateRolePermissionReq
+     * @return
+     */
+    R<String> updatePermissionByRoleId(UpdateRolePermissionReq updateRolePermissionReq);
 }

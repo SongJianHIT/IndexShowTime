@@ -12,6 +12,7 @@ import tech.songjian.stock.pojo.SysRole;
 import tech.songjian.stock.service.PermissionService;
 import tech.songjian.stock.service.RoleService;
 import tech.songjian.stock.vo.req.UpdateRoleInfoReq;
+import tech.songjian.stock.vo.req.UpdateRolePermissionReq;
 import tech.songjian.stock.vo.resp.PageResult;
 import tech.songjian.stock.vo.resp.R;
 
@@ -74,5 +75,14 @@ public class RoleController {
         return permissionService.getPermissionByUserId(roleId);
     }
 
+    /**
+     * 更新角色信息（包括权限信息）
+     * @param updateRolePermissionReq
+     * @return
+     */
+    @PutMapping("/role")
+    public R<String> updatePermissionByRoleId(@RequestBody UpdateRolePermissionReq updateRolePermissionReq) {
+        return roleService.updatePermissionByRoleId(updateRolePermissionReq);
+    }
 }
 

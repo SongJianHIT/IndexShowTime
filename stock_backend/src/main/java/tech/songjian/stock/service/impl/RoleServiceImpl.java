@@ -14,12 +14,15 @@ import org.springframework.util.CollectionUtils;
 import tech.songjian.stock.common.domain.OwnRoleAndAllRoleIdsDomain;
 import tech.songjian.stock.common.domain.StockUpdownDomain;
 import tech.songjian.stock.mapper.SysRoleMapper;
+import tech.songjian.stock.mapper.SysRolePermissionMapper;
 import tech.songjian.stock.mapper.SysUserRoleMapper;
 import tech.songjian.stock.pojo.SysRole;
+import tech.songjian.stock.pojo.SysRolePermission;
 import tech.songjian.stock.pojo.SysUserRole;
 import tech.songjian.stock.service.RoleService;
 import tech.songjian.stock.utils.IdWorker;
 import tech.songjian.stock.vo.req.UpdateRoleInfoReq;
+import tech.songjian.stock.vo.req.UpdateRolePermissionReq;
 import tech.songjian.stock.vo.resp.PageResult;
 import tech.songjian.stock.vo.resp.R;
 import tech.songjian.stock.vo.resp.ResponseCode;
@@ -43,6 +46,11 @@ public class RoleServiceImpl implements RoleService {
     @Autowired
     private SysUserRoleMapper sysUserRoleMapper;
 
+    @Autowired
+    private SysRolePermissionMapper sysRolePermissionMapper;
+
+    @Autowired
+    private IdWorker idWorker;
     /**
      * 获取用户具有的角色信息，以及所有角色信息
      * @param userId
@@ -94,6 +102,36 @@ public class RoleServiceImpl implements RoleService {
         PageInfo<SysRole> pageInfo = new PageInfo<>(pages);
         PageResult<SysRole> pageResult = new PageResult<>(pageInfo);
         return R.ok(pageResult);
+    }
+
+    /**
+     * 更新角色信息（包括权限信息）
+     * @param updateRolePermissionReq
+     * @return
+     */
+    @Override
+    public R<String> updatePermissionByRoleId(UpdateRolePermissionReq updateRolePermissionReq) {
+        // 取出roleId
+        String roleId = updateRolePermissionReq.getId();
+        // 根据roleId修改角色名称和描述
+        sysRoleMapper.updateNameAndDesById(updateRolePermissionReq.getName(),
+                                           updateRolePermissionReq.getDescription(),
+                                           roleId,
+                                           DateTime.now().toDate());
+        // 根据roleId删除权限
+        sysRolePermissionMapper.deleteByRoleId(roleId);
+
+        // 批量插入roleid和权限集合
+        for (String p : updateRolePermissionReq.getPermissionsIds()) {
+            SysRolePermission sysRolePermission = new SysRolePermission();
+            sysRolePermission.setRoleId(roleId);
+            sysRolePermission.setPermissionId(p);
+            sysRolePermission.setId(String.valueOf(idWorker.nextId()));
+            sysRolePermission.setCreateTime(DateTime.now().toDate());
+            sysRolePermissionMapper.insert(sysRolePermission);
+        }
+
+        return R.ok(ResponseCode.SUCCESS.getMessage());
     }
 }
 

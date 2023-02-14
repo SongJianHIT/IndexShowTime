@@ -35,6 +35,11 @@
         delete from sys_role_permission
         where  id = #{id,jdbcType=VARCHAR}
     </delete>
+    <delete id="deleteByRoleId">
+        delete
+        from sys_role_permission
+        where  role_id = #{roleId}
+    </delete>
     <insert id="insert" keyColumn="id" keyProperty="id" parameterType="tech.songjian.stock.pojo.SysRolePermission" useGeneratedKeys="true">
         insert into sys_role_permission
         ( id,role_id,permission_id
@@ -56,6 +61,15 @@
                 <if test="permissionId != null">permission_id = #{permissionId,jdbcType=VARCHAR},</if>
                 <if test="createTime != null">create_time = #{createTime,jdbcType=TIMESTAMP},</if>
         </trim>
+    </insert>
+    <insert id="insertPermissionsByRoleId">
+        insert into
+            sys_role_permission
+        (id, role_id, permission_id, create_time)
+            values
+            <foreach collection="permissions" item="p" separator=",">
+                (#{id}, #{roleId}, #{p}, #{createTime})
+            </foreach>
     </insert>
     <update id="updateByPrimaryKeySelective" parameterType="tech.songjian.stock.pojo.SysRolePermission">
         update sys_role_permission
