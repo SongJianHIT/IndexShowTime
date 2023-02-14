@@ -1,10 +1,15 @@
 package tech.songjian.stock.mapper;
 
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import tech.songjian.stock.pojo.SysRolePermission;
+
+import java.util.List;
 
 /**
  * @Entity tech.songjian.stock.pojo.SysRolePermission
  */
+@Mapper
 public interface SysRolePermissionMapper {
 
     int deleteByPrimaryKey(Long id);
@@ -19,6 +24,12 @@ public interface SysRolePermissionMapper {
 
     int updateByPrimaryKey(SysRolePermission record);
 
+    /**
+     * 根据用户id 查询权限集合
+     * @param roleId
+     * @return
+     */
+    List<String> getPermissionByUserId(@Param("roleId") String roleId);
 }
 
 

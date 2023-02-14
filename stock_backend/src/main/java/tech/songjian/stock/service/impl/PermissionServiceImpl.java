@@ -9,7 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tech.songjian.stock.common.domain.PermissionDomain;
 import tech.songjian.stock.mapper.SysPermissionMapper;
+import tech.songjian.stock.mapper.SysRolePermissionMapper;
+import tech.songjian.stock.mapper.SysUserRoleMapper;
 import tech.songjian.stock.pojo.SysPermission;
+import tech.songjian.stock.pojo.SysRolePermission;
 import tech.songjian.stock.service.PermissionService;
 import tech.songjian.stock.vo.resp.PermissionTreeVo;
 import tech.songjian.stock.vo.resp.R;
@@ -31,6 +34,9 @@ public class PermissionServiceImpl implements PermissionService {
     @Autowired
     private SysPermissionMapper sysPermissionMapper;
 
+    @Autowired
+    private SysRolePermissionMapper sysRolePermissionMapper;
+
     /**
      * 树状结构回显权限集合,底层通过递归获取权限数据集合
      * @return
@@ -51,6 +57,17 @@ public class PermissionServiceImpl implements PermissionService {
             return domain;
         }).collect(Collectors.toList());
         return R.ok(permissionTreeVos);
+    }
+
+    /**
+     * 根据用户id查询用户关联权限
+     * @param roleId
+     * @return
+     */
+    @Override
+    public R<List> getPermissionByUserId(String roleId) {
+        List<String> roles = sysRolePermissionMapper.getPermissionByUserId(roleId);
+        return R.ok(roles);
     }
 
     /**

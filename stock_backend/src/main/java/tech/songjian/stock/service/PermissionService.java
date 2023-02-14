@@ -25,4 +25,11 @@ public interface PermissionService {
      * @return
      */
     R<List<PermissionDomain>> getPermissionTree();
+
+    /**
+     * 根据用户id查询用户关联权限
+     * @param roleId
+     * @return
+     */
+    R<List> getPermissionByUserId(String roleId);
 }
