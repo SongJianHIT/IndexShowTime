@@ -39,6 +39,10 @@
         delete from sys_user_role as sur
         where  sur.user_id = #{userId}
     </delete>
+    <delete id="deleteByRoleId">
+        delete from sys_user_role as sur
+        where  sur.role_id = #{roleId}
+    </delete>
     <insert id="insert" keyColumn="id" keyProperty="id" parameterType="tech.songjian.stock.pojo.SysUserRole" useGeneratedKeys="true">
         insert into sys_user_role
         ( id,user_id,role_id

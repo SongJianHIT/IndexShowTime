@@ -54,6 +54,10 @@
         delete from sys_role
         where  id = #{id,jdbcType=VARCHAR}
     </delete>
+    <delete id="deleteByRoleId">
+        delete from sys_role
+        where  id = #{roleId}
+    </delete>
     <insert id="insert" keyColumn="id" keyProperty="id" parameterType="tech.songjian.stock.pojo.SysRole" useGeneratedKeys="true">
         insert into sys_role
         ( id,name,description

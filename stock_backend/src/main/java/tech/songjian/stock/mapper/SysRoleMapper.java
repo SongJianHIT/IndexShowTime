@@ -46,6 +46,12 @@ public interface SysRoleMapper {
                               @Param("description") String description,
                               @Param("id") String id,
                               @Param("updateTime") Date updateTime);
+
+    /**
+     * 根据角色id删除角色
+     * @param roleId
+     */
+    void deleteByRoleId(String roleId);
 }
 
 

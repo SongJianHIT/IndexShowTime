@@ -84,5 +84,16 @@ public class RoleController {
     public R<String> updatePermissionByRoleId(@RequestBody UpdateRolePermissionReq updateRolePermissionReq) {
         return roleService.updatePermissionByRoleId(updateRolePermissionReq);
     }
+
+    /**
+     * 删除角色和角色关联的权限
+     * @param roleId
+     * @return
+     */
+    @DeleteMapping("/role/{roleId}")
+    public R<String> deleteRoleAndPerByRoleId(@PathVariable String roleId) {
+        return roleService.deleteRoleAndPerByRoleId(roleId);
+    }
+
 }
 

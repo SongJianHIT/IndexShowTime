@@ -51,7 +51,11 @@ public interface SysUserRoleMapper {
                             @Param("roleId") String roleId, @Param("updateTime") Date updateTime);
 
 
-
+    /**
+     * 根据角色id删除
+     * @param roleId
+     */
+    void deleteByRoleId(String roleId);
 }
 
 

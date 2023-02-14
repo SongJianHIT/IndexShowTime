@@ -133,5 +133,18 @@ public class RoleServiceImpl implements RoleService {
 
         return R.ok(ResponseCode.SUCCESS.getMessage());
     }
+
+    /**
+     * 删除角色和角色关联的权限
+     * @param roleId
+     * @return
+     */
+    @Override
+    public R<String> deleteRoleAndPerByRoleId(String roleId) {
+        sysRolePermissionMapper.deleteByRoleId(roleId);
+        sysRoleMapper.deleteByRoleId(roleId);
+        sysUserRoleMapper.deleteByRoleId(roleId);
+        return R.ok(ResponseCode.SUCCESS.getMessage());
+    }
 }
 

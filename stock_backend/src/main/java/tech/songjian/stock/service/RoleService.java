@@ -49,4 +49,11 @@ public interface RoleService {
      * @return
      */
     R<String> updatePermissionByRoleId(UpdateRolePermissionReq updateRolePermissionReq);
+
+    /**
+     * 删除角色和角色关联的权限
+     * @param roleId
+     * @return
+     */
+    R<String> deleteRoleAndPerByRoleId(String roleId);
 }
