@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.RestController;
 import tech.songjian.stock.common.domain.PermissionDomain;
 import tech.songjian.stock.pojo.SysPermission;
 import tech.songjian.stock.service.PermissionService;
+import tech.songjian.stock.vo.resp.PermissionTreeLevelResp;
 import tech.songjian.stock.vo.resp.PermissionTreeVo;
 import tech.songjian.stock.vo.resp.R;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * PermissionController
@@ -49,5 +51,13 @@ public class PermissionController {
         return permissionService.getAllPermissions();
     }
 
+    /**
+     * 添加权限时回显权限树，仅仅显示目录和菜单
+     * @return
+     */
+    @GetMapping("/permissions/tree")
+    public R<List<Map>> getPermissionsTree4Add() {
+        return permissionService.getPermissionsTree4Add();
+    }
 }
 

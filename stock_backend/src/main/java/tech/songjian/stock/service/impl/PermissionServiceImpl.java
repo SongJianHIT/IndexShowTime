@@ -10,15 +10,14 @@ import org.springframework.stereotype.Service;
 import tech.songjian.stock.common.domain.PermissionDomain;
 import tech.songjian.stock.mapper.SysPermissionMapper;
 import tech.songjian.stock.mapper.SysRolePermissionMapper;
-import tech.songjian.stock.mapper.SysUserRoleMapper;
 import tech.songjian.stock.pojo.SysPermission;
-import tech.songjian.stock.pojo.SysRolePermission;
 import tech.songjian.stock.service.PermissionService;
-import tech.songjian.stock.vo.resp.PermissionTreeVo;
 import tech.songjian.stock.vo.resp.R;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -81,7 +80,54 @@ public class PermissionServiceImpl implements PermissionService {
     }
 
     /**
+     * 添加权限时回显权限树，仅仅显示目录和菜单
+     * @return
+     */
+    List<Map> mapList = new ArrayList<>();
+
+    @Override
+    public R<List<Map>> getPermissionsTree4Add() {
+        //按照用户id查找其权限信息
+        List<Map> list = sysPermissionMapper.findAllPermissionlLevel1();
+
+        Map<String,Object> mostLevel = new HashMap<>();
+        mostLevel.put("id","0");
+        mostLevel.put("title","顶级菜单");
+        mostLevel.put("level",0);
+        mapList.add(mostLevel);
+        for (Map map : list) {
+            map.put("level",1);
+        }
+        int i = 1;
+        //List result = extracted(list,i);
+        extracted(list);
+
+        return R.ok(mapList);
+    }
+    private void extracted(List<Map> list) {
+        for (Map map : list) {
+            mapList.add(map);
+            String id = (String) map.get("id");
+            //寻找权限下的子权限
+            List<Map> sonPermissionSon = sysPermissionMapper.findAllPermissionSon(id);
+
+            if (sonPermissionSon != null) {
+                if (sonPermissionSon.size() != 0) {
+                    for (Map map1 : sonPermissionSon) {
+                        int level = (int) map.get("level");
+                        map1.put("level", level + 1);
+                        //mapList.add(map1);
+                    }
+                    //i++;
+                    extracted(sonPermissionSon);
+                }
+            }
+
+        }
+    }
+    /**
      * 递归拷贝
+     *
      * @param source
      * @param object
      * @return

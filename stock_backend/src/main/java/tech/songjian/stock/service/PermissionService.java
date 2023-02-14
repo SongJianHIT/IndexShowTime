@@ -7,10 +7,12 @@ package tech.songjian.stock.service;
 
 import tech.songjian.stock.common.domain.PermissionDomain;
 import tech.songjian.stock.pojo.SysPermission;
+import tech.songjian.stock.vo.resp.PermissionTreeLevelResp;
 import tech.songjian.stock.vo.resp.PermissionTreeVo;
 import tech.songjian.stock.vo.resp.R;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * PermissionSsrvice
@@ -40,4 +42,9 @@ public interface PermissionService {
      */
     R<List<SysPermission>> getAllPermissions();
 
+    /**
+     * 添加权限时回显权限树，仅仅显示目录和菜单
+     * @return
+     */
+    R<List<Map>> getPermissionsTree4Add();
 }

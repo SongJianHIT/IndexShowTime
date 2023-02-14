@@ -48,5 +48,7 @@ public class PermissionDomain {
      * 此id对应的子权限的集合
      */
     private List<PermissionDomain> children;
+
+    private Integer type;
 }
 

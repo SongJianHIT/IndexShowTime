@@ -4,8 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bb70c982-b7b2-4fde-88ec-edcbdeff92e7" name="Changes" comment="更新角色状态信息">
+    <list default="true" id="bb70c982-b7b2-4fde-88ec-edcbdeff92e7" name="Changes" comment="权限列表展示">
+      <change afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/vo/resp/PermissionTreeLevelResp.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/common/domain/PermissionDomain.java" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/common/domain/PermissionDomain.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/controller/PermissionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/controller/PermissionController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/mapper/SysPermissionMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/mapper/SysPermissionMapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/service/PermissionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/stock_backend/src/main/java/tech/songjian/stock/service/PermissionService.java" afterDir="false" />
@@ -228,7 +230,7 @@
       <workItem from="1676267374399" duration="14976000" />
       <workItem from="1676287200290" duration="4994000" />
       <workItem from="1676293495713" duration="3143000" />
-      <workItem from="1676297091348" duration="19861000" />
+      <workItem from="1676297091348" duration="24799000" />
     </task>
     <task id="LOCAL-00001" summary="验证码登入功能实现">
       <created>1675761947991</created>
@@ -503,7 +505,14 @@
       <option name="project" value="LOCAL" />
       <updated>1676365157021</updated>
     </task>
-    <option name="localTasksCounter" value="40" />
+    <task id="LOCAL-00040" summary="权限列表展示">
+      <created>1676366134669</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1676366134669</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -521,7 +530,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="国内大盘实时数据采集与保存" />
     <MESSAGE value="股票实时数据采集与插入" />
     <MESSAGE value="股票板块数据采集与插入" />
     <MESSAGE value="项目整合xxl-job定时框架（未序列化）" />
@@ -546,6 +554,7 @@
     <MESSAGE value="更新角色信息，包括权限" />
     <MESSAGE value="根据角色id删除角色信息" />
     <MESSAGE value="更新角色状态信息" />
-    <option name="LAST_COMMIT_MESSAGE" value="更新角色状态信息" />
+    <MESSAGE value="权限列表展示" />
+    <option name="LAST_COMMIT_MESSAGE" value="权限列表展示" />
   </component>
 </project>

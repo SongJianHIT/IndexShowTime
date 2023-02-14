@@ -69,6 +69,35 @@
         WHERE
             sp.deleted = 1
     </select>
+    <select id="getPermissions4Add" resultType="tech.songjian.stock.pojo.SysPermission">
+        SELECT
+            *
+        FROM
+            sys_permission AS sp
+        WHERE
+            sp.deleted = 1
+          AND
+            sp.status = 1
+          AND
+            sp.type IN (0, 1, 2)
+
+    </select>
+    <!--    查找顶层权限-->
+    <select id="findAllPermissionlLevel1" resultType="java.util.Map">
+        select id,
+               title
+        from sys_permission
+        where pid = 0
+          and deleted = 1
+    </select>
+    <!--    寻找子权限-->
+    <select id="findAllPermissionSon" resultType="java.util.Map">
+        select id,
+               title
+        from sys_permission
+        where pid = #{id}
+          and deleted = 1
+    </select>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
         delete from sys_permission

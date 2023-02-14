@@ -5,6 +5,7 @@ import tech.songjian.stock.pojo.SysPermission;
 import tech.songjian.stock.vo.resp.PermissionTreeVo;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Entity tech.songjian.stock.pojo.SysPermission
@@ -35,6 +36,11 @@ public interface SysPermissionMapper {
      * @return
      */
     List<SysPermission> getAllPermissions();
+
+
+    List<Map> findAllPermissionSon(String id);
+
+    List<Map> findAllPermissionlLevel1();
 }
 
 
