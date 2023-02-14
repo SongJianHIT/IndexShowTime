@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import tech.songjian.stock.common.domain.PermissionDomain;
+import tech.songjian.stock.pojo.SysPermission;
 import tech.songjian.stock.service.PermissionService;
 import tech.songjian.stock.vo.resp.PermissionTreeVo;
 import tech.songjian.stock.vo.resp.R;
@@ -37,6 +38,15 @@ public class PermissionController {
     @GetMapping("/permissions/tree/all")
     public R<List<PermissionDomain>> getPermissionTree() {
         return permissionService.getPermissionTree();
+    }
+
+    /**
+     * 获取所有权限集合
+     * @return
+     */
+    @GetMapping("/permissions")
+    public R<List<SysPermission>> getAllPermissions() {
+        return permissionService.getAllPermissions();
     }
 
 }

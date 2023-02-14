@@ -71,6 +71,16 @@ public class PermissionServiceImpl implements PermissionService {
     }
 
     /**
+     * 获取所有权限集合
+     * @return
+     */
+    @Override
+    public R<List<SysPermission>> getAllPermissions() {
+        List<SysPermission> permissions =  sysPermissionMapper.getAllPermissions();
+        return R.ok(permissions);
+    }
+
+    /**
      * 递归拷贝
      * @param source
      * @param object

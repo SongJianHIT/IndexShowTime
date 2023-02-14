@@ -30,6 +30,11 @@ public interface SysPermissionMapper {
      */
     List<SysPermission> getAllPermission();
 
+    /**
+     * 获取所有权限集合
+     * @return
+     */
+    List<SysPermission> getAllPermissions();
 }
 
 

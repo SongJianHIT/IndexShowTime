@@ -47,6 +47,28 @@
         FROM
             sys_permission AS sp
     </select>
+    <select id="getAllPermissions" resultType="tech.songjian.stock.pojo.SysPermission">
+        SELECT
+            sp.id as id,
+            sp.code as code,
+            sp.title as title,
+            sp.icon as icon,
+            sp.perms as perms,
+            sp.url as url,
+            sp.method as method,
+            sp.name as name,
+            sp.pid as pid,
+            sp.order_num as orderNum,
+            sp.type as type,
+            sp.status as status,
+            sp.create_time as createTime,
+            sp.update_time as updateTime,
+            sp.deleted as deleted
+        FROM
+            sys_permission AS sp
+        WHERE
+            sp.deleted = 1
+    </select>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
         delete from sys_permission

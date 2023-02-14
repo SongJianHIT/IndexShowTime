@@ -6,6 +6,7 @@
 package tech.songjian.stock.service;
 
 import tech.songjian.stock.common.domain.PermissionDomain;
+import tech.songjian.stock.pojo.SysPermission;
 import tech.songjian.stock.vo.resp.PermissionTreeVo;
 import tech.songjian.stock.vo.resp.R;
 
@@ -32,4 +33,11 @@ public interface PermissionService {
      * @return
      */
     R<List> getPermissionByUserId(String roleId);
+
+    /**
+     * 获取所有权限集合
+     * @return
+     */
+    R<List<SysPermission>> getAllPermissions();
+
 }
