@@ -131,4 +131,11 @@
             update_time =  #{updateTime}
         where   id = #{id}
     </update>
+    <update id="updateRoleStatus">
+        update sys_role
+        set
+            status = #{status},
+            update_time =  #{updateTime}
+        where   id = #{roleId}
+    </update>
 </mapper>

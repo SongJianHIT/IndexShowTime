@@ -56,4 +56,12 @@ public interface RoleService {
      * @return
      */
     R<String> deleteRoleAndPerByRoleId(String roleId);
+
+    /**
+     * 根据角色id更新角色状态
+     * @param roleId
+     * @param status
+     * @return
+     */
+    R<String> updateRoleStatus(String roleId, String status);
 }

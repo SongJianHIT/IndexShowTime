@@ -95,5 +95,18 @@ public class RoleController {
         return roleService.deleteRoleAndPerByRoleId(roleId);
     }
 
+    /**
+     * 根据角色id更新角色状态
+     * @param roleId
+     * @param status
+     * @return
+     */
+    @PostMapping("/role/{roleId}/{status}")
+    public R<String> updateRoleStatus(@PathVariable String roleId, @PathVariable String status) {
+        return roleService.updateRoleStatus(roleId, status);
+    }
+
+
+
 }
 

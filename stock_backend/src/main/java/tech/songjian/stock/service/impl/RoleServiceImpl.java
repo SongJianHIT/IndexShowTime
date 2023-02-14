@@ -146,5 +146,17 @@ public class RoleServiceImpl implements RoleService {
         sysUserRoleMapper.deleteByRoleId(roleId);
         return R.ok(ResponseCode.SUCCESS.getMessage());
     }
+
+    /**
+     * 根据角色id更新角色状态
+     * @param roleId
+     * @param status
+     * @return
+     */
+    @Override
+    public R<String> updateRoleStatus(String roleId, String status) {
+        sysRoleMapper.updateRoleStatus(roleId, Integer.valueOf(status), DateTime.now().toDate());
+        return R.ok(ResponseCode.SUCCESS.getMessage());
+    }
 }
 

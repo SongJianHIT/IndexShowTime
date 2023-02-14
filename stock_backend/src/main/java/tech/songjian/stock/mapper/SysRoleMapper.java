@@ -52,6 +52,15 @@ public interface SysRoleMapper {
      * @param roleId
      */
     void deleteByRoleId(String roleId);
+
+    /**
+     * 根据角色id更新角色状态
+     * @param roleId
+     * @param status
+     */
+    void updateRoleStatus(@Param("roleId") String roleId,
+                          @Param("status") Integer status,
+                          @Param("updateTime") Date updateTime);
 }
 
 
