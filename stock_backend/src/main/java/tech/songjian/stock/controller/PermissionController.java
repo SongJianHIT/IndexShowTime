@@ -6,9 +6,7 @@
 package tech.songjian.stock.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import tech.songjian.stock.common.domain.PermissionDomain;
 import tech.songjian.stock.pojo.SysPermission;
 import tech.songjian.stock.service.PermissionService;
@@ -58,6 +56,16 @@ public class PermissionController {
     @GetMapping("/permissions/tree")
     public R<List<Map>> getPermissionsTree4Add() {
         return permissionService.getPermissionsTree4Add();
+    }
+
+    /**
+     * 权限添加按钮
+     * @param sysPermission
+     * @return
+     */
+    @PostMapping("/permission")
+    public R<String> addPermission(@RequestBody SysPermission sysPermission){
+        return permissionService.addPermission(sysPermission);
     }
 }
 

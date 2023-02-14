@@ -155,6 +155,22 @@
                 <if test="deleted != null">deleted = #{deleted,jdbcType=TINYINT},</if>
         </trim>
     </insert>
+    <insert id="addPermission">
+        insert into sys_permission
+        ( id,code,title
+        ,icon,perms,url
+        ,method,name,pid
+        ,order_num,type,status
+        ,create_time,update_time,deleted
+        )
+        values (#{sysPermission.id,jdbcType=VARCHAR},#{sysPermission.code,jdbcType=VARCHAR},#{sysPermission.title,jdbcType=VARCHAR}
+               ,#{sysPermission.icon,jdbcType=VARCHAR},#{sysPermission.perms,jdbcType=VARCHAR},#{sysPermission.url,jdbcType=VARCHAR}
+               ,#{sysPermission.method,jdbcType=VARCHAR},#{sysPermission.name,jdbcType=VARCHAR},#{sysPermission.pid,jdbcType=VARCHAR}
+               ,#{sysPermission.orderNum,jdbcType=INTEGER},#{sysPermission.type,jdbcType=TINYINT},#{sysPermission.status,jdbcType=TINYINT}
+               ,#{sysPermission.createTime,jdbcType=TIMESTAMP},#{sysPermission.updateTime,jdbcType=TIMESTAMP},#{sysPermission.deleted,jdbcType=TINYINT}
+               )
+
+    </insert>
     <update id="updateByPrimaryKeySelective" parameterType="tech.songjian.stock.pojo.SysPermission">
         update sys_permission
         <set>

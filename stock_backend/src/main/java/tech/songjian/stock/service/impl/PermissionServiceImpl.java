@@ -5,6 +5,7 @@
  */
 package tech.songjian.stock.service.impl;
 
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tech.songjian.stock.common.domain.PermissionDomain;
@@ -12,7 +13,9 @@ import tech.songjian.stock.mapper.SysPermissionMapper;
 import tech.songjian.stock.mapper.SysRolePermissionMapper;
 import tech.songjian.stock.pojo.SysPermission;
 import tech.songjian.stock.service.PermissionService;
+import tech.songjian.stock.utils.IdWorker;
 import tech.songjian.stock.vo.resp.R;
+import tech.songjian.stock.vo.resp.ResponseCode;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,6 +38,9 @@ public class PermissionServiceImpl implements PermissionService {
 
     @Autowired
     private SysRolePermissionMapper sysRolePermissionMapper;
+
+    @Autowired
+    private IdWorker idWorker;
 
     /**
      * 树状结构回显权限集合,底层通过递归获取权限数据集合
@@ -104,6 +110,23 @@ public class PermissionServiceImpl implements PermissionService {
 
         return R.ok(mapList);
     }
+
+    @Override
+    public R<String> addPermission(SysPermission sysPermission) {
+        sysPermission.setId(String.valueOf(idWorker.nextId()));
+        if (sysPermission.getType() == 1) {
+            sysPermission.setUrl(null);
+        }
+        sysPermission.setCreateTime(DateTime.now().toDate());
+        sysPermission.setDeleted(1);
+        sysPermission.setStatus(1);
+        int i = sysPermissionMapper.addPermission(sysPermission);
+        if (i > 0) {
+            return R.ok(ResponseCode.SUCCESS.getMessage());
+        }
+        return R.error(ResponseCode.ERROR.getMessage());
+    }
+
     private void extracted(List<Map> list) {
         for (Map map : list) {
             mapList.add(map);

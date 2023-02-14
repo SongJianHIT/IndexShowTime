@@ -1,6 +1,7 @@
 package tech.songjian.stock.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import tech.songjian.stock.pojo.SysPermission;
 import tech.songjian.stock.vo.resp.PermissionTreeVo;
 
@@ -41,6 +42,13 @@ public interface SysPermissionMapper {
     List<Map> findAllPermissionSon(String id);
 
     List<Map> findAllPermissionlLevel1();
+
+    /**
+     * 添加权限
+     * @param sysPermission
+     * @return
+     */
+    int addPermission(@Param("sysPermission") SysPermission sysPermission);
 }
 
 

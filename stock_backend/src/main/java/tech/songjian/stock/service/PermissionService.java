@@ -47,4 +47,11 @@ public interface PermissionService {
      * @return
      */
     R<List<Map>> getPermissionsTree4Add();
+
+    /**
+     * 权限添加按钮
+     * @param sysPermission
+     * @return
+     */
+    R<String> addPermission(SysPermission sysPermission);
 }
