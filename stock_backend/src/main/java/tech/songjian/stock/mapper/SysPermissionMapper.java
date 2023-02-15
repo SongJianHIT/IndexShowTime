@@ -49,6 +49,13 @@ public interface SysPermissionMapper {
      * @return
      */
     int addPermission(@Param("sysPermission") SysPermission sysPermission);
+
+    /**
+     * 根据id删除
+     * @param permissionId
+     * @return
+     */
+    int deletePermission(@Param("permissionId") String permissionId);
 }
 
 

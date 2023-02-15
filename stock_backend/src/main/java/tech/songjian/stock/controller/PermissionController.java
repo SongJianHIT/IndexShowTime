@@ -67,5 +67,15 @@ public class PermissionController {
     public R<String> addPermission(@RequestBody SysPermission sysPermission){
         return permissionService.addPermission(sysPermission);
     }
+
+    /**
+     * 删除权限
+     * @param permissionId
+     * @return
+     */
+    @DeleteMapping("/permission/{permissionId}")
+    public R<String> deletePermission (@PathVariable String permissionId){
+        return permissionService.deletePermission(permissionId);
+    }
 }
 

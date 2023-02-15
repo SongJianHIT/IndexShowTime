@@ -103,6 +103,13 @@
         delete from sys_permission
         where  id = #{id,jdbcType=VARCHAR}
     </delete>
+
+    <update id="deletePermission">
+        update sys_permission
+        set
+            deleted =  0
+        where   id = #{permissionId}
+    </update>
     <insert id="insert" keyColumn="id" keyProperty="id" parameterType="tech.songjian.stock.pojo.SysPermission" useGeneratedKeys="true">
         insert into sys_permission
         ( id,code,title

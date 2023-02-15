@@ -54,4 +54,11 @@ public interface PermissionService {
      * @return
      */
     R<String> addPermission(SysPermission sysPermission);
+
+    /**
+     * 删除权限
+     * @param permissionId
+     * @return
+     */
+    R<String> deletePermission(String permissionId);
 }

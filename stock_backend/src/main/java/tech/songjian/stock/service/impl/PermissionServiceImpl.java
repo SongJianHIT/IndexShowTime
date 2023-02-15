@@ -127,6 +127,21 @@ public class PermissionServiceImpl implements PermissionService {
         return R.error(ResponseCode.ERROR.getMessage());
     }
 
+    /**
+     * 删除权限
+     * @param permissionId
+     * @return
+     */
+    @Override
+    public R<String> deletePermission(String permissionId) {
+        int i = sysPermissionMapper.deletePermission(permissionId);
+        if (i <= 0){
+
+            return R.error("操作失败");
+        }
+        return R.ok("操作成功");
+    }
+
     private void extracted(List<Map> list) {
         for (Map map : list) {
             mapList.add(map);
