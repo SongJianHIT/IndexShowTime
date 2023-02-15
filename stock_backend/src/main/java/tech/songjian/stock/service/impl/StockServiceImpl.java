@@ -94,8 +94,11 @@ public class StockServiceImpl implements StockService {
      */
     @Override
     public R<List<StockBlockDomain>> sectorAllLimit() {
-        //1.调用 mapper 接口获取数据 TODO 优化 避免全表查询 根据时间范围查询，提高查询效率
-        List<StockBlockDomain> infos = stockBlockRtInfoMapper.sectorAllLimit();
+        //1.调用 mapper 接口获取数据
+        Date lasteDate = DateTimeUtil.getLastDate4Stock(DateTime.now()).toDate();
+        //TODO mock 数据
+        lasteDate = DateTime.parse("2023-02-15 17:51:00", DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss")).toDate();
+        List<StockBlockDomain> infos = stockBlockRtInfoMapper.sectorAllLimit(lasteDate);
         //2.组装数据
         if (CollectionUtils.isEmpty(infos)) {
             return R.error(ResponseCode.NO_RESPONSE_DATA.getMessage());
@@ -113,7 +116,7 @@ public class StockServiceImpl implements StockService {
         // 1、获取最近最新股票有效交易时间点，精确到分钟
         Date lastDate = DateTimeUtil.getLastDate4Stock(DateTime.now()).toDate();
         // TODO mock 数据
-        lastDate = DateTime.parse("2021-12-30 09:32:00", DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss")).toDate();
+        lastDate = DateTime.parse("2023-02-13 10:27:00", DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss")).toDate();
         // 2、调用mapper进行查询
         List<StockUpdownDomain> list = stockRtInfoMapper.getStockRtInfoLimit(lastDate);
         if (CollectionUtils.isEmpty(list)) {
@@ -157,8 +160,8 @@ public class StockServiceImpl implements StockService {
         Date openTime = DateTimeUtil.getOpenDate(avaliableTimePoint).toDate();
         Date closeTime = DateTimeUtil.getCloseDate(avaliableTimePoint).toDate();
         // TODO mock数据
-        openTime = DateTime.parse("2022-01-07 09:30:00", DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss")).toDate();
-        closeTime = DateTime.parse("2022-01-07 15:00:00", DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss")).toDate();
+        openTime = DateTime.parse("2023-02-13 10:27:00", DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss")).toDate();
+        closeTime = DateTime.parse("2023-02-13 10:27:00", DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss")).toDate();
 
         // 2、查询涨停的统计数据
         List<Map> upList = stockRtInfoMapper.getStockUpdownCount(openTime, closeTime, 1);

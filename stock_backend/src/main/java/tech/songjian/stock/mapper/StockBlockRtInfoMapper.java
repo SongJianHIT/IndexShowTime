@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Param;
 import tech.songjian.stock.common.domain.StockBlockDomain;
 import tech.songjian.stock.pojo.StockBlockRtInfo;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -29,7 +30,7 @@ public interface StockBlockRtInfoMapper {
      * 沪深两市板块分时行情数据查询，以交易时间和交易总金额降序查询，取前10条数据
      * @return
      */
-    List<StockBlockDomain> sectorAllLimit();
+    List<StockBlockDomain> sectorAllLimit(@Param("date") Date date);
 
     /**
      * 板块信息批量插入

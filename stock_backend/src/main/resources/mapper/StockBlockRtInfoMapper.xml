@@ -138,6 +138,7 @@
             sbr.trade_volume as tradeVol,
             sbr.updown_rate  as updownRate
         from stock_block_rt_info as sbr
+        where sbr.cur_time = #{date}
         order by sbr.cur_time desc,sbr.trade_volume desc
             limit 10
     </select>

@@ -38,7 +38,7 @@ public class CommonDbRangeShardingAlogrithm implements RangeShardingAlgorithm<Da
             // 获取年份
             int lowerYear = new DateTime(lowerDate).getYear();
             availableTargetNames = availableTargetNames.stream()
-                    .filter(dsName->Integer.valueOf(dsName.substring(dsName.lastIndexOf("_") + 1)) >= lowerYear)
+                    .filter(dsName->Integer.valueOf(dsName.substring(dsName.lastIndexOf("-") + 1)) >= lowerYear)
                     .collect(Collectors.toList());
         }
         // 判断是否有上限制
@@ -46,7 +46,7 @@ public class CommonDbRangeShardingAlogrithm implements RangeShardingAlgorithm<Da
             Date upperDate = valueRange.upperEndpoint();
             int upperYear = new DateTime(upperDate).getYear();
             availableTargetNames = availableTargetNames.stream()
-                    .filter(dsName->Integer.valueOf(dsName.substring(dsName.lastIndexOf("_") + 1)) <= upperYear)
+                    .filter(dsName->Integer.valueOf(dsName.substring(dsName.lastIndexOf("-") + 1)) <= upperYear)
                     .collect(Collectors.toList());
         }
         return availableTargetNames;

@@ -7715,3 +7715,346 @@ public R<String> deletePermission(String permissionId) {
 </update>
 ```
 
+# 项目集成sharding-JDBC
+
+## 一、表数据分析
+
+数据归档：一些数据经过一定的时间周期后，不怎么被使用，但是需要留存的数据
+
+| 表名                                | 时间周期 | 累计数量                                                   | 分库策略             |
+| ----------------------------------- | -------- | ---------------------------------------------------------- | -------------------- |
+| 股票流水表stock_rt_info             | 一个月   | `1500（股票数）*21（月天数）*4（小时）*60（分钟） = 750W+` | 按照年分库，按月分表 |
+| 股票价格日流水表stock               | 年       | `200*N+`                                                   | 公共表（优化掉）     |
+| 主营业务表stock_business            |          | 3000+                                                      | 公共表               |
+| 大盘流水stock_market_index_info     | 一年     | `1*60*4*21*12*10=60W`                                      | 按年分库，不分表     |
+| 股票板块stock_block_rt_info         | 一年     | `1*60*4*21*12*60=360W`                                     | 按年分库，不分表     |
+| 系统表sys_log、sys_user、sys_role等 |          | 数据量少                                                   | 单库默认数据源       |
+
+![image-20230215174711482](https://p.ipic.vip/yuor1v.png)
+
+![image-20230215174725389](https://p.ipic.vip/qvddy1.png)
+
+![image-20230215174741108](https://p.ipic.vip/eptx7r.png)
+
+![image-20230215174754823](https://p.ipic.vip/qwyr3c.png)
+
+## 二、功能开发
+
+### 1、导入pom包并进行数据源配置
+
+```xml
+<!-- sharding-jdbc -->
+<dependency>
+    <groupId>org.apache.shardingsphere</groupId>
+    <artifactId>sharding-jdbc-spring-boot-starter</artifactId>
+</dependency>
+```
+
+接着，在 `application.yml` 中：
+
+```yml
+# 激活指定环境配置
+spring: 
+  profiles:
+    active: dev
+```
+
+创建新的文件，并命名为 `application-dev.yml`：
+
+```yml
+spring:
+  shardingsphere:
+    # 数据源配置
+    datasource:
+      # 数据源名称
+      names: ds_2022,ds_2023,st
+      # ----------------------------------------------- 数据源1   ds_2022
+      ds_2022:
+        # 数据库连接池类名
+        type: com.alibaba.druid.pool.DruidDataSource
+        # 数据库驱动类名
+        driver-class-name: com.mysql.jdbc.Driver
+        # stock_db_2022
+        url: jdbc:mysql://127.0.0.1:3306/stock_db_2022?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false&serverTimezone=Asia/Shanghai
+        # 数据库用户名
+        username: root
+        # 数据库密码
+        password: Weiwei1216*
+
+      # ----------------------------------------------- 数据源2   ds_2023
+      ds_2023:
+        # 数据库连接池类名
+        type: com.alibaba.druid.pool.DruidDataSource
+        # 数据库驱动类名
+        driver-class-name: com.mysql.jdbc.Driver
+        # stock_db_2023
+        url: jdbc:mysql://127.0.0.1:3306/stock_db_2023?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false&serverTimezone=Asia/Shanghai
+        # 数据库用户名
+        username: root
+        # 数据库密码
+        password: Weiwei1216*
+
+      # ----------------------------------------------- 数据源3   st
+      st:
+        # 数据库连接池类名
+        type: com.alibaba.druid.pool.DruidDataSource
+        # 数据库驱动类名
+        driver-class-name: com.mysql.jdbc.Driver
+        # stock_db_2023
+        url: jdbc:mysql://127.0.0.1:3306/stock_sys_db?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false&serverTimezone=Asia/Shanghai
+        # 数据库用户名
+        username: root
+        # 数据库密码
+        password: Weiwei1216*
+```
+
+### 2、配置分库策略
+
+在 `application-dev.yml` 中：
+
+```yml
+spring:
+  shardingsphere:
+    sharding:
+      tables:
+        stock_rt_info:
+          # 配置数据节点
+          actual-data-nodes: ds_2021.stock_rt_info_${202101..202112},ds_2022.stock_rt_info_${202201..202212}
+          # 配置股票流水库的分片策略
+          database-strategy:
+            standard:
+              # 指定库分片键
+              sharding-column: cur_time
+              # 指定精准查询库
+              precise-algorithm-class-name: tech.songjian.stock.sharding.CommonDbPreciseShardingAlgorithm
+              # 指定范围查询库
+              range-algorithm-class-name: tech.songjian.stock.sharding.CommonDbRangeShardingAlogrithm
+```
+
+### 3、定义数据源公共处理类
+
+因为股票流水、板块流水、大盘流水的分库策略一样，因此可以共用该类！
+
+#### 精准匹配
+
+```java
+/**
+ * CommonDbPreciseShardingAlgorithm
+ * @description 定义公共精准匹配数据的类
+ * @author SongJian
+ * @date 2023/2/15 15:47
+ * @version
+ */
+public class CommonDbPreciseShardingAlgorithm implements PreciseShardingAlgorithm<Date> {
+    /**
+     *
+     * @param availableTargetNames available data sources or tables's names 数据源集合
+     * @param shardingValue sharding value 分片键相关信息封装
+     * @return  具体的数据源名称
+     */
+    @Override
+    public String doSharding(Collection<String> availableTargetNames, PreciseShardingValue<Date> shardingValue) {
+        // 获取分片字段
+        String columnName = shardingValue.getColumnName();
+        // 获取分片的表
+        String logicTableName = shardingValue.getLogicTableName();
+        // 获取分片的值
+        Date date = shardingValue.getValue();
+        // 获取年份
+        int year = new DateTime(date).getYear();
+        // 在数据源集合中找到，以 year 为结尾的数据源就是目标数据源
+        String dsName = availableTargetNames.stream().filter(dbName -> dbName.endsWith(year + "")).findFirst().get();
+        return dsName;
+    }
+}
+```
+
+#### 范围匹配
+
+```java
+/**
+ * CommonDbRangeShardingAlogrithm
+ * @description 定义公共范围匹配数据的类
+ * @author SongJian
+ * @date 2023/2/15 15:54
+ * @version
+ */
+public class CommonDbRangeShardingAlogrithm implements RangeShardingAlgorithm<Date> {
+    /**
+     *
+     * @param availableTargetNames available data sources or tables's names 数据源的名称集合
+     * @param shardingValue sharding value 范围查询片键值的封装
+     * @return
+     */
+    @Override
+    public Collection<String> doSharding(Collection<String> availableTargetNames, RangeShardingValue<Date> shardingValue) {
+        // 获取范围封装对象
+        Range<Date> valueRange = shardingValue.getValueRange();
+        // 判断是否有下限制
+        if (valueRange.hasLowerBound()) {
+            Date lowerDate = valueRange.lowerEndpoint();
+            // 获取年份
+            int lowerYear = new DateTime(lowerDate).getYear();
+            availableTargetNames = availableTargetNames.stream()
+                    .filter(dsName->Integer.valueOf(dsName.substring(dsName.lastIndexOf("_") + 1)) >= lowerYear)
+                    .collect(Collectors.toList());
+        }
+        // 判断是否有上限制
+        if (valueRange.hasUpperBound()) {
+            Date upperDate = valueRange.upperEndpoint();
+            int upperYear = new DateTime(upperDate).getYear();
+            availableTargetNames = availableTargetNames.stream()
+                    .filter(dsName->Integer.valueOf(dsName.substring(dsName.lastIndexOf("_") + 1)) <= upperYear)
+                    .collect(Collectors.toList());
+        }
+        return availableTargetNames;
+    }
+}
+```
+
+### 4、股票流水表分表处理
+
+配置文件：
+
+```yml
+spring:
+  shardingsphere:
+    ## 配置股票流水的数据节点
+    sharding:
+      tables:
+        stock_rt_info:
+          # 配置数据节点
+          actual-data-nodes: ds_2021.stock_rt_info_${202101..202112},ds_2022.stock_rt_info_${202201..202212}
+          # 配置股票流水库的分片策略
+          database-strategy:
+            standard:
+              # 指定库分片键
+              sharding-column: cur_time
+              # 指定精准查询库
+              precise-algorithm-class-name: tech.songjian.stock.sharding.CommonDbPreciseShardingAlgorithm
+              # 指定范围查询库
+              range-algorithm-class-name: tech.songjian.stock.sharding.CommonDbRangeShardingAlogrithm
+          # 配置股票流水表的分片策略
+          table-strategy:
+            standard:
+              # 指定表分片键
+              sharding-column: cur_time
+              # 指定精准查询表
+              precise-algorithm-class-name: tech.songjian.stock.sharding.StockRtInfoPreciseShardingAlgorithm4Table
+              # 指定范围查询表
+              range-algorithm-class-name: tech.songjian.stock.sharding.StockRtInfoRangeShardingAlgorithm4Table
+```
+
+精准匹配：
+
+```java
+/**
+ * StockRtInfoPreciseShardingAlgorithm4Table
+ * @description 为 stock_rt_info 表定义精准匹配类
+ * @author SongJian
+ * @date 2023/2/15 15:43
+ * @version
+ */
+public class StockRtInfoPreciseShardingAlgorithm4Table implements PreciseShardingAlgorithm<Date> {
+
+    /**
+     *
+     * @param tbNames available data sources or tables's names 表名集合
+     * @param shardingValue sharding value 分片键数据的封装
+     * @return
+     */
+    @Override
+    public String doSharding(Collection<String> tbNames, PreciseShardingValue<Date> shardingValue) {
+        // 获取日期
+        Date date = shardingValue.getValue();
+        // 获取年月组装的字符串
+        String sufixDate = new DateTime(date).toString(DateTimeFormat.forPattern("yyyyMM"));
+        // 从 tbNames 中查找以 sufix 结尾的数据
+        String name = tbNames.stream().filter(tb -> tb.endsWith(sufixDate)).findFirst().get();
+        return name;
+    }
+}
+```
+
+范围匹配：
+
+```java
+/**
+ * StockRtInfoRangeShardingAlgorithm4Table
+ * @description  为 stock_rt_info 表定义范围匹配类
+ * @author SongJian
+ * @date 2023/2/15 16:54
+ * @version
+ */
+public class StockRtInfoRangeShardingAlgorithm4Table implements RangeShardingAlgorithm<Date> {
+    /**
+     *
+     * @param tbNames available data sources or tables's names 表名集合
+     * @param shardingValue sharding value 封装分片键范围查询对象
+     * @return
+     */
+    @Override
+    public Collection<String> doSharding(Collection<String> tbNames, RangeShardingValue<Date> shardingValue) {
+        // 获取范围对象
+        Range<Date> valueRange = shardingValue.getValueRange();
+        // 判断下限
+        if (valueRange.hasLowerBound()) {
+            // 获取下限值
+            Date lowerDate = valueRange.lowerEndpoint();
+            String lowDateTime = new DateTime(lowerDate).toString(DateTimeFormat.forPattern("yyyyMM"));
+            Integer intDate = Integer.valueOf(lowDateTime);
+            // 从集合中获取 大于等于 intDate 的集合
+            tbNames = tbNames.stream()
+                    .filter(tbname->Integer.valueOf(tbname.substring(tbname.lastIndexOf("_") + 1)) >= intDate)
+                    .collect(Collectors.toList());
+        }
+        // 判断上线
+        if (valueRange.hasUpperBound()) {
+            // 获取下限值
+            Date upperDate = valueRange.upperEndpoint();
+            String upDateTime = new DateTime(upperDate).toString(DateTimeFormat.forPattern("yyyyMM"));
+            Integer intDate = Integer.valueOf(upDateTime);
+            // 从集合中获取 大于等于 intDate 的集合
+            tbNames = tbNames.stream()
+                    .filter(tbname->Integer.valueOf(tbname.substring(tbname.lastIndexOf("_") + 1)) <= intDate)
+                    .collect(Collectors.toList());
+        }
+        return tbNames;
+    }
+}
+```
+
+### 5、公共表配置
+
+```yml
+spring:
+  shardingsphere:
+    sharding:
+      ## 公共表配置：主营业务表
+      broadcast-tables: stock_business,stock_market_log_price
+```
+
+### 6、配置默认数据源
+
+如果没有给指定表配置分片策略，也没有指定该表为公共表，那么查询走默认数据源。
+
+当前 **用户相关表** 的数据表少，没必要分库分表数据，把此类表作为默认数据源下的表即可。
+
+```yml
+spring:
+  shardingsphere:
+    sharding:
+      ## 默认数据源
+			default-data-source-name: st
+```
+
+![image-20230215174604735](https://p.ipic.vip/sr5fbe.png)
+
+成功插入板块数据在2023表中：
+
+![image-20230215174945598](https://p.ipic.vip/heaxhk.png)
+
+![image-20230215175331757](https://p.ipic.vip/6d0u4c.png)
+
+
+
