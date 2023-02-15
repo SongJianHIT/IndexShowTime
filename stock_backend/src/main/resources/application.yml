@@ -6,10 +6,10 @@ spring:
   # 配置mysql数据源
   datasource:
     druid:
-      username: root
-      password: Weiwei1216*
-      url: jdbc:mysql://127.0.0.1:3306/IndexShowTime?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false&serverTimezone=Asia/Shanghai
-      driver-class-name: com.mysql.jdbc.Driver
+#      username: root
+#      password: Weiwei1216*
+#      url: jdbc:mysql://127.0.0.1:3306/IndexShowTime?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false&serverTimezone=Asia/Shanghai
+#      driver-class-name: com.mysql.jdbc.Driver
       # 初始化时建立物理连接的个数。初始化发生在显示调用 init 方法，或者第一次 getConnection 时
       initialSize: 6
       # 最小连接池数量
@@ -50,7 +50,14 @@ spring:
         max-idle: 8 # 连接池中的最大空闲连接
         min-idle: 1  # 连接池中的最小空闲连接
     timeout: PT10S # 连接超时时间（毫秒）
-
+  # 激活指定环境配置
+  profiles:
+    active: dev
+  # 允许数据源bean允许覆盖
+  ## 使用 sharding 的数据源，而不是用 spring 内置的数据源
+  ## 允许 sharding 覆盖 spring 的bean
+  main:
+    allow-bean-definition-overriding: true
 # 配置mybatis
 mybatis:
   type-aliases-package: tech.songjian.stock.pojo
@@ -114,3 +121,4 @@ task:
     maxPoolSize: 20 # 最大线程数
     keepAliveSeconds: 300 # 空闲线程活跃时间
     queueCapacity: 100 # 设置队列容量
+

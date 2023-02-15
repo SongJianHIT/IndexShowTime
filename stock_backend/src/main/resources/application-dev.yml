@@ -1,0 +1,119 @@
+spring:
+  shardingsphere:
+    # 是否开启SQL显示
+    props:
+      sql:
+        show: true
+    # 数据源配置
+    datasource:
+      # 数据源名称
+      names: ds-2021,ds-2022,ds-2023,st
+      # ----------------------------------------------- 数据源1   ds_2022
+      ds-2021:
+        # 数据库连接池类名
+        type: com.alibaba.druid.pool.DruidDataSource
+        # 数据库驱动类名
+        driver-class-name: com.mysql.jdbc.Driver
+        # stock_db_2022
+        url: jdbc:mysql://127.0.0.1:3306/stock_db_2021?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false&serverTimezone=Asia/Shanghai
+        # 数据库用户名
+        username: root
+        # 数据库密码
+        password: Weiwei1216*
+
+      # ----------------------------------------------- 数据源2   ds_2022
+      ds-2022:
+        # 数据库连接池类名
+        type: com.alibaba.druid.pool.DruidDataSource
+        # 数据库驱动类名
+        driver-class-name: com.mysql.jdbc.Driver
+        # stock_db_2023
+        url: jdbc:mysql://127.0.0.1:3306/stock_db_2022?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false&serverTimezone=Asia/Shanghai
+        # 数据库用户名
+        username: root
+        # 数据库密码
+        password: Weiwei1216*
+
+        # ----------------------------------------------- 数据源3   ds_2023
+      ds-2023:
+        # 数据库连接池类名
+        type: com.alibaba.druid.pool.DruidDataSource
+        # 数据库驱动类名
+        driver-class-name: com.mysql.jdbc.Driver
+        # stock_db_2023
+        url: jdbc:mysql://127.0.0.1:3306/stock_db_2023?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false&serverTimezone=Asia/Shanghai
+        # 数据库用户名
+        username: root
+        # 数据库密码
+        password: Weiwei1216*
+
+      # ----------------------------------------------- 数据源3   st
+      st:
+        # 数据库连接池类名
+        type: com.alibaba.druid.pool.DruidDataSource
+        # 数据库驱动类名
+        driver-class-name: com.mysql.jdbc.Driver
+        # stock_db_2023
+        url: jdbc:mysql://127.0.0.1:3306/stock_sys_db?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false&serverTimezone=Asia/Shanghai
+        # 数据库用户名
+        username: root
+        # 数据库密码
+        password: Weiwei1216*
+
+
+    sharding:
+      tables:
+        ## 配置股票流水表
+        stock_rt_info:
+          # 配置数据节点
+          actual-data-nodes: ds-2021.stock_rt_info_${202101..202112},ds-2022.stock_rt_info_${202201..202212},ds-2023.stock_rt_info_${202301..202303}
+          # 配置股票流水库的分片策略
+          database-strategy:
+            standard:
+              # 指定库分片键
+              sharding-column: cur_time
+              # 指定精准查询库
+              precise-algorithm-class-name: tech.songjian.stock.sharding.CommonDbPreciseShardingAlgorithm
+              # 指定范围查询库
+              range-algorithm-class-name: tech.songjian.stock.sharding.CommonDbRangeShardingAlogrithm
+          # 配置股票流水表的分片策略
+          table-strategy:
+            standard:
+              # 指定表分片键
+              sharding-column: cur_time
+              # 指定精准查询表
+              precise-algorithm-class-name: tech.songjian.stock.sharding.StockRtInfoPreciseShardingAlgorithm4Table
+              # 指定范围查询表
+              range-algorithm-class-name: tech.songjian.stock.sharding.StockRtInfoRangeShardingAlgorithm4Table
+
+        ## 配置股票板块流水表
+        stock_block_rt_info:
+          actual-data-nodes: ds-$->{2021..2023}.stock_block_rt_info
+          # 配置股票流水库的分片策略
+          database-strategy:
+            standard:
+              # 指定库分片键
+              sharding-column: cur_time
+              # 指定精准查询库
+              precise-algorithm-class-name: tech.songjian.stock.sharding.CommonDbPreciseShardingAlgorithm
+              # 指定范围查询库
+              range-algorithm-class-name: tech.songjian.stock.sharding.CommonDbRangeShardingAlogrithm
+
+        ## 配置大盘表
+        stock_market_index_info:
+          actual-data-nodes: ds-$->{2021..2023}.stock_market_index_info
+          # 配置股票流水库的分片策略
+          database-strategy:
+            standard:
+              # 指定库分片键
+              sharding-column: cur_time
+              # 指定精准查询库
+              precise-algorithm-class-name: tech.songjian.stock.sharding.CommonDbPreciseShardingAlgorithm
+              # 指定范围查询库
+              range-algorithm-class-name: tech.songjian.stock.sharding.CommonDbRangeShardingAlogrithm
+
+      ## 公共表配置：主营业务表
+      broadcast-tables: stock_business,stock_market_log_price
+
+      ## 默认数据源
+      default-data-source-name: st

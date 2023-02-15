@@ -1,0 +1,96 @@
+spring:
+  # sharding-jdbc配置
+  shardingsphere:
+    # 是否开启SQL显示
+    props:
+      sql:
+        show: true
+    # ====================== ↓↓↓↓↓↓ 数据源配置 ↓↓↓↓↓↓ ======================
+    datasource:
+      names: ds-master-0,ds-slave-0-1,ds-slave-0-2,ds-master-1,ds-slave-1-1,ds-slave-1-2
+      # ====================== ↓↓↓↓↓↓ 配置第1个主从库 ↓↓↓↓↓↓ ======================
+      # 主库1
+      ds-master-0:
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        jdbc-url: jdbc:mysql://127.0.0.1:3306/ds0?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull&useSSL=false # MySQL在高版本需要指明是否进行SSL连接 解决则加上 &useSSL=false
+        username: root
+        password: root
+      # 主库1-从库1
+      ds-slave-0-1:
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        jdbc-url: jdbc:mysql://127.0.0.1:3307/ds0?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull&useSSL=false # MySQL在高版本需要指明是否进行SSL连接 解决则加上 &useSSL=false
+        username: root
+        password: root
+      # 主库1-从库2
+      ds-slave-0-2:
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        jdbc-url: jdbc:mysql://127.0.0.1:3307/ds0?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull&useSSL=false # MySQL在高版本需要指明是否进行SSL连接 解决则加上 &useSSL=false
+        username: root
+        password: root
+      # ====================== ↓↓↓↓↓↓ 配置第2个主从库 ↓↓↓↓↓↓ ======================
+      # 主库2
+      ds-master-1:
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        jdbc-url: jdbc:mysql://127.0.0.1:3306/ds1?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull&useSSL=false # MySQL在高版本需要指明是否进行SSL连接 解决则加上 &useSSL=false
+        username: root
+        password: root
+      # 主库2-从库1
+      ds-slave-1-1:
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        jdbc-url: jdbc:mysql://127.0.0.1:3307/ds1?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull&useSSL=false # MySQL在高版本需要指明是否进行SSL连接 解决则加上 &useSSL=false
+        username: root
+        password: root
+      # 主库2-从库2
+      ds-slave-1-2:
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        jdbc-url: jdbc:mysql://127.0.0.1:3307/ds1?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull&useSSL=false # MySQL在高版本需要指明是否进行SSL连接 解决则加上 &useSSL=false
+        username: root
+        password: root
+
+    sharding:
+      # ====================== ↓↓↓↓↓↓ 分库分表配置 ↓↓↓↓↓↓ ======================
+      # 分库策略 => 根据user_id取模拆分到不同的库中
+      default-database-strategy:
+        inline:
+          sharding-column: user_id
+          algorithm-expression: ds-master-$->{user_id % 2}
+      # 分表策略
+      tables:
+        t_user:
+          actual-data-nodes: ds-master-$->{0..1}.t_user$->{0..1}
+          key-generator:
+            column: user_id  # 主键ID
+            type: SNOWFLAKE  # 生成策略
+          # 添加数据分表策略
+          table-strategy:
+            inline:
+              # 添加数据分表字段(根据字段插入数据到那个表 ex：sex)
+              sharding-column: sex
+              # 分片算法表达式 => 根据用户性别取模拆分到不同的表中
+              algorithm-expression: t_user$->{sex % 2}
+
+      # ====================== ↓↓↓↓↓↓ 读写分离配置 ↓↓↓↓↓↓ ======================
+      master-slave-rules:
+        ds-master-0:
+          # 主库
+          masterDataSourceName: ds-master-0
+          # 从库
+          slaveDataSourceNames:
+            - ds-slave-0-1
+            - ds-slave-0-2
+          # 从库查询数据的负载均衡算法 目前有2种算法 round_robin（轮询）和 random（随机）
+          # 算法接口 org.apache.shardingsphere.spi.masterslave.MasterSlaveLoadBalanceAlgorithm
+          # 实现类 RandomMasterSlaveLoadBalanceAlgorithm 和 RoundRobinMasterSlaveLoadBalanceAlgorithm
+          loadBalanceAlgorithmType: ROUND_ROBIN
+        ds-master-1:
+          masterDataSourceName: ds-master-1
+          slaveDataSourceNames:
+            - ds-slave-1-1
+            - ds-slave-1-2
+          loadBalanceAlgorithmType: ROUND_ROBIN
