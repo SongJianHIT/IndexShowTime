@@ -74,6 +74,8 @@ public interface SysUserMapper {
      * @return
      */
     int updateUserInfo(@Param("user") SysUser user);
+
+    SysUser findUserByUserName(@Param("userName") String userName);
 }
 
 

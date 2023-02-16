@@ -20,7 +20,7 @@ public interface UserService {
      * @param vo
      * @return
      */
-    R<NewLoginReqVo> login(LoginReqVo vo);
+    void login(LoginReqVo vo);
 
     /**
      * 生成验证码

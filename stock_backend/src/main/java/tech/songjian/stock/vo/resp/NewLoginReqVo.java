@@ -65,5 +65,6 @@ public class NewLoginReqVo {
      * 按钮权限集合
      */
     private List<String> permissions;
+
 }
 

@@ -56,6 +56,13 @@ public interface SysPermissionMapper {
      * @return
      */
     int deletePermission(@Param("permissionId") String permissionId);
+
+    /**
+     * 根据用户id查询权限集合
+     * @param id
+     * @return
+     */
+    List<SysPermission> getPermissionByUserId(@Param("id") String id);
 }
 
 

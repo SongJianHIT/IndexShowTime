@@ -49,6 +49,16 @@
             sr.deleted as deleted
         from sys_role as sr
     </select>
+    <select id="getRoleByUserId" resultType="tech.songjian.stock.pojo.SysRole">
+        SELECT
+            r.*
+        FROM
+            sys_user_role AS ur,
+            sys_role AS r
+        WHERE
+            ur.role_id = r.id
+          AND ur.user_id = #{userId}
+    </select>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
         delete from sys_role

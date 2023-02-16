@@ -30,10 +30,10 @@ public class UserController {
      * @param vo
      * @return
      */
-    @PostMapping("/login")
-    public R<NewLoginReqVo> login(@RequestBody LoginReqVo vo){
-        return userService.login(vo);
-    }
+//    @PostMapping("/login")
+//    public R<NewLoginReqVo> login(@RequestBody LoginReqVo vo){
+//        return userService.login(vo);
+//    }
 
     /**
      * 生成验证码

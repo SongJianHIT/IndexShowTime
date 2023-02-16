@@ -61,6 +61,13 @@ public interface SysRoleMapper {
     void updateRoleStatus(@Param("roleId") String roleId,
                           @Param("status") Integer status,
                           @Param("updateTime") Date updateTime);
+
+    /**
+     * 根据用户id查询用户角色集合
+     * @param id
+     * @return
+     */
+    List<SysRole> getRoleByUserId(@Param("id") String id);
 }
 
 

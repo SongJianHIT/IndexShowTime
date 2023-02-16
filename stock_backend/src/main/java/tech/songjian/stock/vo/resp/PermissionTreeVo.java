@@ -5,7 +5,10 @@
  */
 package tech.songjian.stock.vo.resp;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import tech.songjian.stock.common.domain.PermissionDomain;
 
 import java.util.List;
@@ -18,6 +21,9 @@ import java.util.List;
  * @version
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class PermissionTreeVo {
     /**
      * 权限id
@@ -42,6 +48,6 @@ public class PermissionTreeVo {
     /**
      * 子权限
      */
-    private List<PermissionDomain> children;
+    private List<PermissionTreeVo> children;
 }
 

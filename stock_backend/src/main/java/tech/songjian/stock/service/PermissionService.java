@@ -61,4 +61,6 @@ public interface PermissionService {
      * @return
      */
     R<String> deletePermission(String permissionId);
+
+    List<PermissionTreeVo> getTree(List<SysPermission> permissions, String pid, boolean isOnlyMenuType);
 }

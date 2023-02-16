@@ -55,71 +55,71 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
-    public R<NewLoginReqVo> login(LoginReqVo vo) {
-        // 1.判断vo是否存在 或者 用户名是否存在 或者 密码是否存在 或者 验证码是否存在 或者 rkey 是否存在
-        if (vo == null || Strings.isNullOrEmpty(vo.getUsername()) || Strings.isNullOrEmpty(vo.getPassword())
-            || Strings.isNullOrEmpty(vo.getCode()) || Strings.isNullOrEmpty(vo.getRkey())) {
-            return R.error(ResponseCode.DATA_ERROR.getMessage());
-        }
-
-        // 1.1 获取校验验证码
-        String redisCode = (String) redisTemplate.opsForValue().get(vo.getRkey());
-        // 1.2 校验
-        if (redisCode == null || !redisCode.equals(vo.getCode())) {
-            return R.error(ResponseCode.DATA_ERROR.getMessage());
-        }
-        // 1.3 redis删除key
-        redisTemplate.delete(vo.getRkey());
-
-        SysUser userInfo= sysUserMapper.findUserInfoByUserName(vo.getUsername());
-        if (userInfo==null) {
-            return R.error(ResponseCode.DATA_ERROR.getMessage());
-        }
-
-        // 3.判断密码,不匹配
-        if (!passwordEncoder.matches(vo.getPassword(),userInfo.getPassword())) {
-            return R.error(ResponseCode.SYSTEM_PASSWORD_ERROR.getMessage());
-        }
-
-        // 2、根据用户名查询用户权限相关信息
-        SysUser user = sysUserMapper.getUserPermissionInfo(vo.getUsername());
-        if (user == null) {
-            return R.error("未设置用户权限，禁止登入！");
-        }
-
-        // 将 user 中查询到的数据封装到 newLoginResVo 中
-        NewLoginReqVo result = new NewLoginReqVo();
-        BeanUtils.copyProperties(user, result);
-
-        // 将数据中的按钮权限封装到result中
-        List<String> permissions = new ArrayList<>();
-        List<SysPermission> sysPermissions = user.getPermissions();
-        for (SysPermission p : sysPermissions) {
-            if (!Strings.isNullOrEmpty(p.getPerms())) {
-                permissions.add(p.getPerms());
-            }
-        }
-        result.setPermissions(permissions);
-
-        // 处理权限树
-        // 获取跟节点，即父节点
-        List<PermissionDomain> menus = user.getPermissions().stream().filter(s -> "0".equals(s.getPid())).map(item -> {
-            PermissionDomain permissionDomain = new PermissionDomain();
-            permissionDomain.setId(item.getId());
-            permissionDomain.setName(item.getName());
-            permissionDomain.setIcon(item.getIcon());
-            permissionDomain.setTitle(item.getTitle());
-            permissionDomain.setPath(item.getUrl());
-            // 获取 SysPermission 类型的子权限树 传入的参数是 根节点的 id 和 采集到的 syspermission 类型数据
-            List<SysPermission> childMenus = getChildMenus(item.getId(), user.getPermissions());
-            item.setChildren(childMenus);
-            // 拷贝子权限树 类型转换 将 syspermission 类型的权限树 转换为 前端需要的 permissionDomain
-            permissionDomain.setChildren(new ArrayList<>());
-            permissionDomain.setChildren(copyChildren(item.getChildren(), permissionDomain.getChildren()));
-            return permissionDomain;
-        }).collect(Collectors.toList());
-        result.setMenus(menus);
-        return R.ok(result);
+    public void login(LoginReqVo vo) {
+//        // 1.判断vo是否存在 或者 用户名是否存在 或者 密码是否存在 或者 验证码是否存在 或者 rkey 是否存在
+//        if (vo == null || Strings.isNullOrEmpty(vo.getUsername()) || Strings.isNullOrEmpty(vo.getPassword())
+//            || Strings.isNullOrEmpty(vo.getCode()) || Strings.isNullOrEmpty(vo.getRkey())) {
+//            return R.error(ResponseCode.DATA_ERROR.getMessage());
+//        }
+//
+//        // 1.1 获取校验验证码
+//        String redisCode = (String) redisTemplate.opsForValue().get(vo.getRkey());
+//        // 1.2 校验
+//        if (redisCode == null || !redisCode.equals(vo.getCode())) {
+//            return R.error(ResponseCode.DATA_ERROR.getMessage());
+//        }
+//        // 1.3 redis删除key
+//        redisTemplate.delete(vo.getRkey());
+//
+//        SysUser userInfo= sysUserMapper.findUserInfoByUserName(vo.getUsername());
+//        if (userInfo==null) {
+//            return R.error(ResponseCode.DATA_ERROR.getMessage());
+//        }
+//
+//        // 3.判断密码,不匹配
+//        if (!passwordEncoder.matches(vo.getPassword(),userInfo.getPassword())) {
+//            return R.error(ResponseCode.SYSTEM_PASSWORD_ERROR.getMessage());
+//        }
+//
+//        // 2、根据用户名查询用户权限相关信息
+//        SysUser user = sysUserMapper.getUserPermissionInfo(vo.getUsername());
+//        if (user == null) {
+//            return R.error("未设置用户权限，禁止登入！");
+//        }
+//
+//        // 将 user 中查询到的数据封装到 newLoginResVo 中
+//        NewLoginReqVo result = new NewLoginReqVo();
+//        BeanUtils.copyProperties(user, result);
+//
+//        // 将数据中的按钮权限封装到result中
+//        List<String> permissions = new ArrayList<>();
+//        List<SysPermission> sysPermissions = user.getPermissions();
+//        for (SysPermission p : sysPermissions) {
+//            if (!Strings.isNullOrEmpty(p.getPerms())) {
+//                permissions.add(p.getPerms());
+//            }
+//        }
+//        result.setPermissions(permissions);
+//
+//        // 处理权限树
+//        // 获取跟节点，即父节点
+//        List<PermissionDomain> menus = user.getPermissions().stream().filter(s -> "0".equals(s.getPid())).map(item -> {
+//            PermissionDomain permissionDomain = new PermissionDomain();
+//            permissionDomain.setId(item.getId());
+//            permissionDomain.setName(item.getName());
+//            permissionDomain.setIcon(item.getIcon());
+//            permissionDomain.setTitle(item.getTitle());
+//            permissionDomain.setPath(item.getUrl());
+//            // 获取 SysPermission 类型的子权限树 传入的参数是 根节点的 id 和 采集到的 syspermission 类型数据
+//            List<SysPermission> childMenus = getChildMenus(item.getId(), user.getPermissions());
+//            item.setChildren(childMenus);
+//            // 拷贝子权限树 类型转换 将 syspermission 类型的权限树 转换为 前端需要的 permissionDomain
+//            permissionDomain.setChildren(new ArrayList<>());
+//            permissionDomain.setChildren(copyChildren(item.getChildren(), permissionDomain.getChildren()));
+//            return permissionDomain;
+//        }).collect(Collectors.toList());
+//        result.setMenus(menus);
+//        return R.ok(result);
 /*
         // 2.根据用户名用户是否存在
         SysUser userInfo= sysUserMapper.findUserInfoByUserName(vo.getUsername());

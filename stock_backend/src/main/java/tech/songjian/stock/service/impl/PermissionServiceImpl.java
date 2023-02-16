@@ -8,12 +8,14 @@ package tech.songjian.stock.service.impl;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import tech.songjian.stock.common.domain.PermissionDomain;
 import tech.songjian.stock.mapper.SysPermissionMapper;
 import tech.songjian.stock.mapper.SysRolePermissionMapper;
 import tech.songjian.stock.pojo.SysPermission;
 import tech.songjian.stock.service.PermissionService;
 import tech.songjian.stock.utils.IdWorker;
+import tech.songjian.stock.vo.resp.PermissionTreeVo;
 import tech.songjian.stock.vo.resp.R;
 import tech.songjian.stock.vo.resp.ResponseCode;
 
@@ -211,6 +213,25 @@ public class PermissionServiceImpl implements PermissionService {
             s.setChildren(getChildrenPermission(s.getId(), permissions));
         });
         return children;
+    }
+
+    @Override
+    public List<PermissionTreeVo> getTree(List<SysPermission> permissions, String pid, boolean isOnlyMenuType) {
+        //构建权限树集合
+        if (CollectionUtils.isEmpty(permissions)) {
+            return null;
+        }
+        //组装权限树
+        List<PermissionTreeVo> infos = permissions.stream()
+                .filter(p -> p.getPid().equals(pid) && (p.getType().intValue() != 3 || !isOnlyMenuType))
+                .map(p -> {
+                    PermissionTreeVo prnv = PermissionTreeVo.builder().id(p.getId()).title(p.getTitle())
+                            .icon(p.getIcon()).path(p.getUrl()).name(p.getName())
+                            .children(getTree(permissions, p.getId(), isOnlyMenuType))
+                            .build();
+                    return prnv;
+                }).collect(Collectors.toList());
+        return infos;
     }
 }
 
